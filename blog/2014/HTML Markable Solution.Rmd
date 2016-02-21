@@ -1,0 +1,42 @@
+
+
+想法二 ： 用标签序号和标签内偏移字符数 标记 选择文本
+
+第一部分：
+  1. 先对整个文档源码（HTML）进行hash，求得其hashcode。
+	2. 以uri为主键对文档索引建map
+	3. 每次先验证文章的hashcode，如果变化，之前的标记无效。
+
+第二部分：
+	1. 保存标记的过程
+	   1) 先对网页的所有包含文字内容标签，按顺序标号并生成唯一ID，生成序列chartags
+	   	[id1, id2, id3]
+       2) 根据当前鼠标选择区域位置，从chartags中定位起始标签以及偏移字符量和结束标签以及偏移字符量，并填充如下结构：
+       		"marks": [
+	        	{"startTagIndex": , "startCharIndex": , "endTagIndex": , "endCharIndex" },
+	        	{"startTagIndex": , "startCharIndex": , "endTagIndex": , "endCharIndex" },
+	        	.
+	        	.
+	        	.
+        	]
+       3) 重复第二步
+
+    2. 展现的过程
+        1) 获取chartags
+	    2) 循环marks表，通过每条mark的序列号，从chartags中找到对应的起始和结束position
+	    3) 调用js实现渲染
+
+
+总的数据结构：
+    {
+    	"url":
+        "hashcode":
+        "chartags": [id1, id2, id3],
+        "marks": [
+        	{"startTagIndex": , "startCharIndex": , "endTagIndex": , "endCharIndex" },
+        	{"startTagIndex": , "startCharIndex": , "endTagIndex": , "endCharIndex" },
+        	.
+        	.
+        	.
+        ]
+    }

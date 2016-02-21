@@ -1,0 +1,292 @@
+---
+author: "patrick.unicorn"
+output:
+  html_document:
+    css: ../css/main.css
+    highlight: null
+    theme: null
+---
+
+类型乱弹
+===
+
+**声明：** 所写均为个人阅读所思所想，请批判阅读。
+
+* * *
+
+## Concept(概念)
+
+程序设计语言中的类型非常类似于人类社会中的“角色(role)”概念。正如不同的“角色”承担一定的职责行为一样，不同的类型也支持固定的操作集合。
+
+以集合论的视角观察类型系统，会对很多类型的相关概念有更加清晰的理解。类型就是一个值域(集合)，而类型系统则是类型集合，如下：
+
++ 整数类型 {0, 1, 2, 3, 4 ···}
++ 实数类型 {0.1, 1, 2.4 ···}
+
+那么，类型系统就可以表述为{{1, 2, 3, 4 ···}, {0.1, 1, 2.4 ···} ···}。下面是一些集合论与类型论中相似概念的对应关系：
+
+| 集合论    | 类型论                    |
+| --------- | -------------             |
+| 超集      | 超类或接口                |
+| 子集      | 子类                      |
+| 包含      | 继承或实现                |
+| 相交      | 实现同一接口或继承同一超类|
+| 联合      | 多继承或多接口实现        |
+| 集合的集合| 基本类型构成符合类型      |
+| 空集合    | 空类型                    |
+
+**类型**隐含如下各项：
+
++ 类型元素的物理存储大小
+
++ 类型元素的操作集
+
++ 类型元素的共性和范畴
+
+**类型系统**隐含如下各项：
+
++ 各种内置类型
+
++ 类型扩展机制
+
+如OOP中的class机制。
+
++ 类型相容规则
+
+比如在通常的OOP语言中，子类可以赋值给父类型引用变量；Java中支持数组协变而不支持泛型协变等等。
+
++ 类型推断规则
+
+### Necessity(必要性)
+
+对于程序语言而言，类型系统是必须的么？这取决于我们观察的角度。就语法层面而言，类型系统并非必须；但在程序执行层面，类型系统是必须的。因为计算机程序的本质是二进制数值计算，因此，在执行层面至少存在数值类型。
+
+程序语言引入类型系统的优点：
+
++ 增强程序可读性
+
++ 排除程序错误
+
+在编译时或运行时，可以通过一些手段(如编译器类型检查等)，提前发现某些不合法的操作，如将一个整数赋值给字符串引用。
+
+### Variance(变异性)
+
+变异性是指那些由简单类型构成的**复杂类型之间的子类型化(subtyping)**，比如，数组、泛型、委托等复杂类型的子类型化。比如下面的例子中：
+
+```Java
+Object[] objectArray = new String[] {"unicorn"};
+System.out.println(Arrays.toString(objectArray));
+```
+
+`String[]`类型可以看做是`Object[]`类型的**子类(化)**。
+
+根据子类化关系可以对变异性进行相应的分类：
+
+| 子类化(subtyping)关系 | 变异性(variance)     |
+| --------------------- | ----------------     |
+| 保留(preserved)       | 协变(covariant)      |
+| 反转(reversed)        | 逆变(contravariance) |
+| 忽略(ignored)         | 不可变异(invaricance)|
+
++ 协变(covariant)
+
+在子类化中，如果确保**从特殊类型向一般类型变异**，那么，就说这一过程是协变。
+
++ 逆变(contravariance)
+
+在子类化中，如果确保**从一般类型向特殊类型变异**，那么，就说这一过程是逆变。
+
+有一点需要明确的是**协变与逆变在带来一定灵活性的同时，也某种程度上破坏了静态类型系统所带来的类型安全性**。
+
+#### 常见复杂类型的协变与逆变
+
+##### 数组
+
+1. 协变
+
+```CSharp
+object[] objectArray = new string[] {"unicorn"};
+foreach (string item in objectArray) {
+	Console.WriteLine(item);
+}
+```
+
+上面的例子上，如果`objectArray`是可变的(mutable)，并且在之后的代码中可写入非string类型元素，那么，当最终客户环境使用`objectArray`时，就会出现类型不安全。如果需要协变后类型安全，则应**确保`objectArray`不可变(immutable)或不可写**。
+
+2. 逆变
+
+```CSharp
+string[] objectArray = new object[] {"unicorn"};
+foreach (string item in objectArray) {
+    Console.WriteLine(item);
+}
+```
+
+上面的例子中，如果`objectArray`在之后不可读，那么，是类型安全的。但是因为在实际的情况中，不可读只可写的数据比较少见，因此，大多数情况下数组逆变都会导致类型不安全。这也是大多数的编程语言不支持数组逆变的原因。
+
+##### 函数
+
+对于函数式语言而言，函数作为First-Class成员，是有着函数子类化的实际需求的。而对于OOP语言，也部分存在函数子类化需求。这里所说的函数子类化(subtyping)具体是指对函数参数类型和返回值类型的子类化(subtyping)。函数子类化基本规则如下：
+
+|输入参数|返回值参数|
+|--------|----------|
+|   逆变 |   协变   |
+
+使用这一规则的原因在于保证函数内部逻辑和外部使用安全。对于输入参数而言，通过逆变，可以确保函数的前置条件更加严格，避免外部传入更一般的参数导致函数内部行为错误。对于返回值参数而言，通过协变，可确保函数的后置条件更加宽松，
+
+1. 委托类型
+
+在之前的文章中有提到，C#委托类型就是函数类型，当函数作为数据可传递时，那么，对于函数类型而言，其本身也存在子类化需求。
+
+```CSharp
+class Program {
+
+    public delegate object DP1(string param);
+
+    public delegate string DP2(object param);
+
+    static void Main(string[] args) {
+        // 输入 - 逆变; 输出 - 协变
+        DP1 dp1 = new DP1(F1);
+        // 输入 - 逆变; 输出 - 协变
+        DP2 dp2 = new DP2(F2);  // error
+    }
+
+    private static string F1(object param) {
+        Console.WriteLine("F1");
+        return null;
+    }
+
+    private static object F2(string parma) {
+        Console.WriteLine("F2");
+        return null;
+    }
+}
+```
+
+2. 覆写函数
+
+对于没有委托的OOP语言，如Java，在子类继承或实现超类(或接口)覆写(override)方法时，也存在函数子类化需求。
+
+```Java
+class Parent {
+        
+        protected String f0(Object param) {
+            throw new NotImplementedException();
+        }
+
+        protected Object f1(String param) {
+            throw new NotImplementedException();
+        }
+        
+        protected String f3(String param) {
+            throw new NotImplementedException();
+        }
+        
+        protected Object f4(String param) {
+            throw new NotImplementedException();
+        }
+        
+    }
+    
+class Son extends Parent {
+    
+    // error
+    @Override
+    protected String f0(String param) {
+        throw new NotImplementedException();
+    }
+    
+    // error
+    @Override
+    protected Object f1(Object param) {
+        throw new NotImplementedException();
+    }
+    
+    // error
+    @Override
+    protected Object f3(String param) {
+        throw new NotImplementedException();
+    }
+    
+    protected String f4(String param) {
+        return null;
+    }
+    
+}
+```
+
+Java中仅支持子类返回值协变(从子类到超类视角看)，C#中返回值和参数类型必须完全匹配。
+
+##### 泛型
+
+泛型中类型参数的子类化通常是可以自定义的，比如C#中的`interface IList<out T>`，Java中的`interface List<? extends String>`等。
+
+1. C#
+
+C#中自定义子类化的方式称为“Declaration-site variance annotations”，使用关键字`out`用定义泛型方法协变，关键字`in`用以定义泛型方法逆变，如果不修饰，则不可变异。有点必须注意的是，上面的方式只能作用域接口声明，不能用于类。
+
+```C#
+// error
+class Parent<out T> {
+    ...
+}
+```
+
+2. Java
+
+```Java
+class Parent<? extends String> {
+    ...
+}
+```
+
+**泛型的逆变和协变比较复杂，目前还在继续研究中...之后需要补齐这一段。**
+
+## Category(分类)
+
+### Static & Dynamic(静态类型与动态类型)
+
++ 静态类型 变量类型在编译时已知
+
++ 动态类型 变量类型编译时不可知，运行时可知
+
+### Explicit & Implicit(显示类型与隐式类型)
+
+显示类型和隐式类型的讨论只限于静态类型语言。
+
++ 显示类型 声明中显示定义变量类型
+
++ 隐式类型 允许编译器对变量类型进行合理推断
+
+C#中引入的`var`关键字支持隐式类型(推断)。
+
+### Safe & Unsafe(类型安全与类型不安全)
+
++ 类型安全 不同类型的数据必须进行(隐式或显示)转换
+
++ 类型不安全 类型A的值有可能不经转换的执行为另外类型的值
+
+C/C++中的指针就不是类型安全的。
+
+### Value & Reference(值类型与引用类型)
+
++ 值类型 
+
+变量(值存储地址) --> 实际值
+
+C#枚举是值类型；Java枚举是不可变引用类型
+
++ 引用类型 
+
+变量(存储引用值的地址) --> 引用值(实际变量值的地址) --> 实际变量值
+
+无论是值类型还是引用类型，他们都不是再传递"值或对象"。值变量传递时，先复制实际变量值，并将复制后的新变量的“地址”传过去；引用变量传递时，直接将引用值传递过去。也就是说，两者的根本区别在于**传递时是否复制副本**。另外，对于局部变量，一般是分配在栈上，而不是堆上，因此，在函数退出后会自动“弹出”，而不需要GC的介入。
+
+## Reference
+
++ [Covariance And Contravariance](http://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science))
+
++ [Subtyping](http://en.wikipedia.org/wiki/Subtyping)
+
++ [Coolshell](http://coolshell.cn/articles/10169.html)

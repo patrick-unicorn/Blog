@@ -1,0 +1,72 @@
+---
+author: "patrick.unicorn"
+date: "2014-06-12"
+output: 
+  html_document:
+    theme: null
+    highlight: null
+    css: ../../css/main.css
+---
+
+AngularJS速览
+====
+
+**声明：** 所写为个人所读所想，限于知识层次，请批判阅读。
+
+* * *
+
+## 起源
+
+催生AngularJS等前端MVVM框架（如Knockout、Backbone等）的直接原因是WEB应用交互行为的不断多样化、富客户端化。说的更通俗点就是，WEB应用和桌面应用的差距越来越小。这进而导致WEB视图层技术（HTML和Javascript）实现的复杂性和规模性不断增大，函需类似于传统后端MVC通用框架的出现。
+
+## 概述
+
+AngularJS可以理解为前端（HTML、Javascript）的MVVM框架。其聚焦解决的问题与传统JavaEE体系(Spring/Struts/Hibernate)是类似的。
+
+### MVC & MVVM
+
+#### MVC
+
+通用架构模式。控制器（Controller）完成路由功能，一般分为**核心控制器**和**业务控制器**，核心控制器通常由MVC框架实现，而业务控制器则有业务实现方实现。以SpringMVC为例，`DispatchServelet`是核心控制器；而`@Controller`注解的的业务类为业务控制器。
+
+#### MVVM
+
+基于MVC架构模式，主要用于GUI程序架构。其在MVC的基础上面增加ViewModel来封装和实现双向绑定，其核心思想借鉴于桌面GUI程序（如WPF、Winform等等）。
+
+### 概念对比
+
+通过对比可以清晰的看到，AngularJS事实上是将传统后端(如JavaEE)的功能悉数整合到了前端，在此之上又揉和了传统桌面应用（如WPF等）中的双向绑定技术。
+
+| AngularJS | JavaEE |
+| --- | --- | --- | 
+| `$scope`| 不同于AngularJS， JSP中的作用域只有固定的四种：`page` `request` `session` `application`|
+| Directive | JSP指令：`<%@ directive attribute="value" %>`，包含三种：`<%@ page %>` `<%@ include %>` `<%@ taglib %>`，其中[JSTL][1]与Angular内置Directive部分对应| 
+| ngBind/`{{..}}` | [JSP EL][2]表达式：`${..}` |
+| ngRoute | `<servlet-mapping>` `<filter-mapping>` [SpringMVC RequestMapping][3]等 |
+| ngController | [SpringMVC Controller][3] |
+| ngView/ngInclude | `<%@ include %>` 或 [Tiles][4] |
+| ngModel| 无。JSP只能单向绑定，即必须通过刷新页面才能将模型数据的变化反应到页面上 |
+| `ngIf`  | `c:if` |
+| `ngRepeat` | `c:forEach` |
+| Interceptor | `filter` `Spring#Interceptor`|
+| ... | ... |
+
+## 要点一览
+
++ 单向绑定数据的方式？
+
+<blockquote class="answer-block">
+`{{...}}`或`ng-bind`
+</blockquote>
+
++ 双向绑定数据的指令？
+
+<blockquote class="answer-block">
+`ng-model`
+</blockquote>
+
+[1]: https://jstl.java.net/
+[2]: http://docs.oracle.com/javaee/6/tutorial/doc/gjddd.html
+[3]: http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html
+[4]: https://tiles.apache.org/
+[5]: 

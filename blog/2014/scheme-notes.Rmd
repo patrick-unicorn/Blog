@@ -1,0 +1,340 @@
+**声明：** 所写均为个人阅读所思所想，限于知识层次和结构，难免有错误遗漏之处，请批判阅读。探讨可循：<mr.geek.ma@gmail.com>
+
+* * *
+
+> 不能影响你思考方式的编程语言不值得学习 – Alan Perlis
+
+在学习Scheme的过程中，不断有很多疑问充斥脑袋，在解决这些疑问的过程中，极大的丰富了我的“编程世界观和方法论”，颇有点发现新大陆的感觉：）。原本计划只写一篇的Notes, 渐渐发现要比较深入的理解Scheme，同时需要对一些程序设计的基本概念有初步了解，因此最终也不得不扩充到了如下数个系列文章。本文是一篇关于Scheme语言特性的简要概括，亦是我个人学习Scheme的起篇。
+
++ [Translation of A Role of the Study of Programming Languages int the Education of a Programmer](http://www.unicornsummer.com/?p=288)
+
++ [Lambda calculus(λ-calculus)](http://www.unicornsummer.com/?p=299)
+
++ [Scheme Basics]()
+
++ [Continution & CPS]()
+
++ [About (Tail-)Recursion]()
+
++ [Scheme And OOP]()
+
+另外，本文中涉及到的诸多概念，只作概要性陈述，更加深入和详尽的讨论，可参看之后的系列文章。
+
+<!--more-->
+
+## Motivation
+
+1. 阅读理解[SICP](http://mitpress.mit.edu/sicp/)和[EOPL](http://www.eopl3.com/)
+
+因为众多业界前辈都不止一次在自己的必读书单中列出了SICP，因此决定好好研读下，丰富和提高自己的编程基础。
+
+2. 函数式编程
+
+虽然相比于Haskell，Scheme并不是一门**纯函数式**语言，但是作为众多极客竭力推崇的Lisp的主要变种，Scheme可以作为了解函数式编程比较好的切入点。
+
+## Features
+
+#### Prefix Expression
+
+与大多数常用编程语言使用更符合阅读习惯的中缀表达式不一样，Scheme中使用的是前缀表达式。
+
+<pre>前缀表达式 - (+ 1 1)
+中缀表达式 - (1 + 1)
+后缀表达式 - (1 1 +)
+</pre>
+
+事实上，前缀表达式并不那么直观，但是，相比中缀表达式，前缀表达式却有一个不错的优点：可以很简单的表达多个参数的操作符（函数）。比如：`(+ 1 2 3 4)`。
+
+> 刚刚开始写Scheme时，严重受累于之前的“经验思维-中缀表达式”，导致付出了很多不必要的调错时间。
+
+#### Dynamic Type
+
+和Python、Javascript等动态语言一样，Scheme中的变量类型并不确定。
+
+#### S-Expression
+
+Scheme程序的基本单元是S-Expression，而非“语句(statement)”。S表达式代表的本质意义就是“有返回值”，这与Java等OOP语言非常不同。在这一个概念的背后，Lisp所表达的本质意义是“程序就是数据”。`#\c`是数据，也是程序。
+
+> 什么是“S-Expression”？<br/>
+  可以理解为一个“无所不包的超类型”，42, #\c, (1 . 2), #(a b c), "Hello", (quote xyz), (string‑>number "16"), and (begin (display "Hello, World!") (newline)) 都是 s-expressions，表达式的范围由括号界定。
+  
+事实上，在写了一段时间Scheme程序后，我发现S表达式对于表示常用的数据结构更加“直观”：
+
++ 线性表 (1 2 3)
++ 哈希表 ((1 2) (3 4) (5 6))
++ 二叉树 
+
+![二叉树](https://raw.githubusercontent.com/patrick-unicorn/Blog/master/2014/img/B-Scheme_Notes-001.png)
+
+先序遍历 (1 2 (3 4 5))
+中序遍历 (2 1 (4 3 5))
+后续遍历 (2 (4 5 3) 1)
+
+要比较两个S表达式（使用同一遍历方式）表述的二叉树是否相同，只需要看S表达式在**去除括号后的序列**是否一致即可。
+
+> 二叉树的遍历方式(均为**先左后右**)：
+>
+> 先序遍历：根结点->左节点->右节点
+>
+> 中序遍历：左节点->根结点->右节点
+>
+> 后续遍历：左节点->右节点->根结点
+>
+> 在**没有括号`()`分割**，只有序列的情况下，必须同时定义三种序列中的两种，才可以唯一确定一颗二叉树。比如先序`12345`，二叉树有可能是一下几种情况：
+>
+> ![二叉树](https://raw.githubusercontent.com/patrick-unicorn/Blog/master/2014/img/B-Scheme_Notes-002.png)
+>
+> 但是如果同时定义中序`21435`，那么就只有二叉树(a)满足条件了。对于S表达式而言，是可以简单的利用一种序列表示一颗二叉树的，比如先序(1 2 (3 4 5))只对应二叉树(a)。
+
+#### Lambda calculus(λ-calculus)
+
+###### 定义
+
+研究函数的定义、应用、递归的一套形式系统。
+
+###### 用途
+
+任何**可计算函数**都可以用λ演算来表达和求值。它是函数式编程的数学基础。
+
+###### 特性
+
+在[λ演算](http://en.wikipedia.org/wiki/%CE%9B-calculus)中：
+
++ 任何表达式都是函数，函数有一个参数和一个返回值。即：λ演算中，只有一种“类型”，那就是这种单参函数。
+
+> 基于这一定义项，通常意义的return是不需要的。
+
++ 函数匿名。
++ Currying，可以把两个参数的函数可以通过单参函数转换：一个单参函数的返回值是另一个单参函数的函数。
+
+<pre>Currying：把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。
+
+Javascript演示例子：
+
+function add(x, y) {
+  var oldX = x, oldY = y;
+  
+  if (typeof oldY == "undefined") {
+    return function(newY) {
+      return oldX + newY;
+    }
+  }
+  return oldX + oldY;
+}
+</pre>
+
+#### (tail-)Recursion
+
+Scheme中通常倾向于通过递归实现循环或迭代。同时，Scheme与其他函数式语言一样，都实现了尾递归优化。
+
+###### 递归与迭代
+
+递归和迭代是两种**重复（循环）计算**的机制。
+
++ 前者是先收敛到最简单可计算情况，然后逐步扩散趋近到最终求值情况；而迭代是不断趋近最终情况。
++ 前者表述问题时更加抽象简明，后者更具体复杂。
++ 两者的计算步数必须有界，即存在终止条件不能产生无限迭代和递归。
++ 前者终止条件为**最简单可计算情况**，后者终止条件为**迭代最大次数**。
+
+<blockquote> 逻辑递归和语法递归
+ 
+通常我们说“递归”是指“语法递归”，即函数调用了自身，但是，语法递归并不代表计算过程本身是（逻辑）递归的。下面是SICP一个关于阶乘`n!`定义的例子：
+ 
+基于迭代定义：1\*2\*3\*···\*n 
+<pre>
+(define (factorial-1 n)
+  (define (iter cur pos) 
+    (if (> pos n) 
+        cur
+        (iter (* cur pos) (+ pos 1))))
+  (iter 1 1))
+(factorial-1 3)
+</pre>
+
+基于递归定义：n*(n-1)! 
+ <pre>
+(define (factorial n)
+  (if (= n 1)
+      1
+      (* n (factorial (- n 1)))))
+(factorial 3)
+</pre>
+
+从上面的code看，两者都是“语法递归”，但是从计算的逻辑过程来看，前者是迭代，后者是递归。
+</blockquote>
+
+###### 应用技巧
+
++ 当前问题是否可以分解为**形式相同**但规模更小的问题？
++ 如果存在这样一种分解，那么这种分解是否存在一种最简单情境？
+
+###### 尾调用
+
+尾调用是指一个函数里的**（逻辑上的）最后一个动作**是一个函数调用的情形。
+
+###### 尾递归
+尾递归是尾调用的特殊形式，指函数的**（逻辑上的）最后一个动作**是调用**函数自身**。
+
+###### 尾调用（递归）优化
+
+定义：在尾调用（递归）情况下，对函数执行过程的优化。尾调用（递归）是语义层面的，而尾调用（递归）优化则是实现层面的。比如C#中也可以有尾递归，但是却没有尾递归优化。
+
+原理：通过将递归过程中使用到的**状态变量**作为**参数传递**到下一级递归函数中，重复利用原有函数栈(因为此时不需要保存之前函数调用的栈中的变量了），避免分配新的函数栈。
+
+用途：避免导致内存栈溢出，优化程序的性能，对于依赖于递归的函数式语言尤其应用广泛。
+
+实现：尾递归只是创造了优化的可能性，但具体实现需要编译器或运行时的支持。[参考](http://zh.wikipedia.org/zh/%E5%B0%BE%E8%B0%83%E7%94%A8)。
+
+Example-1：计算斐波那契数
+
++ 非尾递归：
+
+<pre>Java:
+public int recursivelyFibonacci(int n) {
+    if (n < 2) return n;
+    return recursivelyFibonacci(n - 1) + recursivelyFibonacci(n - 2);
+}
+
+Scheme:
+(define (recursivelyFibonacci n)
+  (if (< n 2)
+      n
+      (+ (recursivelyFibonacci (- n 1)) (recursivelyFibonacci (- n 2)))))
+
+(recursivelyFibonacci 0)  ;0
+(recursivelyFibonacci 1)  ;1
+(recursivelyFibonacci 2)  ;1
+(recursivelyFibonacci 3)  ;2
+(recursivelyFibonacci 4)  ;3
+(recursivelyFibonacci 5)  ;5
+</pre>
+
++ 尾递归（优化）：
+
+<pre>Java:
+public int tailRecursivelyFibonacci(int n, int sum1, int sum2) {
+    if (n == 0) return sum2;
+    return tailRecursivelyFibonacci(n - 1, sum2, sum1 + sum2); 
+}
+
+Scheme:
+(define (tailRecursivelyFibonacci n sum1 sum2) 
+  (if (= n 0)
+      sum1
+      (tailRecursivelyFibonacci (- n 1) sum2 (+ sum1 sum2))))
+
+(tailRecursivelyFibonacci 0 0 1)  ;0
+(tailRecursivelyFibonacci 1 0 1)  ;1
+(tailRecursivelyFibonacci 2 0 1)  ;1
+(tailRecursivelyFibonacci 3 0 1)  ;2
+(tailRecursivelyFibonacci 4 0 1)  ;3
+(tailRecursivelyFibonacci 5 0 1)  ;5
+
+* 0和1是最开始的两个Fibonacci数。
+
+</pre>
+
+Example-2：计算阶乘
+
++ 普通递归
+
+<pre>
+(define (recursivelyFactorial n) 
+  (if (= n 0)
+      1
+      (* n (recursivelyFactorial (- n 1)))))
+</pre>
+
++ 尾递归（优化）
+
+<pre>
+(define (tailRecursivelyFactorial n product) 
+  (if (= n 0) 
+      product 
+      (tailRecursivelyFactorial (- n 1) (* n product))))
+</pre>
+
+通过上面两个示例，我们会发现，普通递归与尾递归（优化）的最大区别在于**返回值累加方式**的不同：
+
++ 普通递归**利用递归函数的返回值进行“累加”**
++ 尾递归（优化）**利用递归函数的参数（传递）进行“累加”**
+
+*通过接下来要阐述的CPS，我们会发现其实尾递归就是一种CPS。*
+
+#### Continuation
+
+继续思考上节中的尾递归(优化)，既然尾递归利用参数进行“累加”，而对于函数式语言而言，**函数本身**就是数据（变量），可以作为参数被传递，那么当递归函数的参数包含**函数**时，会是怎样一个场景呢？要理解这个问题，我们首先需要引出并理解另一个关键概念：**Continution**。
+
+###### Definition
+
+> During the evaluation of a Scheme expression, the implementation must keep track of two things: (1) what to evaluate and (2) what to do with the value. ... We call "what to do with the value" the continuation of a computation.
+
+可以简单的理解为，当表达式的值计算出来之后要**继续的动作**。个人在理解这一概念时，花费过很多的精力和时间，深知其抽象。但是一旦理解该概念之后，会发现continution很多神奇的用途。
+
+###### Function Call Mechanism
+
+Continution其实也是代表了一种函数调用机制，下图展示了与通常的栈式函数调用机制的区别：
+
++ Stack(General Style)
+
+![栈式函数调用](https://raw.githubusercontent.com/patrick-unicorn/Blog/master/2014/img/B-Scheme_Notes-003.png)
+
++ Graphic(Continution Style)
+
+![图式函数调用](https://raw.githubusercontent.com/patrick-unicorn/Blog/master/2014/img/B-Scheme_Notes-004.png)
+
+通过上面的两幅图，我们可以有以下的一些理解：
+
+1. Continution依赖于**图（或树）**来组织函数调用，而非通常的**堆栈**结构。因此，它可以让你从任意一个函数调用节点跳到另一个节点，而无须遵循堆栈方式的**逐层**的return方式。
+2. Continution也有一个显而易见的缺点，即函数调用关系是非线性的（相对于栈式调用而言），因此，其函数资源的回收没有那么直观和简单。通常，配合一个GC会比较合理。个人认为，这也是很多主流语言不愿意采用Continution函数调用方式的主因。
+
+###### CPS(Continuation-Passing Style)
+
+> In functional programming, continuation-passing style is a style of programming in which **control is passed** explicitly in the form of a continuation.
+
+定义：是一种基于continuation的编程风格，即“后续传递风格”，此处的“后续”更具体的说，就是指函数(过程)。
+
+###### Features
+
+CPS函数都有一个额外的参数ret，表示当前函数结束之后需要执行的函数(过程)。函数需要返回，必须显式的调用ret。在函数的末尾调用了另外一个函数，这种调用称为尾调用（递归）。 **CPS所有函数都是尾调用**。
+
+###### call/cc
+
+全称为“call-with-current-continuation”，是Scheme中提供的一个获取当前continuation的过程函数。
+
+###### Application
+
++ 编译高级语言的中间代码
++ 异步编程
++ 分布式编程
+
+## Tools
+
+刚刚开始学习时，使用[Sublime Text3][1]配合[MIT-GNU Scheme][2]来编写调试程序，但并不是很适应，觉得效率偏低。后来发现了[DrRacket][3]，一用上它就爱不释手了：），它有一些很明显的优势：
+
++ 可以通过文本编辑并编译并执行
++ 有命令行输入，可以方便的验证一些小程序
++ 足够的错误信息提示
++ 可以调试
++ 支持R5RS标准
+
+## Reference
+
++ [《The SchemeProgramming Language》][4]
++ [《Teach Yourself In FixNum Days》][5]
++ [Continution](http://en.wikipedia.org/wiki/Continuation)
+
+<blockquote>
+
+有一点需要注意下，《The SchemeProgramming Language》中例子为了表达清晰，约定了一些不属于R5RS规范的表示方法，所以，在运行其例子的时候，需要部分修正。比如：使用`[]`的地方应该被替换为`()`等等。
+
+</blockquote>
+
+[1]:http://www.sublimetext.com/
+[2]:http://www.gnu.org/software/mit-scheme/
+[3]:http://racket-lang.org/download/
+[4]:http://www.scheme.com/tspl4/
+[5]:http://www.ccs.neu.edu/home/dorai/t-y-scheme/t-y-scheme-Z-H-1.html
+[6]:http://en.wikipedia.org/wiki/Continuation-passing_style
+[7]:http://www.defmacro.org/ramblings/fp.html
+

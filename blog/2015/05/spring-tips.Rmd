@@ -1,0 +1,56 @@
+---
+author: "patrick.unicorn"
+date: "2014年05月03日"
+output: 
+  html_document:
+    theme: null
+    highlight: null
+    css: ../../css/main.css
+---
+
+#Spring Tips
+
+## classpath* & classpath
+
+|----|-----|
+|`classpath`|`classpath*`|
+|只从当前classpath（包含依赖的jar包中）下找到第一个符合条件的文件（与加载顺序有关）|会找到当前classpath（包含依赖的jar包中）下所有符合条件的文件|
+
+`classpath*`通常用于从多个不同的jar中加载同名的配置文件并合并。关于匹配的详情可以查看[PathMatchingResourcePatternResolver][1]
+
+## @Inject & @Resource & @Autowired
+
+三者的定义如下：
+
+|---|---|
+|`@Resource`|标准库javax.annotation package|
+|`@Inject`|标准库javax.inject package|
+|`@Autowired`|org.springframework.bean.factory|
+
+对于springframework而言，`@Inject`和`@Autowired`是无差别的，两者均被`AutowiredAnnotationBeanPostProcessor`处理；而`@Resouce`则是被`CommonAnnotationBeanPostProcessor`处理。对应的两者匹配注入Bean对象的规则顺序也有所区别：
+
+|-----|------|
+|`@Inject @Autowired`|1. 按类型匹配； 2. 按`@Qualified`进一步过滤和匹配；3. 按名称匹配|
+|`@Resource`|1. 按名称匹配；2. 按类型匹配；3. 按`@Qualified`进一步过滤和匹配（如果已经按照名称匹配到，则`@Qualified`的限制忽略）|
+
+## id & name
+
+```
+# id类似于人的身份证号码，唯一切只能包含字母数字
+<bean id=""></bean>
+
+# name类似于人的名字，可以有中文名，英文名，可随意起名
+<bean name=""></bean>
+```
+
+两者的区别如下：
+
+| id | name |
+|--|--|
+|id受制于xml文件命名符的限制，如不能以数字开头，不能包含空格|可以包含任意字符|
+|必须全局唯一，不能与其他bean#id重复|可以与其他bean#id重复|
+|一个bean只能有一个id|一个bean可以有多个name，使用`,`分割，如：`<bean name="name1, name2" />`|
+
+不断补充中...
+
+[1]: https://github.com/spring-projects/spring-framework/blob/master/spring-core/src/main/java/org/springframework/core/io/support/PathMatchingResourcePatternResolver.java

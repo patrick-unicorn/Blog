@@ -1,0 +1,176 @@
+---
+title: "Java Biscuits - The Final Keyword"
+author: "patrick.unicorn"
+date: "Monday, November 10, 2014"
+output: html_document
+---
+
+**声明：** 所写均为个人阅读所思所想，限于知识层次和结构，难免有错误遗漏之处，请批判阅读。探讨可循：<mr.geek.ma@gmail.com>
+
+* * *
+
+## Final Class
+
+不可继承的类了。常见的工具类声明方式：
+
+```
+public final class Utils {
+
+    private Utils() { }
+    
+    ...
+
+}
+```
+
+final类中的所有方法，均为final方法。
+
+<!--more-->
+
+## Final Method
+
+非虚方法。在Java中方法默认是虚方法，而在C#中默认是非虚方法。虚方法不可被派生类覆写(override)。
+
+```
+class A {
+
+    protected void a_1() { ··· }
+    
+    protected final void a_2() { ··· }
+    
+}
+
+class B extends A {
+    
+    @Override
+    protected void a_1() { ··· }
+    
+    // error
+    @Override
+    protected void a_2() { ··· }
+    
+}
+```
+
+## Final Variable
+
++ 修饰值变量，表明该变量**值**在初始化后是不可修改的。类似于C#中的readonly关键字。
+
++ 修饰引用变量，表明该变量**引用(非引用所指向的值)**在初始化后是不可修改的。
+
+final变量的初始化，有两种情况：
+
+1. 在声明式赋值
+
+```
+private final String F_VAR = "unicorn";
+```
+
+2. 在构造函数中赋值
+
+```
+private final String F_VAR;
+
+public Constructor() {
+    this.F_VAR = "unicorn";
+}
+```
+
+#### Method Final Parameter
+
+期望方法内部不要修改变量值或引用。
+
+```
+public void modify(final int defaultValue) {
+    defaultValue = 2; // error
+}
+```
+
+#### Class Final Variable
+
+期望在类内部不要修改变量值或引用。
+
+
+```
+class Demo{
+
+    private static final DEFAULT_VAL = "This is a default value";
+    
+    private final defaultFactory = new Factory();
+
+}
+```
+
+用static final字段构造单例
+
+```
+class Singleton {
+
+    private Singleton() { }
+    
+    public static final INS = new Singleton();
+    
+    ···
+}
+```
+
+#### The Final Variable Used In Inner-Class 
+
+Java的一个强制限制是：在内部类中使用外部变量时，该变量必须被final修饰。这一限制的根本原因在于闭包。闭包的概念如下(Wikipedia):
+
+> 在计算机科学中，闭包（Closure）是词法闭包（Lexical Closure）的简称，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。所以，有另一种说法认为闭包是由函数和与其相关的引用环境组合而成的实体。
+
+上面定义中提到的**自由变量**，是相对“绑定变量(Binding Variables）"而言的。如果学习过一门函数式语言(比如Scheme)，相信对这一概念会更清晰：
+
++ 绑定变量 函数的参(数)变量
+
++ 自由变量 函数体中使用的非参数变量，在OOP语言中，这通常表现为类成员变量或一些其他全局变量。
+
+在Java中，内部类会生成"闭包"，下面的程序会进一步解释这一强制规定的意义所在：
+
+
+```
+public static void main(String[] args) {
+
+    List<Runnable> taskList = new ArrayList<Runnable>();
+    
+    for (int counter=0; counter < 10; counter++) {
+        final int copy = counter;                
+        taskList.add(new Runnable() {
+            @override
+            public void run() {
+                System.out.println(copy);
+            }
+        });
+    }
+
+    for (Runnable task : taskList) {
+        action.run();
+    }
+}
+```
+
+上面的代码会依次打印出0到9的数字。那么，同样的逻辑在C#中，如下所示：
+
+
+```
+public static void Main() {
+
+    List<Action> actions = new List<Action>();
+    
+    for (int counter = 0; counter < 10; counter++) {
+        int copy = counter; // *
+        actions.Add(() => Console.WriteLine(copy));
+    }
+
+    foreach (Action action in actions) {
+        action();
+    }
+}
+```
+
+上面的代码的输出结果与Java版本是一样的。
+
+但是，由于在C#中，lambda闭包中对于外部变量并没有类似Java中的final强制性要求，因此，也许你会考虑将**"\*"**句去掉。如果你去掉该句，你会发现程序本身的输出结果是10个10，而非预想的0到9。
+
+导致这一“冲突”的原因在于，闭包本身持有的是变量**引用**，而非变量值。在Java中，由于对闭包内部变量的final强制要求，当你在内部类闭包中使用循环变量counter的值时，必须将其值赋予一个中间final变量，从而避免此类问题。

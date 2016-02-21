@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="patrick.unicorn" />
+
+<meta name="date" content="2015-07-28" />
+
+<title></title>
+
+
+
+
+<link href="data:text/css,body%20%7B%0A%20%20%20%20font%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0A%20%20%20%20font%2Dsize%3A%2018px%3B%0A%20%20%20%20margin%3A%205%25%2020%25%205%25%2020%25%3B%0A%20%20%20%20padding%3A%202%25%205%25%205%25%205%25%3B%0A%20%20%20%20width%3A%2050%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20border%3A%201px%20solid%20LightGrey%3B%0A%7D%0A%0AH1%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0A%0AH2%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dbottom%3A%2060px%3B%0A%20%20%20%20margin%2Dbottom%3A%2040px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border%2Dbottom%3A%202px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH3%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH4%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0Aul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2010px%3B%0A%7D%0A%0Ali%20%7B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%7D%0A%0Aq%20%7B%0A%20%20%20%20border%2Dleft%3A%204px%20lightgrey%20solid%3B%0A%20%20%20%20padding%2Dleft%3A%205px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20border%3A%20dashed%201px%20lightgrey%3B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20margin%2Dright%3A%2010px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%7D%0A%0A%2Eanswer%2Dblock%20%7B%0A%20%20%20%20word%2Dbreak%3A%20normal%3B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20padding%3A%200px%3B%0A%20%20%20%20margin%3A%200px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%20%20%20%20font%2Dsize%3A%2080%25%3B%0A%20%20%20%20word%2Dwrap%3A%20break%2Dword%3B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f5f5f5%3B%0A%20%20%20%20border%3A%201px%20solid%20%23000%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20overflow%3A%20auto%3B%0A%7D%0A%0A%0Apre%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20%0A%20%20%20%20font%2Dsize%3A%2075%25%3B%20%0A%20%20%20%20border%3A%20solid%201px%20lightgrey%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%3B%20%0A%20%20%20%20padding%3A%205px%3B%20%0A%20%20%20%20line%2Dheight%3A%20130%25%3B%20%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20width%3A%2095%25%3B%0A%7D%0A%0Apre%20code%20%7B%0A%20%20%20%20font%2Dsize%3A%20100%25%20%21important%3B%20%0A%20%20%20%20border%3A%20none%20%21important%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%20%21important%3B%20%0A%20%20%20%20color%3A%20%23000%20%21important%3B%0A%20%20%20%20border%2Dradius%3A%200%20%21important%3B%0A%20%20%20%20padding%3A%200%200%20%21important%3B%0A%7D%0A%0A%0Acode%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20padding%3A%202px%204px%3B%0A%20%20%20%20color%3A%20%23d14%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f7f7f9%3B%0A%20%20%20%20border%3A%201px%20solid%20%23e1e1e8%3B%0A%20%20%20%20border%2Dradius%3A%203px%3B%0A%7D%0A%0A%0Aa%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20crosshair%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20dashed%20Red%3B%0A%20%20%20%20padding%3A%201px%3B%0A%20%20%20%20color%3A%20black%3B%0A%7D%0A%0A%0Aa%3Ahover%20%7B%0A%09background%2Dcolor%3A%20LightGrey%3B%0A%7D%0A%0A%0Aimg%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20box%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dtop%3A%2010px%3B%0A%20%20%20%20margin%2Dbottom%3A%2010px%3B%0A%20%20%20%20%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%7D%0A%0A%0Ahr%20%7B%0A%20%20%20%20color%3A%20LightGrey%3B%0A%7D%0A%0Atable%2C%20th%2C%20td%20%20%7B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%20%20border%3A%20solid%201px%20black%3B%0A%7D%0A%0Ath%20%7B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0Atd%20%7B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20text%2Dalign%3A%20left%3B%20%20%20%20%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+
+<div id="java" class="section level1">
+<h1>Java线程同步机制</h1>
+<hr />
+<div id="thread" class="section level2">
+<h2>Thread</h2>
+<p>Java中基本的并发机制是多线程。线程是程序执行的最小单位。多线程编程最困难的地方在于处理<strong>共享资源</strong>的竞争性访问。</p>
+<div id="daemon" class="section level3">
+<h3>Daemon</h3>
+<p>Java中线程分为守护线程（Daemon）和用户线程（User）。两者的区别如下：</p>
+<ul>
+<li><p>守护线程是为用户线程服务的，它的优先级为低。</p></li>
+<li><p>守护线程的生命周期依赖于外部的用户线程。</p></li>
+</ul>
+<p>当JVM中的用户线程都结束后，系统会退出（守护线程自然也会被终结）。通常在守护线程中，不应放入过多的用户逻辑，因为守护线程的结束依赖于外部用户线程生命周期，因此，无法预知其执行的时机，有可能造成潜在的错误。</p>
+<pre><code>Thread t = new Thread(...);
+// 必须在线程启动之前设置
+t.setDaemon(true);
+t.start();</code></pre>
+</div>
+</div>
+<div id="monitor" class="section level2">
+<h2>Monitor</h2>
+<p>Java中每个对象都伴随一个监控器对象（monitor），其概念来自于操作系统。监控器对象（monitor）相当于每个对象的“线程访问接待室”，对每个访问线程排队，进而实现对象数据安全访问。详细的说明可以参看附录。</p>
+</div>
+<div id="synchronized-waitnotify" class="section level2">
+<h2>Synchronized &amp; Wait/Notify</h2>
+<div id="synchronized" class="section level3">
+<h3>Synchronized</h3>
+<pre><code>class Ex {
+    private Object L = new Object();
+
+    // 锁对象是Ex.class
+    public static synchronized A() { ... }
+    
+    // 锁对象是当前对象（this）
+    public synchronized A() { ... }
+    
+    public A() {
+        // 锁对象是L
+        synchronized(L) {
+            ...
+        }
+    }
+}</code></pre>
+</div>
+<div id="waitnotify" class="section level3">
+<h3>Wait/Notify</h3>
+<p>wait/notify[all]可以简单的理解为对Monitor等待区线程队列的操作。</p>
+<ul>
+<li>wait</li>
+</ul>
+<p>当前线程进入协调对象（调用wait）的Monitor等待区(wait-set)，不会再被调度执行。</p>
+<ul>
+<li>notify[All]</li>
+</ul>
+<p>唤醒所有在协调对象（调用notify[All]）Monitor等待区的线程，使其可以被调度执行。</p>
+<p>wait/notify[All]定义在Object基类，它们是一组协作方法，必须配合使用。值得注意的是，当前线程必须先持有<strong>协调对象</strong>的monitor，才能调用它们。</p>
+<pre><code>class Ex {
+    public static void main(String[] args) {
+        Object L = new Object();
+        try {
+            // 因为此处线程并没有持有对象L的monitor，所以
+            // 会导致java.lang.IllegalMonitorStateException
+            L.wait(); 
+            
+            // 正确的方式
+            synchronized(L) {
+                L.wait();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+<blockquote>
+<div id="monitorwaitnotifyall" class="section level4">
+<h4>为什么必须持有<strong>协调对象</strong>monitor，才可以调用其wait/notify[all]?</h4>
+线程之间通过对象的wait/notify[all]方法进行协作，那么，该对象必然是“共享资源”，面临竞争性使用，因此，获取该对象的Monitor就理所当然成为使用其方法wait/notify[All]的先决条件了。
+</blockquote>
+</div>
+</div>
+<div id="join" class="section level3">
+<h3>Join</h3>
+<p><code>Thread#Join</code>方法是对<code>Object#wait</code>方法的一个包装，主要是为了方便线程之间协调等待。</p>
+<pre><code>// 注意synchronized
+public final synchronized void join(long millis)
+    throws InterruptedException {
+        long base = System.currentTimeMillis();
+        long now = 0;
+        ...
+        
+        if (millis == 0) {
+            // 判断Thread对象代表的线程是否活跃
+            while (isAlive()) {
+                wait(0);
+            }
+        } else {
+            // 判断Thread对象代表的线程是否活跃
+            while (isAlive()) {
+                long delay = millis - now;
+                if (delay &lt;= 0) {
+                    break;
+                }
+                wait(delay);
+                now = System.currentTimeMillis() - base;
+            }
+        }
+    }</code></pre>
+<p>典型的使用场景：</p>
+<pre><code>public static void main(String[] args) {
+    Thread t1 = new Thread(/*某些耗时的动作*/);
+    Thread t2 = new Thread(/*某些耗时的动作*/);
+    
+    //主线程会等待t1和t2线程结束
+    t1.join();
+    t2.join();
+}</code></pre>
+</div>
+</div>
+<div id="lock-condition" class="section level2">
+<h2>Lock &amp; Condition</h2>
+<p>在Java1.5之前，多线程编程只能基于上述的<strong>Syncrhonized &amp; Wait/Notify</strong>机制，其具有明显的弊端：</p>
+<ul>
+<li>性能低</li>
+</ul>
+<p>synchronized底层的实现机制（<em>JDK1.5以前</em>）导致锁的性能成本太高。</p>
+<ul>
+<li>不灵活</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>synchronized不能跨方法使用，即不能在A方法中加锁，而在B方法中解锁。</li>
+<li>synchronized加锁会导致不可中断的阻塞。</li>
+</ol>
+</blockquote>
+<ul>
+<li>不完备</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>从上面的表述中，我们可以看到<strong>锁</strong>和<strong>协调对象</strong>之间是具有明显关联的。而<strong>Syncrhonized &amp; Wait/Notify</strong>机制中，对这一关联并未有显著的设定，设计上并不完备。</li>
+<li>wait/notify的协作机制过于单调。</li>
+<li>synchronized由于是语言特性，无法扩展。</li>
+<li>不支持锁公平性</li>
+</ol>
+</blockquote>
+<p>因此，Java1.5引入了<strong>Lock &amp; Condition</strong>机制。</p>
+<div id="lock" class="section level3">
+<h3>Lock</h3>
+<blockquote>
+<div class="section level4">
+<h4>锁的可重入性</h4>
+<p>如果线程A已经获取了锁对象L，当A线程（释放L之前）再次获取锁对象L，如果可以获取，则为<strong>可重入锁</strong>；否则，为<strong>不可重入</strong>。synchronized支持可重入。</p>
+</div>
+<div class="section level4">
+<h4>锁的公平性</h4>
+如果锁获取的顺序严格遵从于线程申请的顺序，那么，即为公平锁；否则，为不公平锁。synchronized不支持公平锁。
+</blockquote>
+<p>Lock的典型使用形式：</p>
+<pre><code>lock.lock();
+try{
+    //do critical section code,
+    //which may throw exception
+} finally {
+    lock.unlock();
+}</code></pre>
+<ul>
+<li>ReentrantLock</li>
+</ul>
+<p>synchronized关键字的直接替代者。</p>
+<ul>
+<li>ReadWriteLock</li>
+</ul>
+<p>支持单独的读写锁。</p>
+<ul>
+<li>StampedLock</li>
+</ul>
+<p>增强版的读写锁。锁的状态包含一个“邮戳”，其实就是进一步降低了锁的粒度。</p>
+</div>
+</div>
+<div id="condition" class="section level3">
+<h3>Condition</h3>
+<p>Condition相当于将之前设定在Object中的wait/notify抽取到了单独的对象中。通过<code>Lock#newCondition</code>生成实例。每个Condition是与具体的Lock对象相关联的。</p>
+</div>
+<div id="application" class="section level3">
+<h3>Application</h3>
+<ul>
+<li>CountDownLatch</li>
+</ul>
+<p><q> A synchronization aid that allows one or more threads to wait until a set of operations being performed in other threads completes. </q></p>
+<p>当计数值为0时，(调用了<code>CountDownLatch#await</code>)的线程会继续执行。每次调用<code>CountDownLatch#countDown</code>，计数值减1。</p>
+<ul>
+<li>CyclicBarrier</li>
+</ul>
+<p><q> A synchronization aid that allows a set of threads to all wait for each other to reach a common barrier point. </q></p>
+<p>当所有调用<code>CyclicBarrier#await</code>方法的线程都结束后：</p>
+<ol style="list-style-type: decimal">
+<li>在最后一个结束的线程中执行<code>CyclicBarrier#barrierAction</code>。</li>
+<li>所有线程继续取消阻塞，继续执行。</li>
+</ol>
+<p>CyclicBarrier调用reset方法后可以重用。</p>
+</div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<ol style="list-style-type: decimal">
+<li><a href="https://www.artima.com/insidejvm/ed2/threadsynch.html">Thread Synchronization</a></li>
+<li><a href="http://www.programcreek.com/2011/12/monitors-java-synchronization-mechanism/">Monitors – The Basic Idea of Java Synchronization</a></li>
+<li><a href="http://www.ibm.com/developerworks/java/library/j-jtp10264/index.html">More flexible, scalable locking in JDK 5.0</a></li>
+</ol>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

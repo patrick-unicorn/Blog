@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="patrick.unicorn" />
+
+
+<title></title>
+
+
+
+
+<link href="data:text/css,body%20%7B%0A%20%20%20%20font%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0A%20%20%20%20font%2Dsize%3A%2018px%3B%0A%20%20%20%20margin%3A%205%25%2020%25%205%25%2020%25%3B%0A%20%20%20%20padding%3A%202%25%205%25%205%25%205%25%3B%0A%20%20%20%20width%3A%2050%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20border%3A%201px%20solid%20LightGrey%3B%0A%7D%0A%0AH1%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0A%0AH2%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dbottom%3A%2060px%3B%0A%20%20%20%20margin%2Dbottom%3A%2040px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border%2Dbottom%3A%202px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH3%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH4%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0Aul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2010px%3B%0A%7D%0A%0Ali%20%7B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%7D%0A%0Aq%20%7B%0A%20%20%20%20border%2Dleft%3A%204px%20lightgrey%20solid%3B%0A%20%20%20%20padding%2Dleft%3A%205px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20border%3A%20dashed%201px%20lightgrey%3B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20margin%2Dright%3A%2010px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%7D%0A%0A%2Eanswer%2Dblock%20%7B%0A%20%20%20%20word%2Dbreak%3A%20normal%3B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20padding%3A%200px%3B%0A%20%20%20%20margin%3A%200px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%20%20%20%20font%2Dsize%3A%2080%25%3B%0A%20%20%20%20word%2Dwrap%3A%20break%2Dword%3B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f5f5f5%3B%0A%20%20%20%20border%3A%201px%20solid%20%23000%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20overflow%3A%20auto%3B%0A%7D%0A%0A%0Apre%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20%0A%20%20%20%20font%2Dsize%3A%2075%25%3B%20%0A%20%20%20%20border%3A%20solid%201px%20lightgrey%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%3B%20%0A%20%20%20%20padding%3A%205px%3B%20%0A%20%20%20%20line%2Dheight%3A%20130%25%3B%20%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20width%3A%2095%25%3B%0A%7D%0A%0Apre%20code%20%7B%0A%20%20%20%20font%2Dsize%3A%20100%25%20%21important%3B%20%0A%20%20%20%20border%3A%20none%20%21important%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%20%21important%3B%20%0A%20%20%20%20color%3A%20%23000%20%21important%3B%0A%20%20%20%20border%2Dradius%3A%200%20%21important%3B%0A%20%20%20%20padding%3A%200%200%20%21important%3B%0A%7D%0A%0A%0Acode%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20padding%3A%202px%204px%3B%0A%20%20%20%20color%3A%20%23d14%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f7f7f9%3B%0A%20%20%20%20border%3A%201px%20solid%20%23e1e1e8%3B%0A%20%20%20%20border%2Dradius%3A%203px%3B%0A%7D%0A%0A%0Aa%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20crosshair%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20dashed%20Red%3B%0A%20%20%20%20padding%3A%201px%3B%0A%20%20%20%20color%3A%20black%3B%0A%7D%0A%0A%0Aa%3Ahover%20%7B%0A%09background%2Dcolor%3A%20LightGrey%3B%0A%7D%0A%0A%0Aimg%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20box%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dtop%3A%2010px%3B%0A%20%20%20%20margin%2Dbottom%3A%2010px%3B%0A%20%20%20%20%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%09width%3A%20100%25%3B%0A%7D%0A%0A%0Ahr%20%7B%0A%20%20%20%20color%3A%20LightGrey%3B%0A%7D%0A%0Atable%2C%20th%2C%20td%20%20%7B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%20%20border%3A%20solid%201px%20black%3B%0A%7D%0A%0Ath%20%7B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0Atd%20%7B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20text%2Dalign%3A%20left%3B%20%20%20%20%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+
+<div class="section level1">
+<h1>程序员能力与学习</h1>
+<p><strong>声明：</strong> 所写均为个人阅读所思所想，请批判阅读。</p>
+<hr />
+<div class="section level2">
+<h2>能力的类别</h2>
+<ul>
+<li><p>技术能力</p></li>
+<li><p>需求理解能力</p></li>
+<li><p>团队协作能力</p></li>
+<li><p>责任心</p></li>
+</ul>
+<p>以下的讨论，如非特指，均指<strong>技术能力</strong>。</p>
+<!--more-->
+</div>
+<div class="section level2">
+<h2>能力的评估</h2>
+<div class="section level4">
+<h4>评估方法</h4>
+<p>所谓“评估”，其实就是“认识”事物，只不过，这个事物有点特殊：程序员的技术能力。很明显，当我们认识一个事物时，最重要的一个方面避免“单视图观测”，而应“多视图观测”。这点对于大多数的程序设计师而言，并不陌生。因为当我们设计或架构已系统时，锁使用的UML图其实就是一种“多视图观测”工具，比如对象图、时序图、类图、活动图等等，都是从不同视图(侧面)来表述和观测架构本身的。</p>
+<p>具体到程序员能力的评估，我认为有以下几个方面：</p>
+<ul>
+<li><p>上级视图</p></li>
+<li><p>平级视图</p></li>
+<li><p>下级视图</p></li>
+<li><p>客户视图</p></li>
+</ul>
+</div>
+<div class="section level4">
+<h4>一个故事</h4>
+<blockquote>
+<p>从前，有位将军(L)需要派人到临近的营地送一份信，但是，这必须穿过一片野兽横行的森林，为了确保信可以送出，L决定分别派出两队人马执行此项任务。于是L选定了两位新兵团的士兵(S1,S2)，其中S1和S2均是是新兵团中公认的最英勇善战的勇士，同时挑选了两只猎犬(G1,G2)分别作为他们的向导，其中G1是嗅觉极其灵敏的猎狗，而G2则因为某种原因，嗅觉比较迟钝。S1和G1一组，而S2和G2一组，分别出发去完成这项任务。若干天后，两组人员分别完成了任务，回到了营地向L报告。</p>
+L看到S2的身上满是伤口和血迹，而S1身上毫无伤口，于是问到“S2为什么伤痕累累”。S2答道“将军，一路上我们遇到了很多野兽，我们拼尽全力击杀这些野兽后，才最终穿过了森林。”。于是L又转向S1“那么S1你为什么完好无缺呢？”。S1答到“将军，因为G1的嗅觉很灵敏，我特地避开了丛林中的野兽出没的地方，因此，我们没有遇到什么野兽，很顺利地穿过了森林。”。L听完后，认为S2英勇可嘉，在极端困难的情况下完成了任务，比S1更加英勇，最终决定晋升S2为士官；而对S1并没有嘉奖晋升。
+</blockquote>
+<p><strong>你认为L的做法可取么？</strong></p>
+<p>这个故事中的情形是我的一次工作经历中遇到过的，我觉得很有典型性，因此，进行抽象故事化后，用以表述现实工作中一种比较常见的现象。</p>
+</div>
+<div class="section level4">
+<h4>我的看法</h4>
+<p>L的赏罚方案对于S1并不公平。具体的评估思路如下：</p>
+<ul>
+<li>作战能力</li>
+</ul>
+<p>从文中可知，从平级视图(底层士兵)来看，S1和S2的作战能力是不相上下的。</p>
+<ul>
+<li>团队协作能力</li>
+</ul>
+<p>S1和S2各自与G1和G2合作顺利。</p>
+<ul>
+<li>责任心(与完成度)</li>
+</ul>
+<p>二者均完成了任务。</p>
+<p>综上，在三个评估点上，S1和S2均保持一致，那为何L指奖赏了S2呢？不难看出，问题出自对<strong>作战能力</strong>这一评估点的认识偏差：</p>
+<ol style="list-style-type: decimal">
+<li>基于本次任务的第一评估标准应该是“任务的完成度”，而非“作战能力”。</li>
+<li>退一步讲，即使将作战能力作为评估标准，L基于自己的“上级视图”，主观错误地将G1和G2的能力差异映射到了S1和S2身上。殊不知，S2之所以累累伤痕，而S1完好无缺，其根本原因在于向导G1和G2的“专业能力”的差别，并非由S1和S2两者的作战能力的差别所致。也就是说，L对于S1的认识是存在偏差的。如果L同时从“平级视图(即新兵团的视角)”了解过S1和S2，那么，这个偏差本可避免。 因此，可以更合理的方案是：<strong>如果奖励S1，那么同时需要奖励S2</strong>。</li>
+</ol>
+<p>当然，你也可以单纯的将S1和S2的境遇，理解为S2比S1的表现机会更好，但是这其实并不“公正”：）。</p>
+<p>这个故事同时也折射出，单纯依据项目评估技术人员能力的一些弊端，因为大多数时候，我们不会对项目本身的差异进行评估。</p>
+<blockquote>
+<p>常见误区：高能力 == 高薪资?</p>
+<p>这是在企业内部人力资源管理中的一个常见误区，高能力不代表高价值。能力是绝对的，而价值是相对的。高能力只是高价值的必要条件而非充分条件。如果人才的高能力在公司中并不能发挥出来创造高价值，显然是人才和成本的双重浪费。所以更合理的方式是：<strong>高价值 == 高薪资</strong>。</p>
+<p>如何规避这一点呢？</p>
+<ul>
+<li>有梯度地合理引进合适的人才。</li>
+</ul>
+<p>一个组织的发展是有周期的，不同的阶段对于人才的梯度和能力需求是有差别的。因此，在合适的阶段，引进合适的人才，并保证组织内人才梯度的合理化才是更为有效的人才管理方案。</p>
+<ul>
+<li>给予高能力人才发挥的空间。</li>
+</ul>
+<p>对于管理者而言，如何给予人才一定的发挥空间是人才战略中很关键的点。处理不当，要么会导致人才流失，要么会导致人才浪费。</p>
+</blockquote>
+</div>
+</div>
+<div class="section level2">
+<h2>能力的提高</h2>
+<p>此处的<strong>能力</strong>，专指软件编程能力，不含需求分析、项目管理、团队协作等能力。</p>
+<blockquote>
+<p>技术能力，甚至个人能力，并不与薪资收入呈简单的线性关系。收入还收到外部环境的直接影响。</p>
+</blockquote>
+<div class="section level4">
+<h4>工作</h4>
+<p>毫无疑问，对于社会人(相对学生)而言，工作是大多数人提高能力的第一大源动力，同时亦是一大手段。但是，工作的技能知识更多的追求单点学习和击破，缺乏连贯的线式学习，从而在深度上有所欠缺。</p>
+</div>
+<div class="section level4">
+<h4>自习</h4>
+<p>可以说，程序员与程序员之间的差别，如专业学识、技术能力、薪资水平等等，(在智力水平正常的情况下)最主要决定于<strong>自我学习的意识、坚持</strong>。以此为标准，仔细观察自己周围的程序员(不包含计算机科学家，纯工程领域而言)，你会发现，大体可以分为如下几类：</p>
+<ul>
+<li>有意识、有坚持、有探索</li>
+</ul>
+<p>这类程序员不仅满足于学习既有的知识，亦热衷于像科学家一般探索某些事物的本质，进而发现发明或开创某种新的事物。“技术领导者”通常是他们的标签。阅读各类专业论文是他们的一大特质。</p>
+<ul>
+<li>有意识、有坚持</li>
+</ul>
+<p>这类程序员通常会成长为高级程序员、架构师。意识觉醒的早与晚，对于他们的成长和技术水平的高低影响颇重。很多网路上的“牛人”在大学时期就已意识觉醒，而有些人，则在工作数年后才觉醒。但是，毫无疑问，无论早与晚，他们最终都会走在大多数程序员的前列，并搏取到令人羡慕的工作。</p>
+<blockquote>
+<p>当然，就目前国内的情况看，很多“高级程序员、架构师”的能力水平参差不齐，甚而有的徒有虚名。</p>
+</blockquote>
+<ul>
+<li>有意识、无坚持</li>
+</ul>
+<p>这类程序员有一定的意识，但是，却未能长期坚持自我学习，当然，专业能力的提升也显得缓慢而有限。他们的一大特点是，他们知识的来源更多来源离散式学习，而非系统式学习。</p>
+<ul>
+<li>零意识</li>
+</ul>
+<p>很明显，零意识，当然就无所谓坚持了。这类程序员最大的特点就是，工作中只关注上级分派的“一亩三分地”，解决问题时不是Google就是咨询别人，甚少主动思考；业余从不主动学习和了解专业领域的知识，更谈不上完整的读完一本专业书籍了。对于他们而言，工作年限的增长，对其能力水平的提升作用几乎为零。“混”是他们的生活工作哲学，你永远不能期望他独当一面，即使他写了10年的程序，他们是永远的“码农”。</p>
+<blockquote>
+<p>在写这篇文章的时候，我长久思考于“自我学习的意识来自何处？”、“意识和坚持之间有什么联系者么？”，最终，我被引向了著名的论断“兴趣是最好的老师”。兴趣会带来求知欲，而求知欲就是意识的原型；兴趣同时也架起了意识和坚持之间的桥梁。上面四类程序员根本的区别亦在于<strong>“对程序设计的兴趣和热爱度”</strong>。</p>
+</blockquote>
+</div>
+<div class="section level4">
+<h4>离散式学习</h4>
+<p>所谓的“离散”，是相对阅读专业书籍的系统式方式而言的，最普遍的就是google某个网页、查看stackoverflow上的某个问答等等；其锁形成的知识深度和连贯性通常不强。离散式学习的本质特点是，是<strong>学习行为的被动性</strong>，而非知识的载体(博客、杂志等等)。</p>
+<blockquote>
+<p>不可否认的一点是，随着时代的发展，专业书籍已不再是系统性专业知识的唯一载体，很多技术达人的博客已经具有相当的深度和系统性。</p>
+</blockquote>
+</div>
+<div class="section level4">
+<h4>系统式学习</h4>
+<p>专指技术领域内的专业书籍或论文。可以称为“社会中的学生式学习”，只不过没人教你，甚至“课本”也需要你自行甄选。需要<strong>持续大量</strong>的业余时间投入，不易坚持，但一旦长期坚持，技术实力的提升是<strong>质性升华</strong>。</p>
+</div>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

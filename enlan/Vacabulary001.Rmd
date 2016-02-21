@@ -1,0 +1,106 @@
++ **application-deployment technology** - 应用程序部署技术
++ **radix** - 基准数的意思，就是指几进制数。radix = 2 就是指2进制
++ **deprecated** - 不推荐的
++ **Essential** - 本质/深入
++ **MIME，Multipurpose Internet Mail Extensions** - 多用途网路邮件扩展
++ **SMTP, Simple Email Transfer Protocol** - 简单邮件传输协议
++ **Covariance** - 协变性
++ **Contravariance** - 逆变性
++ **Constraint** - 约束性
++ **vice-versa** - 反之亦然。
++ **annotations** - 注解.
++ **trunk** - 主干， SVN的代码路径中经常用到
++ **parameterized types/generic types** - 参数化类型/泛型类型
++ **raw types** - non-generic type,即非泛型类型
++ **primitive types** - 原始类型
++ **president of commerce** - 商业总裁
++ **invocation** - 调用
++ **utility** - 实用工具
++ **shortcuts** - 快捷键
++ **self-signed certificate** - 自签名证书
++ **backwards compatible with** - 向后兼容
++ **perspective** - 远景，透视
++ **Eclipse perspective** - Eclipse视图，比如包视图，代码视图，错误视图
++ **from scratch** - 从头开始
++ **in partnership with** - 以...共同， 与...合作
++ **take advantage of** - 利用..., 充分利用...的优势
++ **storage** - 存储， 存储数据结构（如Table，Queue等等）
++ **in terms of** - 就...而言， 从...方面来说, 从...角度来说
++ **is being pushed by** - 正在被...推动
++ **open Platform for multiple languages** - 多语言开放平台
++ **offer choice to** - 提供机会给...,  允许...
++ **standard Internet protocol** - 网络标准协议，如HTTP， XML, SOAP, REST等等
++ **interoperability page** - 互操作页
++ **alternative** - 选择性的，选择的余地
++ **alternatives** - 替代品
++ **Community Technology Preview** - 技术社区预览版（简称CTP版）， 通常是某个软件发布给开发社区的预览版
++ **chunks** - 块， 是TCP/IP协议中的一种信息载体单位， 其大小必须是8的整数倍。     
++ **order of transmission** - 传输顺序
++ **strategy** - 策略
++ **a ton of** - 一吨的，非常多的
++ **San Francisco** - 洛杉矶
++ **it is sort of like...** - 这有点像...
++ **is responsible for...** - 在负责...，比如我在负责服务器端的开发
++ **wallet** - 钱包
++ **preferences** - （人的）喜好
++ **a trial period** - 在试用期
++ **coupon** - 优惠券
++ **loyalty program** - 忠诚度计划
++ **program** - 程序，计划，规划
++ **bistro** - 小酒馆
++ **Near Field Communication（NFC）** - 近场通信
++ **acquire** - 收购， 买入，兼并
++ **beef up** - 加强补充（人数，兵力等等）， 使...更强大
++ **represent about** - 约占
++ **a roadmap for**  - 针对...的路线图
++ **be embedded in** - 被嵌入在...
++ **latecomeer** - 迟到者
++ **application scene** - 应用场景
++ **fantastically** - 难以置信的。比如：PayPal is doing fantastrically online，在线支付paypal公司已经做得足够好了（难以置信）
++ **online transactions** - 网上交易
++ **mask** - 掩码。 比如IP中的子网掩码。 主要用来进行位操作时，将保留某些位值， 将某些位值置0.
++ **Browser Extention Software** - 浏览器扩展插件
++ **bussiness needs** - 商业需求
++ **specific personal needs** - 个性化需求
++ **make...suitable for...** - 使...更适合（符合）...
++ **bussiness use case** - 商业案例
++ **promotional** - 促销
++ **offers** - 提供
++ **Discount** - 折扣
++ **promotional offers and dicount** - 优惠促销
++ **achieve** - 达成某种目标
++ **track** - 追踪，跟踪
++ **activities** - 活动（比如某软件的各种活动）
++ **accomplish this task** - 完成这项工作
++ **ready-made solution** - 现成的解决方案
++ **retrieve** - 获取，索取。比如get值
++ **intercept** - 拦截
++ **intercept methods call** - 拦截方法调用
++ **interop** - 互操作
++ **outsourcing software company** - 软件外包公司
++ **optimization** - 优化。
++ **performance optimization** - 性能优化
++ **unified** - 统一的
++ **local hard drive** - 本地磁盘
++ **extract the content of zip file** - 解压缩文件
++ **landrush** - 预注册期
++ **stability** - 稳定性。比如： - the speed and stability of Server
++ **elegant** - 优雅，优美，精美。 比如： - elegant API of Platform for developers。 对开发者而言，优雅的平台接口
++ **privacy** - 隐私
++ **revamping** - 改造。 如：- a revamping of Facebook’s privacy setting
++ **apology** - 歉意。 如：issues an apology - 发表歉意
++ **acquisition** - 收购
++ **incorporates** - 结合
++ **be analogous to** - 与...类似。
++ **underscore** - 下划线
++ **Varargs method ** - 可变参数方法
++ **explicitly  ** - 显示
++ **decompose** - 分解
++ **reliable** - 可靠
++ **resulting in** - 造成
++ **leverage** - 促使...改变
++ **is characterized by** - 具有...特点
++ **Greek letter** - 希腊字符，如α，β等等
++ **conversion** - 转换
++ **substitution** - 代换，代替
++ **reducible** - [数] 可化简的；可还原的；可缩小的；可约的

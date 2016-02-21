@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="patrick.unicorn" />
+
+
+<title></title>
+
+
+
+
+<link href="data:text/css,body%20%7B%0A%20%20%20%20font%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0A%20%20%20%20font%2Dsize%3A%2018px%3B%0A%20%20%20%20margin%3A%205%25%2020%25%205%25%2020%25%3B%0A%20%20%20%20padding%3A%202%25%205%25%205%25%205%25%3B%0A%20%20%20%20width%3A%2050%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20border%3A%201px%20solid%20LightGrey%3B%0A%7D%0A%0AH1%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0A%0AH2%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dbottom%3A%2060px%3B%0A%20%20%20%20margin%2Dbottom%3A%2040px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border%2Dbottom%3A%202px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH3%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH4%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0Aul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2010px%3B%0A%7D%0A%0Ali%20%7B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%7D%0A%0Aq%20%7B%0A%20%20%20%20border%2Dleft%3A%204px%20lightgrey%20solid%3B%0A%20%20%20%20padding%2Dleft%3A%205px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20border%3A%20dashed%201px%20lightgrey%3B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20margin%2Dright%3A%2010px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%7D%0A%0A%2Eanswer%2Dblock%20%7B%0A%20%20%20%20word%2Dbreak%3A%20normal%3B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20padding%3A%200px%3B%0A%20%20%20%20margin%3A%200px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%20%20%20%20font%2Dsize%3A%2080%25%3B%0A%20%20%20%20word%2Dwrap%3A%20break%2Dword%3B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f5f5f5%3B%0A%20%20%20%20border%3A%201px%20solid%20%23000%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20overflow%3A%20auto%3B%0A%7D%0A%0A%0Apre%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20%0A%20%20%20%20font%2Dsize%3A%2075%25%3B%20%0A%20%20%20%20border%3A%20solid%201px%20lightgrey%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%3B%20%0A%20%20%20%20padding%3A%205px%3B%20%0A%20%20%20%20line%2Dheight%3A%20130%25%3B%20%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20width%3A%2095%25%3B%0A%7D%0A%0Apre%20code%20%7B%0A%20%20%20%20font%2Dsize%3A%20100%25%20%21important%3B%20%0A%20%20%20%20border%3A%20none%20%21important%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%20%21important%3B%20%0A%20%20%20%20color%3A%20%23000%20%21important%3B%0A%20%20%20%20border%2Dradius%3A%200%20%21important%3B%0A%20%20%20%20padding%3A%200%200%20%21important%3B%0A%7D%0A%0A%0Acode%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20padding%3A%202px%204px%3B%0A%20%20%20%20color%3A%20%23d14%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f7f7f9%3B%0A%20%20%20%20border%3A%201px%20solid%20%23e1e1e8%3B%0A%20%20%20%20border%2Dradius%3A%203px%3B%0A%7D%0A%0A%0Aa%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20crosshair%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20dashed%20Red%3B%0A%20%20%20%20padding%3A%201px%3B%0A%20%20%20%20color%3A%20black%3B%0A%7D%0A%0A%0Aa%3Ahover%20%7B%0A%09background%2Dcolor%3A%20LightGrey%3B%0A%7D%0A%0A%0Aimg%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20box%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dtop%3A%2010px%3B%0A%20%20%20%20margin%2Dbottom%3A%2010px%3B%0A%20%20%20%20%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%09width%3A%20100%25%3B%0A%7D%0A%0A%0Ahr%20%7B%0A%20%20%20%20color%3A%20LightGrey%3B%0A%7D%0A%0Atable%2C%20th%2C%20td%20%20%7B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%20%20border%3A%20solid%201px%20black%3B%0A%7D%0A%0Ath%20%7B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0Atd%20%7B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20text%2Dalign%3A%20left%3B%20%20%20%20%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+
+<div id="java" class="section level1">
+<h1>Java碎碎念之性能</h1>
+<p><strong>声明：</strong> 所写均为个人阅读所思所想，请批判阅读。</p>
+<p><quote> 读书笔记之目的，一在加深理解、巩固记忆，二在摘取精要、厚书读薄。 – 无名 </quote></p>
+<hr />
+<p>读《Java程序性能调优》笔记，外加自己的一些实践经验总结。</p>
+<div class="section level2">
+<h2>性能指标</h2>
+<ul>
+<li>执行时间</li>
+</ul>
+<p>一段代码运行到结束的时间。</p>
+<ul>
+<li>CPU时间</li>
+</ul>
+<p>函数或线程占用CPU时间。</p>
+<ul>
+<li>内存分配</li>
+</ul>
+<p>程序运行时占用内存。</p>
+<ul>
+<li>磁盘吞吐量</li>
+</ul>
+<p>描述系统磁盘I/O的使用情况。</p>
+<ul>
+<li>网络吞吐量</li>
+</ul>
+<p>描述网络I/O的使用情况。</p>
+<ul>
+<li>响应时间</li>
+</ul>
+<p>系统对用户行为或者事件作出响应的时间。响应时间越短，性能越好。</p>
+</div>
+<div class="section level2">
+<h2>调优层次</h2>
+<div class="section level3">
+<h3>设计调优</h3>
+<p>从架构设计层次调优。比如架构单独的分布式缓存层</p>
+</div>
+<div class="section level3">
+<h3>代码调优</h3>
+<p>针对局部代码片段。比如常见的低延迟网络程序中，需要关闭Nagle算法，因此需要设置socket的nodelay属性等等。</p>
+<div class="section level4">
+<h4>字符串</h4>
+<ul>
+<li>StringBuilder</li>
+</ul>
+<p>由于String的不可变性，对于大量字符串的<code>+</code>接操作会占用过多的内存空间，性能低效还可能内存溢出。如果只是字符串常量的<code>+</code>，那么编译器会进行自动优化。而字符串变量的情况，则需要使用StringBuilder优化。</p>
+<p>默认情况下，其capacity为16。如果超出容量，会在原有容量上加倍扩容。因此，对于容量字符串，如果能够预先估计好StringBuilder的容量，那么可以提高性能。</p>
+<ul>
+<li>subString</li>
+</ul>
+<pre>
+String a = &quot;abc&quot;;
+String b = &quot;abc&quot;;
+String c = new String(&quot;abc&quot;);
+
+a==b; // true
+a==c; // false
+</pre>
+<p>该函数内部实现时，使用了public String(char value[], int offset, int count)，而该构造函数为了提高性能，采用了偏移量方式，即截取的字串对象其实包含了被截取字串的所有内容，仅仅是通过标识偏移量和长度来确定实际取值。这种方式以空间换取时间，但是当原始字串很大时，多次调用该方法有可能导致内存溢出。</p>
+<pre>
+String a = &quot;<one long string>&quot;;
+
+// 空间换时间，速度很快，但如果多次执行可能会导致内存溢出
+a.subString(0, 2); 
+
+// 重新生成一个字符对象，使得subString方法返回的字符对象失去强引用，
+// 可以被垃圾回收，避免内存溢出
+new String(a.subString(0, 2)); 
+</pre>
+<p><quote> 其他依赖public String(char value[], int offset, int count)构造函数的字符串方法，也可能有同样的问题，也应注意。 </quote></p>
+<ul>
+<li>split</li>
+</ul>
+<p>split支持正则表达式，功能强大。但是对于简单的情况，可以使用功能单一性能更高的<code>StringTokenizer</code>。 也可以直接使用高效率的<code>indexOf</code>和<code>subString</code>配合实现分割字符串，这样性能最高，但是维护性较差，只有当性能非常敏感时才值得考虑自定义实现。</p>
+</div>
+<div class="section level4">
+<h4>数据结构</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">类型</th>
+<th align="center">添加</th>
+<th align="center">查找</th>
+<th align="center">删除</th>
+<th align="center">索引查找</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">T[]</td>
+<td align="center">O(n)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n)</td>
+<td align="center">O(1)</td>
+</tr>
+<tr class="even">
+<td align="left">LinkedList<T></td>
+<td align="center">O(1)</td>
+<td align="center">O(n)</td>
+<td align="center">O(1)</td>
+<td align="center">O(n)</td>
+</tr>
+<tr class="odd">
+<td align="left">List<T></td>
+<td align="center">O(1)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n)</td>
+<td align="center">O(1)</td>
+</tr>
+<tr class="even">
+<td align="left">Stack<T></td>
+<td align="center">O(1)</td>
+<td align="center">-</td>
+<td align="center">O(1)</td>
+<td align="center">-</td>
+</tr>
+<tr class="odd">
+<td align="left">Queue<T></td>
+<td align="center">O(1)</td>
+<td align="center">-</td>
+<td align="center">O(1)</td>
+<td align="center">-</td>
+</tr>
+<tr class="even">
+<td align="left">Hash<T></td>
+<td align="center">O(1)</td>
+<td align="center">O(1)</td>
+<td align="center">O(1)</td>
+<td align="center">-</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="nio" class="section level4">
+<h4>NIO</h4>
+<p>替换BIO。</p>
+</div>
+<div class="section level4">
+<h4>技巧</h4>
+<ul>
+<li><p>慎用异常</p></li>
+<li><p>尽量使用局部变量，减少全局变量</p></li>
+<li><p>位运算替代乘除</p></li>
+</ul>
+<p>会降低可读性，慎用。</p>
+<ul>
+<li>表查询替代switch</li>
+</ul>
+<pre>
+int func1(int index) {
+    switch(index) {
+        case 1: return 30;
+        case 2: return 20;
+        case 3: return 80;
+        case 10: return 81;
+        default: return 10;
+    }
+}
+
+int func2(int index) {
+    // 也可以使用数组
+    Hash<Integer, Integer> m = new HashMap();
+    m.put(1, 30);
+    m.put(2, 20);
+    m.put(3, 80);
+    m.put(10, 81);
+    
+    Integer ret = m.get(index);
+    if (ret == null) {
+        return 10
+    }
+    return ret;
+}
+</pre>
+<ul>
+<li><p>使用System.arraycompy函数复制数组</p></li>
+<li><p>使用缓冲读取IO</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="left">原类</th>
+<th align="left">缓冲类</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">InputStream</td>
+<td align="left">BufferedInputStream</td>
+</tr>
+<tr class="even">
+<td align="left">OutputStream</td>
+<td align="left">BufferedOutputStream</td>
+</tr>
+<tr class="odd">
+<td align="left">Reader</td>
+<td align="left">BufferedReader</td>
+</tr>
+<tr class="even">
+<td align="left">Writer</td>
+<td align="left">BufferedWriter</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="jvm" class="section level3">
+<h3>JVM调优</h3>
+<p>调整JVM的各项参数。比如堆内存等等。</p>
+</div>
+<div class="section level3">
+<h3>数据库调优</h3>
+<p>比如使用select时，避免使用*。</p>
+</div>
+<div class="section level3">
+<h3>操作系统调优</h3>
+<p>调整操作系统的某些参数或系统硬件。</p>
+</div>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+---
+author: "patrick.unicorn"
+output:
+  html_document:
+    css: ../../css/main.css
+    highlight: null
+    theme: null
+---
+
+Gradle
+===
+
+* * *
+
++ Java构建工具对比
+
+|工具|优点|缺点|
+|--|--|--|
+|Ant|灵活性、完全控制、目标链|繁琐、不易读、XML表达能力有限|
+|Ivy|依赖管理|不是完整的构建工具|
+|Maven|约定优于配置、多模块项目、插件扩展|插件不易扩展、XML表达能力有限|
+|Gant|基于Ant提供DSL||
+|Gradle|博采众家之长、兼容Ant和Maven项目|深入使用需要学习Groovy、学习成本高|
+
++ Gradle脚本中的每一个元素都有一个Java类一一映射。Gradle基本工作单元是Task，这与Grant类似。
+
++ Gradle的DSL是由Groovy实现的，所有的构建脚本本身就是Groovy编程语言，甚至可以使用Java去编写脚本，但相比Groovy，会很繁琐。
+
++ Gradle采用了和Maven类似的指导思想：**约定优于配置**和**规定构建生命周期**。其默认项目结构与maven一致。
+
+<blockquote>
+[compile java]/[process resource] -> classes -> jar -> assemble -> build
+</blockquote>
+
++ Maven中一个项目必须只能设定一个源代码目录和生产一个Jar包。而在Gradle中，均可以有多个。Maven太**武断**，而Ant太灵活（没有任何约定默认值），Grandle则**折中取之**。
+
++ Gradle支持**部分构建**，而不是改动一个**小点**，就需要全局Clean并重新构建。
+
++ Gradle中定制构建逻辑有两种主要的方法：基于Task和基于插件。后者可以使用Gradle的所有API，并且可以被多个项目重用。
+
++ Gradle完全兼容Ant、Maven。通过Gradle提供的转换器，可以将Maven构建逻辑转换为Gradle构建脚本。而对于Ant，其target直接映射为Gradle的task。Maven和Ivy的仓库是完全被Gradle支持的。
+
++ Gradle包装器允许**执行构建的机器**从指定的仓库下载并安装一个Gradle运行时，这对于持续集成服务器或者分享构建非常有用。
+
++ 可以在**GRADLE_HOME/bin**下的Gradle启动脚本中设置一些启动参数，比如JVM的最大内存等等。
+
++ Gradle默认的构件脚本文件名是**build.gradle**。
+
++ `gradle -q <task name>`执行某个task，`-q`表示**quiet**，只输出该task的信息。
+
++ 定义任务
+
+```
+task helloworld {
+    doLast {
+        println 'Hello World'
+    }
+}
+
+等价于
+
+task helloworld << {
+    println 'Hello World'
+}
+```
+
++ `gradle -q tasks [--all]`查看当前定义的所有task信息
+
++ `gradle -D[参数名]=[参数值]`，与Maven一样，可以给Gradle运行时的JVM传入运行参数
+
++ `gradle -P[参数名]=[参数值]`，可以给脚本动态运行时传入参数，该参数可以被脚本所使用，典型应用如传入**具体要编译的目标环境[测试、开发、产品]**。
+
++ `gradle -b [构建脚本文件名]` 默认gradle的构建文件名是build.gradle，可以通过该选项制定其他名称的构件脚本文件。
+
++ `gradle -i` 将输出日志级别设置为INFO，这样可以看到更多详细的日志信息。
+
++ `gradle - s` 可以在出现错误时，打印出堆栈信息
+
++ `gradle properties` 显示出当前项目中所有可用的属性，包括**脚本文件中定义的**、**通过命令行[-P]传入的**、**属性文件**。
+
++ Grade提供了守护进程，可以避免每次构建都重新加载JVM，这样可以极大的提高效率。 执行命令时，加入`-daemon`就可以。 该进程在3个小时空闲后，会自动关闭。 也可以使用`gradel --stop`主动关闭。 如果希望构件时不使用守护进程，可以加入`--no-daemon`。
+
++ 

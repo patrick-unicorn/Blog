@@ -1,0 +1,26 @@
+Liskov Substitution principle
+========================================================
+
+## Subclass & Subtype
+
++ Subtyping(子类型化)
+
++ Subclassing(子类化)
+
+## 里氏置换原则
+
+里氏替换原则：应尽量满足父类可以被子类型（这里的子类型并非指通常的”子类化subclassing“，而是”子类型化subtyping“。简而言之，A subclass of B指A派生与B；而A subtype of B指A被当做B的子类型，A不一定派生于B）替换。要满足这一原则，那么在设计类时，对于父类的方法，子类中的该方法的前置条件应该比父类更严格(少)，后置条件比父类更宽松(多)。前置条件可以包含参数类型，后置条件包括返回类型。因此，就不难理解C#中得委托类型，为什么要求委托的参数类型协变，而返回类型逆变，因为这样满足里氏置换原则。
+
+```
+class Son extends Parent {
+
+}
+```
+
+如果泛型参数支持类型**协变**（在java不可选，在scala中可以设定），那么：
+
+List<Son>是List<Parent>的子类型（subtype）。
+
+如果泛型参数支持类型**逆变**（在java不可选，在scala中可以设定），那么：
+
+List<Parent>是List<Son>的子类型（subtype）。

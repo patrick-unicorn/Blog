@@ -1,0 +1,222 @@
+---
+author: "patrick.unicorn"
+output:
+  html_document:
+    css: ../css/main.css
+    highlight: null
+    theme: null
+---
+
+C#碎碎念之委托
+===
+
+**声明：** 所写均为个人阅读所思所想，请批判阅读。
+
+* * *
+
+## Perspectives
+
++ C/C++视角
+
+可称委托是个“类型安全的函数指针”。此处的“类型安全”是指，委托本身附带了**函数签名**信息。
+
+
++ Java视角
+
+可称委托是个“单方法接口”。我一直认为委托的缺失是Java语言的重大缺陷之一，尽管可以通过单方法接口去模拟委托，但是，当你在处理GUI事件体系时，这会导致大量繁琐的工作。庆幸的是，随着Java8语言特性的扩充，已经引入了“函数式接口(functional interface)”，虽然只是个语法糖，但是于编程层面来说已经方便了不少。
+
++ OOP视角
+
+可以理解为“对函数的对象化封装”。委托使得函数得以如对象一般创建、传递。
+
+<!--more-->
+
++ GOF视角
+
+如果说GOF23种模式之间的共同点可以总结为一句话：“如果问题复杂，就引入间接层”。这句话同样适用于委托(模式)，委托就相当于是客户(环境)和函数之间的间接层。
+
++ 函数式编程视角
+
+事实上，在初步接触Scheme的相关知识后，我发现委托几乎就是为“函数式编程”而生的，委托暗含了函数式编程的思想本质：“函数就是数据，数据也是函数”，更广泛而通用的表述是“程序即数据，数据即程序”。而当有了这样一种认识之后，我的编程世界观也会变得更加丰富多彩。这也是我个人学习Scheme的一个重要诱因：不是学习Scheme的语法或使用，而是Scheme的函数式编程世界观。
+
+## Delegate and Lambda
+
+Lambda即Lambda表达式，其所指代的是函数式编程。匿名委托和Lambda基本是等价的，只不过后者具有更简洁的形式。我认为在一定程度上，可以将Lambda理解为“语法简化的委托”。
+
+## Delegate and Event
+
+首先需要明确的一点是“事件不是委托，委托也不是事件”。
+
++ 事件表述“发生什么”。
+
++ (与事件关联的)委托表述“执行什么”。
+
+两者之间的关系可以表述为：`客户环境 --> 事件(event) --> 委托(--> 函数)`，有点类似`客户环境 --> 属性(property) --> 字段`中属性扮演的角色。事件最重要的作用即是“封装并简化”发布/订阅模式。如果要理解“事件(event)”存在的意义，可以设想下“如果没有事件(event)会发生什么情况”：
+
++ 基于delegate实现发布订阅模式(无event)
+
+```
+class Publisher {
+
+    public delegate void SomeEventHandler(object paramters);
+    
+    public SomeEventHandler someEvent;
+    
+    public void onSomeEventHappen(object paramters) {
+        someEvent(paramters);
+    }
+
+}
+
+class Subscriber {
+
+    public void SomeEventHander1(object paramters) {
+        Console.WriteLine("{0}", "1");
+    }
+    
+    public void SomeEventHander2(object paramters) {
+        Console.WriteLine("{0}", "2");
+    }
+
+}
+
+class Customer {
+
+    private Publisher p = new Publisher();
+    
+    private Subscriber s = new Subscriber();
+    
+    public static void Main() {
+        Customer c = new Customer();
+        
+        // add SomeEventHander1
+        c.p.someEvent += c.s.SomeEventHander1;
+        // remove SomeEventHander1
+        c.p.someEvent -= c.s.SomeEventHander1;
+        c.p.someEvent += c.s.SomeEventHander1;
+        
+        // (1)
+        // reassign the p.someEventHandler
+        c.p.someEvent = c.s.SomeEventHander2; 
+        // invoke the handler in outer class
+        c.p.someEvent(null);
+    }
+
+}
+
+output: 2
+```
+
++ 基于event实现发布订阅模式
+
+```
+class Publisher {
+
+    public delegate void SomeEventHandler(object paramters);
+    
+    public event SomeEventHandler someEvent;
+    
+    public void onSomeEventHappen(object paramters) {
+        // valid: invoke in the class that published event.
+        someEvent(paramters);
+    }
+
+}
+
+class Subscriber {
+
+    public void SomeEventHander1(object paramters) {
+        Console.WriteLine("{0}", "1");
+    }
+    
+    public void SomeEventHander2(object paramters) {
+        Console.WriteLine("{0}", "2");
+    }
+
+}
+
+class Customer {
+
+    private Publisher p = new Publisher();
+    
+    private Subscriber s = new Subscriber();
+    
+    public static void Main() {
+        Customer c = new Customer();
+        // add SomeEventHander1
+        c.p.someEvent += c.s.SomeEventHander1;
+        // remove SomeEventHander1
+        c.p.someEvent -= c.s.SomeEventHander1;
+        c.p.someEvent += c.s.SomeEventHander1;
+        
+        // (2)
+        // invalid: reassign in the outer class
+        c.p.someEvent = c.s.SomeEventHander2;
+        // invalid: invoke in the outer class
+        c.p.someEvent(null);
+    }
+
+}
+```
+
+从上面的例子可以看出，两种情况的关键不同在于`(1)`和`(2)`处对`someEventHandler`操作的不同：
+
++ 在基于委托的例子中，既可以对事件处理函数**增减**，也可以**重新赋值**事件处理函数。
+
++ 在基于事件的例子中，只能对事件处理函数**增减**，不能**重新赋值(覆盖)**原有的事件处理函数。
+
+也就是说event关键字相当于限制了事件处理函数的操作(**在事件类外部**)只能增减，不能赋值(覆盖)或调用等其他操作。
+
+## Usage
+
+### Basic
+
+委托是个“函数类类型”。与int用于定义整型类似，delegate用于定义**某种类型函数的类型**。
+
+```
+class Demo {
+    // 定义委托类型
+    public delegate void Processor(string param);
+    
+    public static void ProcessBill(string orderNo) {
+        ...
+    }
+    
+    // 定义委托对象
+    Processor processor0 = new Processor(Demo.ProcessBill);
+    Processor processor1 = Demo.ProcessBill;
+}
+```
+
+注：在实际的使用中，并不严格要求委托实例和委托类型的函数签名完全一致(逆变与协变)，具体可以参看C#相关文档。
+
+### Method Chain
+
+委托实例可以引用一组方法。如下：
+
+```
+class Demo {
+    // 定义委托类型
+    public delegate void Processor(string param);
+    
+    public static void ProcessBill(string orderNo) {
+        ...
+    }
+    
+    public static void ProcessDistribution(string orderNo) {
+        ...
+    }
+    
+    // 定义委托对象
+    Processor processor += Demo.ProcessBill;
+    processor += Demo.ProcessDistribution;
+}
+```
+
+几点注意：
+
++ 只有最后一个有返回值的函数的返回值可以被返回，其他函数的返回值会直接忽略。
+
++ 如果某个函数调用出现异常，则委托链之后的函数均**不会调用**。
+
+其实委托的这一链式特性，就是GOF中职责链模式的一种简化形式。

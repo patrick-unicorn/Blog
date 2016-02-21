@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="patrick.unicorn" />
+
+
+<title></title>
+
+
+
+
+<link href="data:text/css,body%20%7B%0A%20%20%20%20font%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0A%20%20%20%20font%2Dsize%3A%2018px%3B%0A%20%20%20%20margin%3A%205%25%2020%25%205%25%2020%25%3B%0A%20%20%20%20padding%3A%202%25%205%25%205%25%205%25%3B%0A%20%20%20%20width%3A%2050%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20border%3A%201px%20solid%20LightGrey%3B%0A%7D%0A%0AH1%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0A%0AH2%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dbottom%3A%2060px%3B%0A%20%20%20%20margin%2Dbottom%3A%2040px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border%2Dbottom%3A%202px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH3%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH4%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0Aul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2010px%3B%0A%7D%0A%0Ali%20%7B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%7D%0A%0Aq%20%7B%0A%20%20%20%20border%2Dleft%3A%204px%20lightgrey%20solid%3B%0A%20%20%20%20padding%2Dleft%3A%205px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20border%3A%20dashed%201px%20lightgrey%3B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20margin%2Dright%3A%2010px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%7D%0A%0A%2Eanswer%2Dblock%20%7B%0A%20%20%20%20word%2Dbreak%3A%20normal%3B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20padding%3A%200px%3B%0A%20%20%20%20margin%3A%200px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%20%20%20%20font%2Dsize%3A%2080%25%3B%0A%20%20%20%20word%2Dwrap%3A%20break%2Dword%3B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f5f5f5%3B%0A%20%20%20%20border%3A%201px%20solid%20%23000%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20overflow%3A%20auto%3B%0A%7D%0A%0A%0Apre%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20%0A%20%20%20%20font%2Dsize%3A%2075%25%3B%20%0A%20%20%20%20border%3A%20solid%201px%20lightgrey%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%3B%20%0A%20%20%20%20padding%3A%205px%3B%20%0A%20%20%20%20line%2Dheight%3A%20130%25%3B%20%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20width%3A%2095%25%3B%0A%7D%0A%0Apre%20code%20%7B%0A%20%20%20%20font%2Dsize%3A%20100%25%20%21important%3B%20%0A%20%20%20%20border%3A%20none%20%21important%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%20%21important%3B%20%0A%20%20%20%20color%3A%20%23000%20%21important%3B%0A%20%20%20%20border%2Dradius%3A%200%20%21important%3B%0A%20%20%20%20padding%3A%200%200%20%21important%3B%0A%7D%0A%0A%0Acode%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20padding%3A%202px%204px%3B%0A%20%20%20%20color%3A%20%23d14%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f7f7f9%3B%0A%20%20%20%20border%3A%201px%20solid%20%23e1e1e8%3B%0A%20%20%20%20border%2Dradius%3A%203px%3B%0A%7D%0A%0A%0Aa%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20crosshair%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20dashed%20Red%3B%0A%20%20%20%20padding%3A%201px%3B%0A%20%20%20%20color%3A%20black%3B%0A%7D%0A%0A%0Aa%3Ahover%20%7B%0A%09background%2Dcolor%3A%20LightGrey%3B%0A%7D%0A%0A%0Aimg%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20box%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dtop%3A%2010px%3B%0A%20%20%20%20margin%2Dbottom%3A%2010px%3B%0A%20%20%20%20%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%09width%3A%20100%25%3B%0A%7D%0A%0A%0Ahr%20%7B%0A%20%20%20%20color%3A%20LightGrey%3B%0A%7D%0A%0Atable%2C%20th%2C%20td%20%20%7B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%20%20border%3A%20solid%201px%20black%3B%0A%7D%0A%0Ath%20%7B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0Atd%20%7B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20text%2Dalign%3A%20left%3B%20%20%20%20%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+
+<div class="section level1">
+<h1>类型乱弹</h1>
+<p><strong>声明：</strong> 所写均为个人阅读所思所想，请批判阅读。</p>
+<hr />
+<div id="concept" class="section level2">
+<h2>Concept(概念)</h2>
+<p>程序设计语言中的类型非常类似于人类社会中的“角色(role)”概念。正如不同的“角色”承担一定的职责行为一样，不同的类型也支持固定的操作集合。</p>
+<p>以集合论的视角观察类型系统，会对很多类型的相关概念有更加清晰的理解。类型就是一个值域(集合)，而类型系统则是类型集合，如下：</p>
+<ul>
+<li>整数类型 {0, 1, 2, 3, 4 ···}</li>
+<li>实数类型 {0.1, 1, 2.4 ···}</li>
+</ul>
+<p>那么，类型系统就可以表述为{{1, 2, 3, 4 ···}, {0.1, 1, 2.4 ···} ···}。下面是一些集合论与类型论中相似概念的对应关系：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">集合论</th>
+<th align="left">类型论</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">超集</td>
+<td align="left">超类或接口</td>
+</tr>
+<tr class="even">
+<td align="left">子集</td>
+<td align="left">子类</td>
+</tr>
+<tr class="odd">
+<td align="left">包含</td>
+<td align="left">继承或实现</td>
+</tr>
+<tr class="even">
+<td align="left">相交</td>
+<td align="left">实现同一接口或继承同一超类</td>
+</tr>
+<tr class="odd">
+<td align="left">联合</td>
+<td align="left">多继承或多接口实现</td>
+</tr>
+<tr class="even">
+<td align="left">集合的集合</td>
+<td align="left">基本类型构成符合类型</td>
+</tr>
+<tr class="odd">
+<td align="left">空集合</td>
+<td align="left">空类型</td>
+</tr>
+</tbody>
+</table>
+<p><strong>类型</strong>隐含如下各项：</p>
+<ul>
+<li><p>类型元素的物理存储大小</p></li>
+<li><p>类型元素的操作集</p></li>
+<li><p>类型元素的共性和范畴</p></li>
+</ul>
+<p><strong>类型系统</strong>隐含如下各项：</p>
+<ul>
+<li><p>各种内置类型</p></li>
+<li><p>类型扩展机制</p></li>
+</ul>
+<p>如OOP中的class机制。</p>
+<ul>
+<li>类型相容规则</li>
+</ul>
+<p>比如在通常的OOP语言中，子类可以赋值给父类型引用变量；Java中支持数组协变而不支持泛型协变等等。</p>
+<ul>
+<li>类型推断规则</li>
+</ul>
+<div id="necessity" class="section level3">
+<h3>Necessity(必要性)</h3>
+<p>对于程序语言而言，类型系统是必须的么？这取决于我们观察的角度。就语法层面而言，类型系统并非必须；但在程序执行层面，类型系统是必须的。因为计算机程序的本质是二进制数值计算，因此，在执行层面至少存在数值类型。</p>
+<p>程序语言引入类型系统的优点：</p>
+<ul>
+<li><p>增强程序可读性</p></li>
+<li><p>排除程序错误</p></li>
+</ul>
+<p>在编译时或运行时，可以通过一些手段(如编译器类型检查等)，提前发现某些不合法的操作，如将一个整数赋值给字符串引用。</p>
+</div>
+<div id="variance" class="section level3">
+<h3>Variance(变异性)</h3>
+<p>变异性是指那些由简单类型构成的<strong>复杂类型之间的子类型化(subtyping)</strong>，比如，数组、泛型、委托等复杂类型的子类型化。比如下面的例子中：</p>
+<pre class="java"><code>Object[] objectArray = new String[] {&quot;unicorn&quot;};
+System.out.println(Arrays.toString(objectArray));</code></pre>
+<p><code>String[]</code>类型可以看做是<code>Object[]</code>类型的<strong>子类(化)</strong>。</p>
+<p>根据子类化关系可以对变异性进行相应的分类：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">子类化(subtyping)关系</th>
+<th align="left">变异性(variance)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">保留(preserved)</td>
+<td align="left">协变(covariant)</td>
+</tr>
+<tr class="even">
+<td align="left">反转(reversed)</td>
+<td align="left">逆变(contravariance)</td>
+</tr>
+<tr class="odd">
+<td align="left">忽略(ignored)</td>
+<td align="left">不可变异(invaricance)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>协变(covariant)</li>
+</ul>
+<p>在子类化中，如果确保<strong>从特殊类型向一般类型变异</strong>，那么，就说这一过程是协变。</p>
+<ul>
+<li>逆变(contravariance)</li>
+</ul>
+<p>在子类化中，如果确保<strong>从一般类型向特殊类型变异</strong>，那么，就说这一过程是逆变。</p>
+<p>有一点需要明确的是<strong>协变与逆变在带来一定灵活性的同时，也某种程度上破坏了静态类型系统所带来的类型安全性</strong>。</p>
+<div class="section level4">
+<h4>常见复杂类型的协变与逆变</h4>
+<div class="section level5">
+<h5>数组</h5>
+<ol style="list-style-type: decimal">
+<li>协变</li>
+</ol>
+<pre class="csharp"><code>object[] objectArray = new string[] {&quot;unicorn&quot;};
+foreach (string item in objectArray) {
+    Console.WriteLine(item);
+}</code></pre>
+<p>上面的例子上，如果<code>objectArray</code>是可变的(mutable)，并且在之后的代码中可写入非string类型元素，那么，当最终客户环境使用<code>objectArray</code>时，就会出现类型不安全。如果需要协变后类型安全，则应<strong>确保<code>objectArray</code>不可变(immutable)或不可写</strong>。</p>
+<ol start="2" style="list-style-type: decimal">
+<li>逆变</li>
+</ol>
+<pre class="csharp"><code>string[] objectArray = new object[] {&quot;unicorn&quot;};
+foreach (string item in objectArray) {
+    Console.WriteLine(item);
+}</code></pre>
+<p>上面的例子中，如果<code>objectArray</code>在之后不可读，那么，是类型安全的。但是因为在实际的情况中，不可读只可写的数据比较少见，因此，大多数情况下数组逆变都会导致类型不安全。这也是大多数的编程语言不支持数组逆变的原因。</p>
+</div>
+<div class="section level5">
+<h5>函数</h5>
+<p>对于函数式语言而言，函数作为First-Class成员，是有着函数子类化的实际需求的。而对于OOP语言，也部分存在函数子类化需求。这里所说的函数子类化(subtyping)具体是指对函数参数类型和返回值类型的子类化(subtyping)。函数子类化基本规则如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">输入参数</th>
+<th align="left">返回值参数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">逆变</td>
+<td align="left">协变</td>
+</tr>
+</tbody>
+</table>
+<p>使用这一规则的原因在于保证函数内部逻辑和外部使用安全。对于输入参数而言，通过逆变，可以确保函数的前置条件更加严格，避免外部传入更一般的参数导致函数内部行为错误。对于返回值参数而言，通过协变，可确保函数的后置条件更加宽松，</p>
+<ol style="list-style-type: decimal">
+<li>委托类型</li>
+</ol>
+<p>在之前的文章中有提到，C#委托类型就是函数类型，当函数作为数据可传递时，那么，对于函数类型而言，其本身也存在子类化需求。</p>
+<pre class="csharp"><code>class Program {
+
+    public delegate object DP1(string param);
+
+    public delegate string DP2(object param);
+
+    static void Main(string[] args) {
+        // 输入 - 逆变; 输出 - 协变
+        DP1 dp1 = new DP1(F1);
+        // 输入 - 逆变; 输出 - 协变
+        DP2 dp2 = new DP2(F2);  // error
+    }
+
+    private static string F1(object param) {
+        Console.WriteLine(&quot;F1&quot;);
+        return null;
+    }
+
+    private static object F2(string parma) {
+        Console.WriteLine(&quot;F2&quot;);
+        return null;
+    }
+}</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>覆写函数</li>
+</ol>
+<p>对于没有委托的OOP语言，如Java，在子类继承或实现超类(或接口)覆写(override)方法时，也存在函数子类化需求。</p>
+<pre class="java"><code>class Parent {
+        
+        protected String f0(Object param) {
+            throw new NotImplementedException();
+        }
+
+        protected Object f1(String param) {
+            throw new NotImplementedException();
+        }
+        
+        protected String f3(String param) {
+            throw new NotImplementedException();
+        }
+        
+        protected Object f4(String param) {
+            throw new NotImplementedException();
+        }
+        
+    }
+    
+class Son extends Parent {
+    
+    // error
+    @Override
+    protected String f0(String param) {
+        throw new NotImplementedException();
+    }
+    
+    // error
+    @Override
+    protected Object f1(Object param) {
+        throw new NotImplementedException();
+    }
+    
+    // error
+    @Override
+    protected Object f3(String param) {
+        throw new NotImplementedException();
+    }
+    
+    protected String f4(String param) {
+        return null;
+    }
+    
+}</code></pre>
+<p>Java中仅支持子类返回值协变(从子类到超类视角看)，C#中返回值和参数类型必须完全匹配。</p>
+</div>
+<div class="section level5">
+<h5>泛型</h5>
+<p>泛型中类型参数的子类化通常是可以自定义的，比如C#中的<code>interface IList&lt;out T&gt;</code>，Java中的<code>interface List&lt;? extends String&gt;</code>等。</p>
+<ol style="list-style-type: decimal">
+<li>C#</li>
+</ol>
+<p>C#中自定义子类化的方式称为“Declaration-site variance annotations”，使用关键字<code>out</code>用定义泛型方法协变，关键字<code>in</code>用以定义泛型方法逆变，如果不修饰，则不可变异。有点必须注意的是，上面的方式只能作用域接口声明，不能用于类。</p>
+<pre class="c#"><code>// error
+class Parent&lt;out T&gt; {
+    ...
+}</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Java</li>
+</ol>
+<pre class="java"><code>class Parent&lt;? extends String&gt; {
+    ...
+}</code></pre>
+<p><strong>泛型的逆变和协变比较复杂，目前还在继续研究中…之后需要补齐这一段。</strong></p>
+</div>
+</div>
+</div>
+</div>
+<div id="category" class="section level2">
+<h2>Category(分类)</h2>
+<div id="static-dynamic" class="section level3">
+<h3>Static &amp; Dynamic(静态类型与动态类型)</h3>
+<ul>
+<li><p>静态类型 变量类型在编译时已知</p></li>
+<li><p>动态类型 变量类型编译时不可知，运行时可知</p></li>
+</ul>
+</div>
+<div id="explicit-implicit" class="section level3">
+<h3>Explicit &amp; Implicit(显示类型与隐式类型)</h3>
+<p>显示类型和隐式类型的讨论只限于静态类型语言。</p>
+<ul>
+<li><p>显示类型 声明中显示定义变量类型</p></li>
+<li><p>隐式类型 允许编译器对变量类型进行合理推断</p></li>
+</ul>
+<p>C#中引入的<code>var</code>关键字支持隐式类型(推断)。</p>
+</div>
+<div id="safe-unsafe" class="section level3">
+<h3>Safe &amp; Unsafe(类型安全与类型不安全)</h3>
+<ul>
+<li><p>类型安全 不同类型的数据必须进行(隐式或显示)转换</p></li>
+<li><p>类型不安全 类型A的值有可能不经转换的执行为另外类型的值</p></li>
+</ul>
+<p>C/C++中的指针就不是类型安全的。</p>
+</div>
+<div id="value-reference" class="section level3">
+<h3>Value &amp; Reference(值类型与引用类型)</h3>
+<ul>
+<li>值类型</li>
+</ul>
+<p>变量(值存储地址) –&gt; 实际值</p>
+<p>C#枚举是值类型；Java枚举是不可变引用类型</p>
+<ul>
+<li>引用类型</li>
+</ul>
+<p>变量(存储引用值的地址) –&gt; 引用值(实际变量值的地址) –&gt; 实际变量值</p>
+<p>无论是值类型还是引用类型，他们都不是再传递“值或对象”。值变量传递时，先复制实际变量值，并将复制后的新变量的“地址”传过去；引用变量传递时，直接将引用值传递过去。也就是说，两者的根本区别在于<strong>传递时是否复制副本</strong>。另外，对于局部变量，一般是分配在栈上，而不是堆上，因此，在函数退出后会自动“弹出”，而不需要GC的介入。</p>
+</div>
+</div>
+<div id="reference" class="section level2">
+<h2>Reference</h2>
+<ul>
+<li><p><a href="http://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)">Covariance And Contravariance</a></p></li>
+<li><p><a href="http://en.wikipedia.org/wiki/Subtyping">Subtyping</a></p></li>
+<li><p><a href="http://coolshell.cn/articles/10169.html">Coolshell</a></p></li>
+</ul>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

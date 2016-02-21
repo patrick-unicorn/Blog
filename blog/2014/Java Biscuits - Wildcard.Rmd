@@ -1,0 +1,17 @@
+---
+title: "Java Biscuits - Wildcard"
+author: "patrick.unicorn"
+date: "Tuesday, November 18, 2014"
+output: html_document
+---
+
+## Background(背景知识)
+
+#### Covariance(协变性)
+
+
+#### Contravariance(逆变性)
+
+## Meaning
+
+## Usage

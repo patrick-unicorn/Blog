@@ -1,0 +1,173 @@
+**声明：** 所写均为个人阅读所思所想，限于知识层次和结构，难免有错误遗漏之处，请批判阅读。探讨可循：<mr.geek.ma@gmail.com>
+
+* * *
+
+Unity3D Webplayer采取了和Flash类似的**[安全策略](http://docs.unity3d.com/Manual/SecuritySandbox.html)**。
+
+Unity3D官方提供了C#版本的SecurityServer(Unity3D安装包中的socketpol.exe)，并且附有源代码。下面是为公司项目写的Java版本，仅针对C#版本做了语法翻译：
+
+<!--more-->
+
+<pre>
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * This is an Java version of the Unity3D's socketpol.exe.
+ * 
+ * @author unicorn(haiyin-ma) 2014-05-26
+ */
+public final class SecurityNioServer {
+    
+    private static final boolean isDebug = true;
+    
+    private static final String ENCODE = "UTF-8";
+    
+    private static final String POLICY_FILE_REQUEST = "<policy-file-request/>";
+    
+    private static final String ALL_POLICY = "<?xml version='1.0'?><cross-domain-policy><allow-access-from domain=\"*\" to-ports=\"*\" /></cross-domain-policy>";
+
+    private static final String LOCAL_POLICY = "<?xml version='1.0'?><cross-domain-policy><allow-access-from domain=\"*\" to-ports=\"4500-4550\" /></cross-domain-policy>";
+    
+    private static final ExecutorService pool = new ThreadPoolExecutor(10, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
+    
+    private static byte[] REQ;
+    
+    private static byte[] policy;
+    
+    private static int BUFFER_SIZE;
+    
+    static {
+        try {
+            REQ = POLICY_FILE_REQUEST.getBytes(ENCODE);
+            BUFFER_SIZE = REQ.length;
+        } catch (Exception e) {
+            System.err.println("Static initial failed");
+            e.printStackTrace();
+        }
+    }
+    
+    public static void main(String[] args) {
+        System.out.println("Start the facebook security server ...");
+        System.out.println("Expected request: " + Arrays.toString(REQ));
+        try {
+            String type = "--all";
+            if (args.length == 0) {
+                System.out.println("sockpol [--all | --range | --file policy] default [--all]");
+                System.out.println("\t--all Allow access on every port)");
+                System.out.println("\t--range   Allow access on portrange 4500-4550)");
+            } else {
+                type = args[0];
+            }
+           
+            String strPolicy = null;
+            switch (type) {
+            case "--all":
+                strPolicy = ALL_POLICY;
+                break;
+            case "--local":
+                strPolicy = LOCAL_POLICY;
+                break;
+            case "--file":
+                if (args.length < 2) {
+                    System.err.println("Missing policy file name after '--file'.");
+                }
+                String filename = args[1];
+                if (!new File(filename).exists()) {
+                    System.err.println(String.format("Could not find policy file '%s'.", filename));
+                }
+                try (FileReader fr = new FileReader(filename)) {
+                    throw new UnsupportedOperationException("Haven't support the read file function!");
+                }
+                //break;
+            default:
+                System.out.println(String.format("Unknown option '%s'.", type));
+            }
+            policy = strPolicy.getBytes(ENCODE);
+            
+            start();
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+    
+    private static void start() throws IOException {
+        try (Selector selector = Selector.open(); ServerSocketChannel ssc = ServerSocketChannel.open()) {
+            ssc.configureBlocking(false);
+            ssc.bind(new InetSocketAddress(843));
+            ssc.register(selector, SelectionKey.OP_ACCEPT);
+            
+            while (true) {
+                if (selector.select(1000) <=  0) {
+                    continue;
+                }
+                
+                Set<SelectionKey> readyKeys = selector.selectedKeys();
+                Iterator<SelectionKey> iterator = readyKeys.iterator();
+                while (iterator.hasNext()) {
+                    SelectionKey key = iterator.next();
+                    if (!key.isAcceptable()) { return; }
+                    
+                    System.out.println("Incoming connection");
+                    final SocketChannel sc = ssc.accept();
+                    pool.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                if (sc != null) {
+                                    readAndSend0(sc);
+                                }
+                            } catch(Throwable t) {
+                                System.err.println("Read or send failed");
+                                t.printStackTrace();
+                            } finally {
+                                try {
+                                    sc.close();
+                                } catch(Throwable t) { /* NOP */ }
+                            }
+                        }
+                    });
+                    iterator.remove();
+                }
+            }
+        }
+    }
+    
+    private static void readAndSend0(SocketChannel socketChannel) throws IOException {
+        ByteBuffer readBuffer = ByteBuffer.allocate(BUFFER_SIZE);
+        while (readBuffer.hasRemaining() && socketChannel.read(readBuffer) != -1) { /* NOP */ }
+        
+        // compare incoming data with expected request
+        byte[] readBytes = readBuffer.array();
+        debug("Incoming Data: " + Arrays.toString(readBytes));
+        if (!Arrays.equals(REQ, readBytes)) {
+            System.err.println("The request is different from the expected, maybe invalid");
+            return;
+        }
+        
+        // send the response
+        socketChannel.write(ByteBuffer.wrap(policy));
+    }
+    
+    private static void debug(String message) {
+        if (isDebug) {
+            System.out.println(message);
+        }
+    }
+    
+}
+</pre>

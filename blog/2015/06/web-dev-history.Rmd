@@ -1,0 +1,30 @@
+---
+title: ''
+output: html_document
+---
+
+# WEB开发简史
+
+HTML
+
+HTML/js/vs
+
+ASP/JSP/PHP
+
+Applet / ActiveX --> Flash/Flex/Silverlight
+
+## HTML/Ajax
+
+### Pure Javascript
+
+### Javascript Library
+
+YUI & Jquery
+
+### Javascript Framework
+
+AngularJs、Knockout、Backbone、Ember等等。
+
+
+
+该对象就是MVVM中的ViewModel。就是View和Model之间的“桥梁”，通过它实现双向绑定。AngularJS此类框架的出现主要是因为目前Ajax富应用开发的广泛流行。其实Angular所做的双向绑定在WPF等桌面GUI程序早已有之，只是因为早期的WEB开发数据交互不频繁，大多采用刷新页面的方式更新视图。后来WEB交互性的增强盛，开发人员均自行通过Ajax异步刷新View的方式更新视图。再后来，随着WEB富交互性的广泛使用，有必要通过框架来将视图和模型的“互相感知性“进行通用化和框架化，因此，出现了众多类AngularJs的前端框架。

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="patrick.unicorn" />
+
+
+<title></title>
+
+
+
+
+<link href="data:text/css,body%20%7B%0A%20%20%20%20font%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0A%20%20%20%20font%2Dsize%3A%2018px%3B%0A%20%20%20%20margin%3A%205%25%2020%25%205%25%2020%25%3B%0A%20%20%20%20padding%3A%202%25%205%25%205%25%205%25%3B%0A%20%20%20%20width%3A%2050%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20border%3A%201px%20solid%20LightGrey%3B%0A%7D%0A%0AH1%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0A%0AH2%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dbottom%3A%2060px%3B%0A%20%20%20%20margin%2Dbottom%3A%2040px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border%2Dbottom%3A%202px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH3%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH4%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0Aul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2010px%3B%0A%7D%0A%0Ali%20%7B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%7D%0A%0Aq%20%7B%0A%20%20%20%20border%2Dleft%3A%204px%20lightgrey%20solid%3B%0A%20%20%20%20padding%2Dleft%3A%205px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20border%3A%20dashed%201px%20lightgrey%3B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20margin%2Dright%3A%2010px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%7D%0A%0A%2Eanswer%2Dblock%20%7B%0A%20%20%20%20word%2Dbreak%3A%20normal%3B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20padding%3A%200px%3B%0A%20%20%20%20margin%3A%200px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%20%20%20%20font%2Dsize%3A%2080%25%3B%0A%20%20%20%20word%2Dwrap%3A%20break%2Dword%3B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f5f5f5%3B%0A%20%20%20%20border%3A%201px%20solid%20%23000%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20overflow%3A%20auto%3B%0A%7D%0A%0A%0Apre%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20%0A%20%20%20%20font%2Dsize%3A%2075%25%3B%20%0A%20%20%20%20border%3A%20solid%201px%20lightgrey%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%3B%20%0A%20%20%20%20padding%3A%205px%3B%20%0A%20%20%20%20line%2Dheight%3A%20130%25%3B%20%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20width%3A%2095%25%3B%0A%7D%0A%0Apre%20code%20%7B%0A%20%20%20%20font%2Dsize%3A%20100%25%20%21important%3B%20%0A%20%20%20%20border%3A%20none%20%21important%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%20%21important%3B%20%0A%20%20%20%20color%3A%20%23000%20%21important%3B%0A%20%20%20%20border%2Dradius%3A%200%20%21important%3B%0A%20%20%20%20padding%3A%200%200%20%21important%3B%0A%7D%0A%0A%0Acode%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20padding%3A%202px%204px%3B%0A%20%20%20%20color%3A%20%23d14%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f7f7f9%3B%0A%20%20%20%20border%3A%201px%20solid%20%23e1e1e8%3B%0A%20%20%20%20border%2Dradius%3A%203px%3B%0A%7D%0A%0A%0Aa%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20crosshair%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20dashed%20Red%3B%0A%20%20%20%20padding%3A%201px%3B%0A%20%20%20%20color%3A%20black%3B%0A%7D%0A%0A%0Aa%3Ahover%20%7B%0A%09background%2Dcolor%3A%20LightGrey%3B%0A%7D%0A%0A%0Aimg%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20box%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dtop%3A%2010px%3B%0A%20%20%20%20margin%2Dbottom%3A%2010px%3B%0A%20%20%20%20%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%09width%3A%20100%25%3B%0A%7D%0A%0A%0Ahr%20%7B%0A%20%20%20%20color%3A%20LightGrey%3B%0A%7D%0A%0Atable%2C%20th%2C%20td%20%20%7B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%20%20border%3A%20solid%201px%20black%3B%0A%7D%0A%0Ath%20%7B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0Atd%20%7B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20text%2Dalign%3A%20left%3B%20%20%20%20%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+
+<div class="section level1">
+<h1>并发控制机制</h1>
+<p><strong>声明：</strong> 所写均为个人阅读所思所想，请批判阅读。</p>
+<hr />
+<div id="lock" class="section level2">
+<h2>Lock</h2>
+<p>最基础、最直观的并发控制机制。</p>
+<div class="section level3">
+<h3>缺点</h3>
+<ul>
+<li>DeadLock - 需要建立辅助机制检测处理。某些情况下，很难重现和调试。</li>
+</ul>
+<p>死锁说白了就是一句话：互相阻塞</p>
+<ul>
+<li>LiveLock - 需要建立辅助机制检测处理。某些情况下，很难重现和调试。</li>
+</ul>
+<p>LiveLock可译为“活锁”，它是一种特殊的饥饿。它与死锁的区别在于，死锁情况下，调用者(线程/进程）是被阻塞的，其内部状态从产生死锁的那刻起不再改变；而活锁情况下，调用者并不会被阻塞，它们是在不断轮询询某种争用资源，自身并未阻塞，其内部状态是不断变化的，有可能自行解开。</p>
+<p>有一篇博文描述了Linux内核中的一个活锁bug，可以加深理解（<a href="http://wangcong.org/blog/archives/1930）。" class="uri">http://wangcong.org/blog/archives/1930）。</a></p>
+<ul>
+<li>Priority Inversion - 优先级反转，高优先级的任务等待低优先级的任务。</li>
+</ul>
+<!--more-->
+</div>
+<div class="section level3">
+<h3>特性</h3>
+<div class="section level4">
+<h4>锁粒度</h4>
+<ul>
+<li>细粒度锁</li>
+</ul>
+<p>可以较好的避免冲突，具有较好的性能，很难编码设计，容易引入错误。</p>
+<ul>
+<li>粗粒度锁</li>
+</ul>
+<p>编码容易，但冲突的可能性更大，性能低下</p>
+<blockquote>
+<p>java.concurrency库中大量应用了细粒度锁，用于提高并发容器的性能，比如ConcurrentHashMap中引入就引入了子类Segment，从而细化了锁粒度，提高了并发能力。</p>
+</blockquote>
+</div>
+<div class="section level4">
+<h4>锁公平性</h4>
+<ul>
+<li>公平锁</li>
+</ul>
+<p>先到者先得锁。</p>
+<ul>
+<li>抢占锁</li>
+</ul>
+<p>抢占式获取锁，与OS中的抢占式任务调度类似。在实际的应用中，一般公平锁的性能较低，抢占锁的应用场景更广泛些。</p>
+</div>
+<div class="section level4">
+<h4>锁乐观性</h4>
+<ul>
+<li>乐观锁</li>
+</ul>
+<p>假设数据不冲突（读时不锁定，实际写操作前不锁定），提交数据时检测数据完整性，如果不冲突则锁定提交，否则返回错误重试，大并发下性能提升明显，但可能导致脏读。</p>
+<ul>
+<li>悲观锁</li>
+</ul>
+<p>悲观锁假设数据冲突，在进行实际修改之前就锁定，适用于数据频繁修改的场所。</p>
+</div>
+<div class="section level4">
+<h4>自旋与互斥</h4>
+<ul>
+<li>自旋锁</li>
+</ul>
+<p>如果锁已经被别的调用者持有，那么当前调用者会不断循环轮询（自旋），而并不会如互斥锁那样，将当前调用者睡眠（这会导致上下文切换）。</p>
+<ul>
+<li>互斥锁</li>
+</ul>
+<p>如果锁已经被别的调用者持有，那么就将当前调用者睡眠（这会导致上下文切换），等待唤醒（这会导致上下文切换）。</p>
+<p>可以看出，自旋锁比较适用于锁的占有时间比较短暂的场景，这样，不会导致昂贵的上下文切换，极大提高性能；互斥锁比较适用于锁的占有时间比较长久的场景。自旋锁在单核/单CPU的物理环境下，是不适用的，此时的自旋会阻塞其他线程调用，浪费时间。</p>
+<p>在实际的应用场景中，由于无法准确预见锁占有时间的长短，因此，单纯使用自旋锁的情况并不多，现代的操作系统一般都是使用混合型的锁方案。</p>
+</div>
+</div>
+</div>
+<div id="stm" class="section level2">
+<h2>STM</h2>
+<p>软件事务内存（Software Transaction Memory），类似于数据库系统的事务，更加抽象的控制机制。可以通过锁实现，也可以通过Lock-Free算法实现。 先假定不会冲突，先修改，提交更改时检验是否冲突，冲突则回滚重试，否则，修改生效。显然，在共享变量写冲突可控不大的情况下，并发性更好。 <strong>写操作必须在事务中（不能置于事务之外）</strong>，整个事务中的动作执行完，提交时才会检测版本并提交或回滚重试，在最终成功提交之前，其他线程（事务）是觉察不到当前事务中对共享资源的修改的，这就是所谓的操作隔离性（isolation）。</p>
+<div id="-1" class="section level3">
+<h3>缺点</h3>
+<ul>
+<li>操作的幂等性 - 需要保证事务中操作的幂等性，即可回滚。当事务中包含IO操作时，由于大多数的IO操作均不能回滚，因此，此时的回滚需要处理。一种可行的解决方式是，增加内存缓存区，让IO操作先操作缓存区，提交时在执行真正的IO操作，但这种方式并不能处理所有的情况。</li>
+<li>不适用于写操作大量冲突的场景（比如：银行账号系统，税务系统），因为，这种情况下，会导致诸多额外工作（如回滚），从而严重影响性能。</li>
+</ul>
+</div>
+<div class="section level3">
+<h3>优点</h3>
+<ul>
+<li>将关注点分离，由STM实现者（通过事务管理器等机制）提供统一的冲突解决（即，回滚，重试，中断），而对程序员，则消除了显式的同步操作，无需担心自己是否忘了进行同步或是否在错误的层级上进行了同步。</li>
+<li>在写冲突不频繁的场景下，提高了并发性能。</li>
+</ul>
+<p>Closure和Haskell在语言级别支持了STM，Java AKKA框架也支持STM。</p>
+<blockquote>
+<p>事务特性：</p>
+<ul>
+<li>原子性（Atomicity）</li>
+<li>一致性（Consistency）</li>
+<li>隔离性（Isolation）</li>
+<li>持久性（Durability）</li>
+</ul>
+<p>事务回滚：</p>
+<ol style="list-style-type: decimal">
+<li><p>基于写缓冲区 - 将所有的写操作放到写缓冲区中，确保正确提交时，再一次性原子性的反映到真实对象上。</p></li>
+<li>基于写操作日志 - 直接写操作按序列反应到真实对象中，如果中途发送操作失败，则调用一组对应的”逆操作“进行还原。需要具有一个有限操作集，并且操作必须可逆。</li>
+</ol>
+</blockquote>
+</div>
+</div>
+<div id="rcu" class="section level2">
+<h2>RCU</h2>
+<p>即read copy update，当更改共享数据时，数据可以被wait-free的读取，这一点与readers-writer lock/STM是一致的。</p>
+<blockquote>
+<p>RCU(Read-Copy Update)，顾名思义就是读-拷贝修改，它是基于其原理命名的。对于被RCU保护的共享数据结构，读者不需要获得任何锁就可以访问它，但写者在访问它时首先拷贝一个副本，然后对副本进行修改，最后使用一个回调（callback）机制在适当的时机把指向原来数据的指针重新指向新的被修改的数据。这个时机就是所有引用该数据的CPU都退出对共享数据的操作。</p>
+</blockquote>
+<p>与readers-writer lock/STM的区别：在RCU机制中，当修改共享数据时，并不阻塞读者，对于多个reader，可能“看到”不同版本的数值，而在readers-writer lock/STM中，reader只能看到一个版本。它可以看做是读写锁（写时阻塞读者）的一种改进。</p>
+<div class="section level3">
+<h3>特点</h3>
+<ul>
+<li>依赖于一个基本的事实：现在CPU中，对于引用（reference）的操作（更新）是原子的。</li>
+<li>可以避免大多数DeadLock和LiveLock，但不是全部。</li>
+<li>应用范围比较窄，只适用于读多写少且允许写延迟的场景。</li>
+<li>已被广泛应用于Linux系统的API中。</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2>参考资料</h2>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Read-copy-update"><a href="http://en.wikipedia.org/wiki/Read-copy-update" class="uri">http://en.wikipedia.org/wiki/Read-copy-update</a></a></li>
+<li><a href="http://en.wikipedia.org/wiki/Concurrency_control"><a href="http://en.wikipedia.org/wiki/Concurrency_control" class="uri">http://en.wikipedia.org/wiki/Concurrency_control</a></a></li>
+<li><a href="http://en.wikipedia.org/wiki/Software_transactional_memory"><a href="http://en.wikipedia.org/wiki/Software_transactional_memory" class="uri">http://en.wikipedia.org/wiki/Software_transactional_memory</a></a></li>
+<li><a href="http://www.ibm.com/developerworks/cn/linux/l-rcu/"><a href="http://www.ibm.com/developerworks/cn/linux/l-rcu/" class="uri">http://www.ibm.com/developerworks/cn/linux/l-rcu/</a></a></li>
+</ul>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

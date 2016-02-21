@@ -1,0 +1,380 @@
+以前准备系统学习Javascript时无意为之的一篇coding笔记，留个底吧。JSFiddle是个很出色的Online Tool，配合浏览器的Developer Tool Console使用，比起IDE的笨重，轻便了很多。
+
+<pre>/**
+ * author: unicorn 2012-5-4
+ */
+function primitives(){
+    /*
+     * JavaScript is an object-based language based on prototypes, rather than being class-based. 
+     *  In class-based OO language, like java, c++, class defined all the property, so all object instances
+     *  of the class just only the property defined in class. the object can not add or remove the specify 
+     *  it's own property. Once the class was compiled, you can not add or delete the object 
+     *  property in runtime. 
+     *  but 
+     *  In prototype-base OO language, like javascript, all is object. object get the initial property
+     *  from a prototype object instead of class, object can specify it's own property 
+     *  just for itself, and not influence other same class object. you can add or remove the property 
+     *  in runtime, so javascript also is a dynamic language.
+     * 
+     * 
+     * ECMScript defined six data types: Number, String, Boolean, Null, Undefined, Object.
+     * all is value types which is immutable except Object that is reference type.
+     * 
+     * pre-defined constants: true, false, null, undefined. 
+     * 
+     * Number has several special value; +infinite, -infinite, NaN(not a number, but is Number type)
+     * 
+     * Object such as: Array, Date, Function
+     */
+}
+function variable(){
+    /*
+     * A JavaScript identifier which is case-sensitive, 
+     * must start with a letter, underscore (_), or dollar sign ($);
+     */
+    var v, _v, $v;
+    /*  the null value behaves as 0 in numeric contexts and as false in boolean contexts.  */
+    var a = null;
+    2*a === 0; a === false;
+    /*
+     * variables that aren't initialized yet will return a value of undefined.
+     */
+    var a; a === undefined;
+    /*
+     *  variables in JavaScript is that you can refer to a variable declared later, 
+     *  without getting an exception. In the following code, javascript will lift 
+     *  the a's declaration to the top of function or statement(here, a === undefined;)
+     */
+    a === undefined; var a = 3; 
+    /* 
+     * JavaScript does not have block( such as if/while/for etc) statement scope, 
+     * just function and global scope 
+     */
+
+    /*
+     * global variables actually is the properties of global object which is window object in web page.
+     * so you can invoke them like that: window.[global variable]
+     */
+
+    /*
+     * You can create a read-only, named constant with the const keyword.
+     * You can't declare the same name with the function or variable in same scope.
+     * In the following code, it will cause error, because the const prefix has been declare in same scope.
+     */
+    const prefix = "unicorn"; // no keyword 'var'
+    function prefix(){ 
+
+    }
+}
+function literal(){
+    /* 
+     * arr0.length == 3; the arr0[1] === undefined 
+     * arr1.length == 2; no arrq[2]
+     * arr2.length == 3; arr2[0] === undefined
+     * arr3.length == 3; arr3[2] === undefined only the last commas is ignored
+     */
+    var arr0 = ["s", , "y"];
+    var arr1 = ["s", "t", ];
+    var arr2 = [, "s", "t"];
+    var arr3 = ["s", "t", , ,];
+
+    var car = {name:"unicorn", 2:"two"};
+    car.name == "unicorn" //
+    car[2] == "two"  //
+    // car[2] and car.2 is error
+    // common invoke way: car["a"], car["2"] is right
+
+    /* the following code output "unicorn is mahaiyin" */
+    var s0 = "unicorn \ is \ mahaiyin";
+    /* the following code output "unicorn \ is \ mahaiyin" */
+    var s1 = "unicorn \\ is \\ mahaiyin";
+    // or -&gt; 
+    var s2 = "unicorn \u005C is \u005C mahaiyin";
+}
+function operator(){
+
+    var s = [1, 2, 3];
+    /* in: decide whether or not object contains property or element(for array)*/
+    (length in s) === true;
+    (0 in s) === true; // 0 is the index
+    (3 in s) === false;
+    if(delete s[0]) // attention!
+        (0 in s) === true;
+    /* delete: set the target to undefined if operate successfully */
+    delete s[0]; // return true;  
+    s[0] === undefined; // return ture;
+    delete s;
+    delete s.length;
+    /* instanceof: */
+    var d = new Date(1985, 8, 31);
+    (d instanceof Date) === true;
+    /* this : this.propertyname or this["propertyname"] */
+
+    /* 
+     * typeof: return the type string of the given variable, string, object 
+     * attention: this operator just return "object", not specified object type like "date"
+     *  if you need to decide the specified object type except Function, you should use instanceof
+     */
+    (typeof d) === "object"; // not "date"
+    (typeof s) === "object"; // not "array"
+    var t0 = new Funtion();
+    function t1(){ }
+    (typeof t0) === (typeof t1) === "function";
+
+    /* 
+     * void: when the given expression has been evaluated, it's return-value will be 
+     * undefined instead of original value. 
+     */
+    function m(){ return true; }
+    void(m) === undefined;
+}
+function statements(){
+    var obj = {id:1, name:"unicorn"};
+    var arr = ["d", "s"];
+    // iterate over the obj's property name as a string
+    for(var pName in obj){
+        console.log(typeof pName);
+        console.log(pName);
+    }
+    for(var pName in arr){
+        console.log(typeof pName);
+        console.log(pName);
+    }
+
+    // iterate over the obj's property value, but it is defined javascript 1.6, not supported by 
+    // all browsers
+    /*
+    for each(var pValue in obj){
+        console.log(typeof pValue);
+        console.log(pValue);
+    }
+    */
+
+    /* In javascript, you can throw any object when errors occur */
+    throw "error";
+    throw {id:"1", name:"1"};
+    // Error is the javascript's pre-defined object which has name and message property
+    // , like Exception in C#
+    try {
+      throw (new Error('The message'));
+    }
+    catch (e) {
+       alert(e.name);// alerts 'Error'
+       alert(e.message); // alerts 'The message' or a JavaScript error message)
+    }
+}
+/*
+ * closure's most important feature is that only inner function can still invoke 
+ * the variables(or other members) defined in outer function even when the outer function has 
+ * been executed. 
+ * 
+ * the following code: surround the function declaration with "( )"， so the 
+ * function declaration was treat as expression, which can be executed.
+ */
+(function closure(window){
+    var s = "unicorn";
+
+    function inner(){
+        console.log(s);
+    }
+    // expose the inner to the global object, so client can call 
+    // the inner function or object like this: 
+    //      exam(); or window.exam();
+    window.exam = inner;
+})(window);
+/*
+ * 
+ */
+function Func(){
+    /* two way to define the function */
+    var f0 = function(){ /* code */ };
+    var f1 = new Function("arg0, optional, maybe more", "/* function bode code */");
+
+    /* predefined function */
+
+    /* 
+     * eval(arg:string) : usually used in AJAX(convert response string to object)
+     *   arg must be the primitive string instead of String object:
+     *   --------------------------------------------
+     *   |   var s = "alert('test')";
+     *   |   var t = new String("alert('test')");
+     *   |   eval(s); // right
+     *   |   eval(t); // error
+     *   --------------------------------------------
+     */
+    // when the argument is an expression, equivalent to dynamic define a variable, 
+    // in current scope, return 'undefined'
+    var r0 = eval('var s = "unicorn";'); // return 'undefined'
+    alert(s); // will execute successfully, pop 'unicorn'
+    // "( ) will convert the object declaration to expression, so eval can return it." 
+    var r1 = eval("(" + "{name:'unicorn', age:23}" + ")"); // return object
+    var r2 = eval("{name:'unicorn', age:23}"); // error
+    var r3 = eval("return 'unicorn';"); // error
+        r3 = eval("function u(){ return 'mhy'; }"); // right
+
+    // -&gt; compare
+    var r4 = eval("function m(){ alert('2'); }");
+    m(); // execute successfully, pop '2'
+    typof r4 === 'undefined';
+    // -&gt; to 
+    var r5 = eval("(" + "function m(){ alert('2'); }" + ")"); // with '( )'
+    m(); // execute error: m() is not defined
+    typof r5 === 'function';
+    r5();// execute successfully, pop '2'
+    // -&gt; end
+
+    /* eval can be used to dynamic programming : add / remove property for object in runtime */
+    var dy_obj = {name:"unicorn", age:13};
+    eval("dy_obj.sex = 'male';");
+    console.log(dy_obj.sex); // out: 'male'
+}
+function obj(){
+    /*
+     * the three way to create Object
+     */
+    // 1. using json
+    var obj1 = {
+            // property
+            "name":"unicorn", 
+            "age":23,
+            // method
+            getBrand:function(){
+                /* code */
+            }
+    };
+    // 2. using constructor function
+    function Car(agr0,argi){ /* code */ };
+    var obj2 = new Car(); 
+    // 3. using Object.create();
+    var obj3 = Object.create(null); 
+    // -&gt; is equivalent to 
+    obj3 = Object.create(Object.prototype);
+
+    /* predefined object */
+    // Array: the following way are equivalent.
+    //  var arr = new Array(element0, element1, ..., elementN);  
+    //  var arr = Array(element0, element1, ..., elementN);  
+    //  var arr = [element0, element1, ..., elementN];
+    var arr = [];
+    // 3.4 is not a integer, so it can't add a element, but add a property of arr 
+    arr[3.4] = "1"; // index is not a integer, like 3.4, "dddd" etc.
+    arr.length === 0; // not 1
+    arr.hasOwnProperty(3.4); // true
+
+    /*
+     * Any object whose value is not undefined , null, 0, NaN, or the empty string , 
+     * including a Boolean object whose value is false, evaluates to true 
+     * when passed to a conditional statement
+     */
+    var b = new Boolean(false);
+    if(b){ // true
+        console.log("sxx");
+    }
+
+    var today = new Date();
+    // year, month, day, hour, minute, second
+    var d = new Date(2012, 5, 15, 9, 30, 0);
+    var d1 = new Date("December 25, 1995"); 
+    var d2 = new Date();
+    d2.setTime(Date.parse("Aug 9, 1995"));
+    // The getTime and setTime methods are useful for comparing dates
+    var time = d.getTime();
+    var time1 = d1.getTime();
+    time &gt; time1;
+
+    var s1 = "2 + 2";
+    var s2 = new String("2 + 2");
+    eval(s1); // return 4;
+    eval(s2); // return "2 + 2";
+
+    /* prototype */
+    function Employee(){
+        this.name = "unicorn";
+    }
+    function Manager(){
+        this.name = "patrick"; 
+    }
+
+    var p = new Employee();
+    // prototype is Manager's property, not the instance of Manager
+    // here, Manager is equivalent to the class in java
+    Manager.prototype = p;
+
+    // For m, you can get the prototype object from it's property "__proto__" like this：
+    //      m["__proto__"] or m.__proto__, attention: there are two underscore('_') 
+    //      in both begin and end of "proto"
+    // Every function has a prototype object property
+    // Every object has a __proto__ object property (except Object)
+    var m = new Manager();
+    console.log(m.name); // out: "patrick"
+
+    // when you change the Manager's prototype object, 
+    // it will influence all the instance of Manager
+    p.age = 13; // attention: not Manager.age = 13
+    console.log(m.age); // out: 13;
+    var m1 = new Manager();
+    console.log(m1.age); // also: 13;
+
+    Manager.prototype.sex = "male";
+    console.log(m.sex); // out: male
+    console.log(m1.sex);// also: male
+
+    /* constructor default value */
+    function Employee1(name, age, isMale){
+        this.name = name || "unicorn";
+        this.age = age || 20;
+        this.isMale = isMale || true;
+    }
+    function Manager1(name, age, isMale){
+        // override the Employee's property, but this way is not recommended
+        // especially when has mamy con-arguments need to override
+        this.name = name || "unicorn";
+        this.age = age || 20;
+        this.isMale = isMale || true;
+    }
+    function Assistant1(name, age, isMale){
+        // creates a new property called base for that object 
+        // and assigns the value of the Employee constructor to the base property
+        // this way is recommended
+        this.base = Employee1; 
+        this.base(name, age, isMale);
+
+        /*
+         *  the third way, see details in 
+         *      https://developer.mozilla.org/en/JavaScript/Guide/Details_of_the_Object_Model
+         *      https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/call
+         *      https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/apply
+         */
+        // Employee.call(this, name, age, isMale);
+        // or 
+        // Employee.apply(this, [name, age, isMale]);
+    }
+
+    var e1 = new Employee1();
+    var e2 = new Employee1("x");
+    console.log(e1.name); // output default value "unicorn"
+    console.log(e2.name); // output "x"
+    // If the argument can be converted to false, like 0 (zero) and empty string ("")
+    // In this case the default value will be chosen
+    var e3 = new Employee1("y", 0, false);
+    console.log(e3.age); // output default value 20
+    console.log(e3.isMale); // output default value true
+
+    var e4 = new Assistant1("patrick", 14, true);
+    console.log(e4.name); // output: "patrick"
+    console.log(e4.age);  // output: 14
+}
+function es5Features(){
+    /* getter & setter */
+    var o = {
+        a: 7, 
+        get b() {
+             return this.a + 1;
+        }, 
+        set c(x) {
+             this.a = x / 2;
+        }
+    }; 
+    /* Object.create() */
+    var obj = Object.create(Object.prototype);
+}</pre>

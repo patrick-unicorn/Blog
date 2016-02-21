@@ -1,0 +1,74 @@
+---
+author: "patrick.unicorn"
+date: "2014年06月03日"
+output: 
+  html_document:
+    theme: null
+    highlight: null
+    css: ../../blog/css/main.css
+---
+
+# MAC OS 10.10设置转发80端口
+
+**注：原文：http://xwsoul.com/posts/965**
+
+Unix 系统大多默认情况下非root用户是无法使用小于1024的常用端口的.这时候如果你开发中需要在普通用户下用到80端口, 就需要做一些系统端口转发的工作.
+
+MAC OS 10.10 上 pfctl 就可以做这一件事情, 详情操作命令可以通过`man pfctl`查看。
+
+## 配置转发规则
+
+在 /etc/pf.anchors/ 新建名称为“http”的文件，内容如下： 
+
+```
+rdr pass on lo0 inet proto tcp from any to any port 80 -> 
+127.0.0.1 port 8080
+
+rdr pass on lo0 inet proto tcp from any to any port 443 -> 
+127.0.0.1 port 4443
+
+rdr pass on en0 inet proto tcp from any to any port 80 -> 
+127.0.0.1 port 8080
+
+rdr pass on en0 inet proto tcp from any to any port 443 -> 
+127.0.0.1 port 4443
+```
+
+## 检测配置文件
+
+```sudo pfctl -vnf /etc/pf.anchors/http```
+
+检查报错(正确的打印了配置信息, 没有明显的出错信息)
+
+## 引入转发规则
+
+修改pf的主配置文件/etc/pf.conf：
+
+```
+... ...
+
+rdr-anchor "com.apple/*"
+# 添加
+rdr-anchor "http-forwarding"
+
+... ...
+
+load anchor "com.apple" from "/etc/pf.anchors/com.apple"
+# 添加
+load anchor "http-forwarding" from "/etc/pf.anchors/http"
+```
+
+## 导入并允许运行
+
+```
+sudo pfctl -ef /etc/pf.conf
+```
+
+如果需要该设置开机启动, 则需要为/System/Library/LaunchDaemons/com.apple.pfctl.plist针对 pfctl 的启动项, 新增一个 -e (允许) 参数, 这样, pf 规则开机就可以生效了.
+
+```
+<string>pfctl</string>
+<string>-e</string>  // 新增加
+<string>-f</string>
+<string>/etc/pf.conf</string>
+```

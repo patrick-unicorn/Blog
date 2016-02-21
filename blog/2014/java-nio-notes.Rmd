@@ -1,0 +1,319 @@
+---
+author: "patrick.unicorn"
+output:
+  html_document:
+    css: ../css/main.css
+    highlight: null
+    theme: null
+---
+
+Java NIO笔记
+===
+
+**声明：** 所写均为个人阅读所思所想，请批判阅读。
+
+* * *
+
+<blockquote>
++ Mina为ApacheDirectoryServer的底层NIO框架：http://mina.apache.org
++ Netty为JBoss的NIO框架：http://www.jboss.org/netty
++ Grizzly是Sun的GlassFish服务器的底层NIO框架：http://grizzly.java.net
+</blockquote>
+
+## Why
+
+操作系统习惯移动大块的数据，而1.4以前的JVM习惯于一铲子一铲子的移动数据，这显然不是应对大数据的有效方式。早期的jvm为了实现跨平台特性，为此做了很多的妥协，I/O就是其中之一，很多操作系统本身提供的强大I/O特性都没有被使用。随着操作系统对于I/O性能方案的不断改进，JVM原有的BIO方案显然已经落伍了。
+
+<blockquote>
+I/O的过程分为两部分：
+
+1. 在硬件缓冲区和内核缓冲区之间搬移数据，这部分由DMA控制，不占用CPU。
+2. 在用户空间缓冲区和内核缓冲区之间搬移数据，这部分由CPU控制。
+
+通过虚拟内存技术可以达到让硬件缓冲区数据直接“搬移”到“用户空间”的效果。
+
+所有I/O都直接或者间接的通过内核空间，基于如下原因，用户空间是无法直接操作硬件：
+
+1. 操作系统处于安全原因都禁止用户空间直接访问硬件。
+2. 硬件缓冲区的大小都是固定的，而用户空间进程的缓冲区可能是任意大小，为了实现“适配”，就需要内核空间。
+</blockquote>
+
+## what
+
+Java NIO是基于select/poll机制的多路复用IO模型的Java封装实现。
+
+### I/O模式
+
+不像程序设计有23中设计模式，I/O操作只有两种模式：同步模式和异步模式，如下：
+
++ 同步阻塞I/O - 同步模式
++ 同步非阻塞I/O - 同步模式
++ I/O复用 - 同步模式
++ 异步I/O - 异步模式
+
+<blockquote>（非）阻塞与（异）同步：
+
+要理解这两个概念之间的区别，首先必须明白I/O操作的步骤：
+    1. 发起I/O请求（用户空间）
+    2. 实际I/O操作（内核空间）
+
+同步I/O和异步I/O的关键区别在于第二个步骤是否阻塞，同步指的是用户进程触发IO操作并等待或者轮询的去查看IO操作是否就绪，而异步是指用户进程触发IO操作以后便开始做自己的事情，而当IO操作已经完成的时候会得到IO完成的通知（异步的特点就是通知）。
+
+而阻塞I/O与非阻塞的I/O的关键区别在于第一个步骤是否阻塞，说白了是一种读取或者写入操作函数的实现方式，阻塞方式下读取或者写入函数将一直等待，而非阻塞方式下，读取或者写入函数会立即返回一个状态值。
+
+从上述定义看，其实阻塞与非阻塞都可以理解为同步范畴下才有的概念，对于异步，就不会再去分阻塞非阻塞。对于用户进程，接到异步通知后，就直接操作进程用户态空间里的数据好了，异步I/O本身必然是非阻塞的，需要操作系统内核的支持。
+</blockquote>
+
+## How
+
+### ByteBuffer
+
+Java NIO中引入的缓冲区Buffer，可以理解为“带状态的字节数组”，它的操作关键即在于其状态变量：
+
+* Capacity 缓冲区的最大字节数
+* Position 当前读写的缓冲区索引位置
+* Limit 当前最大读写索引位置
+* Mark 标记索引位置
+
+<quote>四者的大小关系：Position < Mark < Limit < Capacity </quote>
+
+ByteBuffer是最重要的Buffer，其他Buffer均基于它。
+
+### ByteBuffer和ByteArray的异同
+
+* ByteBuffer添加了内部状态，封装了更加灵活的操作，如相对读和绝对读等等
+* ByteBuffer支持直接缓冲区
+* ByteBuffer封装了对于数值类型的直接读写方法，如putLong，readLong等等
+* ByteBuffer封装了ByteOrder，即大端和小端排序
+
+<blockquote>关于字节排序：
+
++ 大端排序：低地址（索引）存放高位字节
++ 小端排序：低地址（索引）存放低位字节
+
+TCP网络流统一规定使用大端排序，JVM统一使用大端排序，CLR统一使用小端排序。字节排序问题在开发网络(C/S)通信系统时，是个需要关注的问题。
+注：第一次认识字节序的问题，也是在开发一个JVM/CLR异构通信系统时。
+</blockquote>
+
+
+### 示例（模拟从输入流中读取长度固定为N的消息）
+
++ ByteArray
+
+<pre>
+  ...
+  
+  byte[] readBuffer = new byte[1024];
+  byte[] outBuffer = new byte[N];
+  int readPer = 0，readCount= 0;
+  
+  while ((readPer = inputStream.read(readBuffer)) != -1) {
+      if (readCount >= N) {
+        break;
+      }
+      int actualLen = N - readCount < readPer ? N - readCount : readPer;
+      System.arraycopy(outBuffer, readCount, readBuffer, 0, actualLen);
+      readCount += readPer;
+  }
+  if (readCount < N) {
+     // TODO: throw exception or other operations, because
+     // the content is incomplete.
+  }
+  
+  ...
+</pre>
+
++ ByteBuffer
+
+<pre>
+  ...
+  
+  ByteBuffer readBuffer = ByteBuffer.allocate(N);
+  while (readBuffer.hasRemaining() && socketChannel.read(readBuffer) != -1) { /* NOP */ }
+  if (readBuffer.hasRemaining()) {
+     // TODO: throw exception or other operations, because
+     // the content is incomplete.
+  }
+  
+  ...
+</pre>
+
+### Selector
+
+Selector是对系统级select/poll机制的直接封装。
+
+<pre>
+    while(true) {
+        if (selector.select(1000) <= 0) {
+            continue;
+        }
+        Set<SelectionKey> readyKeys = selector.selectedKeys();
+        Iterator<SelectionKey> iterator = readyKeys.iterator();
+        while (iterator.hasNext()) {
+            // Process the I/O events ...
+            iterator.remove();
+        }
+    }
+</pre>
+
+### SelectionKey
+
+该对象表示了一个特定的通道对象和一个特定的选择器对象之间的注册关系：read、write、connect、accept。
+
+给SelectionKey对象上关联一个自定义的对象“附件”：
+
+<pre>
+public final Object attach (Object ob);
+public final Object attachment();
+</pre>
+
+SelectionKey的"附件"，在用完后应当及时清除（赋值为null）， 如果SelectionKey对象本身生命期较长，而已经没用的附件本身没有及时清除，就可能面临内存泄露问题，该附件不会被GC回收（因为SelectionKey还保持有该附件的引用）。
+
+### Channel
+
+Channel的角色相当于Java BIO中的InputStream/OutputStream。最大的改进在于，Channel支持非阻塞异步的操作。
+
+## Notes
+
+* Buffer： 除boolean类型外，NIO为每一种基本类型都声明了TypeBuffer.其中最重要的是ByteBuffer，它是其他缓冲区的基础。
+
+* 缓冲区就是一个数组。四个重要属性： Capacity， Position， Mark， Limit。Capacity已经声明就不可变，其他三个可以在使用过程中变化。
+
+* 所有的缓冲区都是可读的，但是并不是所有都可写。对只读缓冲区的写操作会抛出异常。
+
+* limit被引入原因： 当一个Buffer中的填充了部分数据，但是并没有完全填满缓冲区的时候， 此时，如果对该缓冲区进行读操作，那么怎么才能知道有效数据到哪截止呢？ limit表示就是缓冲区有效数据的长度。通过调用flip（）可以顺利实现从写状态到读状态的反转，flip完成两个操作：1. 将limit设置为position； 2. 将position置为0。
+
+* 两个缓冲区相等： position到limit之间的元素类型，顺序，个数相等即可。
+
+* 只有ByteBuffer缓冲区类可以通过order(方法)设置ByteOrder，其他类型的缓冲区，均只能读取ByteOrder。
+
+* 有一点需要特别注意，如果是ByteBuffer（假设为A）的视图缓冲区（假设为B），那么B的字节顺序就是B创建时A的字节顺序值，即使在此之后A改变了字节的字节顺序，那么B的字节顺序是不会随之改变的。
+
+* 在Jvm等虚拟机中，数组在内存的存放方式通常都不是连续的，由于涉及到垃圾回收，因此，可能随时需要对其元素进行移动。
+
+* 进行（硬件）I/O操作的目标内存区域必须是连续的存储空间。正是因为24点， java nio引入了直接缓冲区，直接缓冲区在内存中是连续存储的。直接缓冲区避免了间接的内存操作（将不连续的缓冲区数据移位成连续的），可以提供更好的性能。
+
+* 直接缓冲区支持Jvm可用的最高效的I/O操作。
+
+* 通道只能够使用ByteBuffer类型缓冲区。如果传入通道的不是直接缓冲区，那么在通道内部会创建一个临时的直接缓冲区对象，然后基于其在JVM和传入的非直接缓冲区之间进行数据转换，这可能导致在该I/O上产生大量的临时直接缓冲区对象，这是要极力避免的。
+
+* 直接缓冲区的创建需要更大的时间成本。直接缓冲区使用的内存空间是使用本地操作系统进行分配的，绕过了JVM堆栈，因此产生更大的创建和销毁成本。
+
+* 使用直接缓冲区或非直接缓冲区（给通道）的性能权衡会因JVM，操作系统，代码设计而产生巨大的差异。
+* 在软件世界，97%情况下：过早优化是万祸只源。
+
+* Channel是NIO的第二个创新，他们不是扩展也不是增强，而是一个极好的全新的I/O示例。FileChannel是对文件操作的抽象， Path是对文件（目录）的抽象【对应于旧I/O的File】，DirectoryStream是对文件（目录）集合迭代器的抽象。
+
+* 不同操作系统上Channel的具体实现有根本性的差别。
+
+* I/O从广义上可以分为两个大类： File I/O和Stream I/O.相对应的，通道分为File Channel和Socket Channel。
+
+* NIO提供了四个具体的channel： 一个FileChannel和三个SocketChannel： SocketChannel， ServerSocketChannel， DatagramChannel。
+
+* 通道可以以阻塞和非阻塞模式运行。FileChannel只能以阻塞模式运行。
+
+* 与缓冲区不同，通道不能够被重复使用。
+
+* 不实现InterruptaleChannel的通道都是不使用底层本地代码实现的某些特殊用途的通道。
+
+* 现代操作系统都支持矢量I/O，NIO对此的支持是Scatter/Gather, 如果使用得当的化，Scatter/Gather会是强大的工具，它运行你委托操作系统来完成辛苦的内存操作： （scatter）将读取到的多个数据分散到不同的数据桶（bucket）， （gather）将多个不同数据区块合并为一个整体。这是一个巨大的成就，因为操作系统已经被高度优化用来完成此类工作，提高性能的同时也避免编写此类代码和测试代码。
+
+* 在通道FileChannel出现之前，底层的文件操作都是通过RandomAccessFille类完成的。两者的API相似性很大。FileChanel在API上比较类似缓冲区。
+
+* MapperByteBuffer使得我们可以通过ByteBuffer的API类访问文件。
+
+* FileChannel是线程安全的，这意味着对于那些引起文件position和size变化而言，当一个线程做这种操作时，这种变化对于另外一个线程是可见的，同时另外一个线程只能够等待进入。
+
+* FileChannel中绝对形式的read和write，可能具有更好的性能，因为它们不需要更新position状态，操作请求可以直接传到本地代码。
+
+* 在Java 1.4 即NIO之前，java一直未能加入文件锁定功能。
+
+* 文件锁分为共享锁和独占锁，并非是所有的操作系统都支持共享锁，对于那些不支持的操作系统而言，java会自动将共享锁的请求转换为独占锁。
+
+* 在设计有关文件锁的问题时，必须事先了解部署操作系统的文件系统的文件锁定行为，这会影响您的设计决策。
+
+* 在不同的操作系统上，甚至在同一操作系统的不同文件系统上，文件锁定的基本行为都可能有差异的。有些仅支持劝告锁，有些仅支持强制锁，或者两者均支持，您应该总是按照劝告锁的假定来管理文件锁，因为这是最安全的。当然，如果能够理解部署环境的文件锁机制，是更好的。
+
+* 文件锁是与文件关联的，不是关联通道，线程，文件锁的目的是在进程级别上判别文件，而不是线程级别上，这意味着如下情况：
+
+<blockquote>
+1. 文件按锁并不适用于控制同一个Jvm上不同线程对于文件的访问互斥。
+2. 假设一个Jvm上A线程获取了文件F的文件独占锁，该jvm上的B线程要请求获取该独占锁，那么，B线程可以获取该独占锁。而如果B是另外一个Jvm（进程）上的线程，那么B获取不到该独占锁。
+</blockquote>
+ 
+* 如果需要控制同一个进程中的多个线程或通道之间的文件锁，需要自己建立自己的轻量级锁定方案，通常，内存映射文件是一个合适的选择。
+ 
+* 获取共享锁需要应用程序对该文件有读权限，获取独占锁需要应用程序对该文件有写权限。
+ 
+* FileLock锁定一个文件锁定区域，他的position和size，以及独占性（共享或独占）在创建时就确定，但是他的有效性isValid去可能随着时间而变化。FileLock是线程安全的。
+ 
+* 对于文件锁，应该使用try/catch/finally的结构来释放。
+ 
+* 使用内存映射文件比常规文件访问和使用通道访问都要高效，因为不需要做明确的系统调用，那会很消耗时间。更重要的是，操作系统的虚拟内存会自动缓存内存页，这些内存是用系统内存缓存的，不需要消耗java虚拟机的内存堆。
+ 
+* 与文件锁的范围机制不一样，内存映射文件的范围不应该超出文件大小，这会导致文件Hole，映射范围过大，还可能导致IOException。
+ 
+* 如果在一个没有write权限的通道上调用FileChannel.Map()创建MapCode.READ_WRITE模式的内存映射文件，会报出异常。
+ 
+* 内存映射没有与通道关联，因此，通道关闭后，内存映射未必消失，相对应的内存映射是与其MapperByteBuffer对象相关的，当GC回收MappedByteBuffer后，内存映射也被销毁。NIO设计师这样决定是因为关闭通道是关闭映射会导致一个安全问题，而要解决该安全文将导致性能问题，因此，做了如此妥协。
+ 
+* 关于内存映射的文件在映射有效时，被其他线程或者外部进程修改这一点，需要格外注意，这可能导致异常或其他问题。
+ 
+* 所有的MappedByteBuffer都是直接缓冲区，因此，他们的内存位于Jvm内存堆之外，并且可能不被算做jvm进程的内存占用。
+ 
+* MappedByteBuffer的load方法是实现映射文件的预加载，但是并不能保证该文件常驻内存，因为页调度是动态的，通常有操作系统，文件系统等多种因素决定，虽然某些操作系统提供了页常驻内存的API，但是，NIO并为提供这样的API。
+ 
+* 对于大多数系统而言，使用预加载load，都是不明智的，因为这通常都会导致更多的I/O开销，应当将这一任务交由操作系统自动完成。
+ 
+* isLoad()方法返回内存映射页是否常驻内存， 但注意这仅仅是一个暗示，并不明确表明映射文件页是否完全常驻内存，因为这是动态的，准确判定所有映射页的状态是不可能的。
+ 
+* 如果内存映射是以Read或者Private模式建立的，那么调用force不起任何作用。
+ 
+* 对于FinalChannel来说，NIO提供了Channel-to-Channel方式的数据传输，这种传输不需要经过中间缓冲区，尤其是某些操作系统支持不必经过用户空间的数据直接传输，这种情况下，此种方式在性能上拥有巨大优势。
+ 
+* NIO中的Socket通道类，为大程序（网络应用程序和中间件）提供了巨大的可伸缩性和灵活性。再也没有为每个socket连接建立一个线程的必要了，也避免了管理大量线程的上下文开销，一个或几个线程就可以管理成千上百的socket，并且只付出很少的甚至可能没有性能损失。
+ 
+* java.net中的三个socket对象（socket， serversocket，datagramsocket）均在1.4版本更新，添加了getChannel方法，但是如果说仍然采用的是传统的方法创建socket对象，那么他们的getChannel总是返回null。
+ 
+* socket通道可以选择工作在非阻塞模式下，表述简单，却为java网络程序带来了巨大的而深远的意义。传统阻塞式socket是java网络程序可伸缩性的巨大制约。
+ 
+* 非阻塞I/O和可选择性与事件紧密相关的。
+ 
+* 通常在Server端选择非阻塞模式是有益的，因为Server管理成百上千的连接，非阻塞可以提高吞吐量； 在Client端使用阻塞模式（NIO阻塞模式或者BIO）是有益的，在很多程序中，非阻塞模式都是有用的。
+ 
+* 选择器selector可以避免采用轮询方式查询异步操作的结果，并在操作成功时获得通知。
+
+* socket通道是线程安全的，并发访问无需特别措施保护，但是任一时刻socket通道都只有一个读操作和写操作进行（也就是存在两个操作，唯一一个读，唯一一个写），特别注意的是，模拟TCP的Socket通道（SocketChannel和ServerSocketChannel）是面向流的，而不是包，它能够保证发送的数据按顺序到达，但不承诺维持字节分组，例如： 第一次发送了20字节，第二次发送了20字节，只能保证每次发送的组内数据顺序到达，但是不能够保证两次发送的数据在流中没有交叉，基于这个原因，让多个不配合线程共享一个socket通道绝对是一个糟糕的主意。
+ 
+*  DatagramChannel模拟面向包的UDP协议。
+ 
+* 虽然流socket使用的很广泛，但是包socket仍然是和有用的，而且包socket的吞吐量比流socket大很多。
+
+<blockquote>下面是一些使用包socket的理由:
+
+a. 你的程序可以忍受数据包的丢失
+b. 你的程序希望“发射后不管”， 不需要知道数据包是否到达
+c. 数据吞吐量比可靠性重要
+d. 您需要同时发送数据给多个接受者（多播或广播）
+
+如果以上原则中的一个后多个满足，那么，使用包socket是合适的。
+</blockquote>
+ 
+* 管道pipe于windows和unix上的概念有所不同，在OS上，管道是进程之间通信的一种方式，在NIO中管道式一个jvm实例内部各个线程之间的通信方式。虽然线程之间通信还存在其他更好性能的方式，但是，管道的优点在于封装性。Pipe的另一个有用的用处是辅助测试。另外，管道能够承载的数据量是有限的，依赖于具体实现。
+ 
+* Selector选择器是依赖于底层操作系统的两个重要的高效IO接口函数： poll()和select。在Java 1.4以前的I/O中一直未能利用操作系统的这一高效接口。
+ 
+* 就绪选择的真正价值在于： 潜在的大量通道同时进行就绪性状态检测，这意味着只需要进行一次系统调用； 而如果单个单的检测每个通道的就绪状态，那么需要多次的系统调用，代价昂贵。真正的就绪性选择必须由操作系统来做，Java的选择器将此抽象，并使其可以跨平台。
+ 
+* FileChannel不是可选择通道。接口SelectableChannel接口提供了可选择通道所需的方法。所有的socket通道都是可选择的。
+ 
+* 非阻塞性和多元选择执行是紧密相关的，以至于nio的架构这将他们放在一个接口SelectableChannel中。
+ 
+* 通道一旦被注册到选择器selector，就不能被修改为阻塞型了，试图调用configureBlocking()会抛出异常。
+ 
+* 通道和选择器的一对一关系被封装在SelectionKey对象中。SelectableChannel.keyFor(SelectorObj),返回对应的键。没有注册关系，返回null。
+
+* jdk1.4中重写了string和stringbuffer，实现了charsquence接口。
+ 
+* java.util.regex包为java提供了与perl相当的文本处理能力（正则表达式通常用在文本处理中）。
+ 

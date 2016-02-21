@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="patrick.unicorn" />
+
+
+<title></title>
+
+
+
+
+<link href="data:text/css,body%20%7B%0A%20%20%20%20font%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0A%20%20%20%20font%2Dsize%3A%2018px%3B%0A%20%20%20%20margin%3A%205%25%2020%25%205%25%2020%25%3B%0A%20%20%20%20padding%3A%202%25%205%25%205%25%205%25%3B%0A%20%20%20%20width%3A%2050%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20border%3A%201px%20solid%20LightGrey%3B%0A%7D%0A%0AH1%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0A%0AH2%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dbottom%3A%2060px%3B%0A%20%20%20%20margin%2Dbottom%3A%2040px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border%2Dbottom%3A%202px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH3%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH4%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0Aul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2010px%3B%0A%7D%0A%0Ali%20%7B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%7D%0A%0Aq%20%7B%0A%20%20%20%20border%2Dleft%3A%204px%20lightgrey%20solid%3B%0A%20%20%20%20padding%2Dleft%3A%205px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20border%3A%20dashed%201px%20lightgrey%3B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20margin%2Dright%3A%2010px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%7D%0A%0A%2Eanswer%2Dblock%20%7B%0A%20%20%20%20word%2Dbreak%3A%20normal%3B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20padding%3A%200px%3B%0A%20%20%20%20margin%3A%200px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%20%20%20%20font%2Dsize%3A%2080%25%3B%0A%20%20%20%20word%2Dwrap%3A%20break%2Dword%3B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f5f5f5%3B%0A%20%20%20%20border%3A%201px%20solid%20%23000%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20overflow%3A%20auto%3B%0A%7D%0A%0A%0Apre%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20%0A%20%20%20%20font%2Dsize%3A%2075%25%3B%20%0A%20%20%20%20border%3A%20solid%201px%20lightgrey%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%3B%20%0A%20%20%20%20padding%3A%205px%3B%20%0A%20%20%20%20line%2Dheight%3A%20130%25%3B%20%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20width%3A%2095%25%3B%0A%7D%0A%0Apre%20code%20%7B%0A%20%20%20%20font%2Dsize%3A%20100%25%20%21important%3B%20%0A%20%20%20%20border%3A%20none%20%21important%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%20%21important%3B%20%0A%20%20%20%20color%3A%20%23000%20%21important%3B%0A%20%20%20%20border%2Dradius%3A%200%20%21important%3B%0A%20%20%20%20padding%3A%200%200%20%21important%3B%0A%7D%0A%0A%0Acode%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20padding%3A%202px%204px%3B%0A%20%20%20%20color%3A%20%23d14%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f7f7f9%3B%0A%20%20%20%20border%3A%201px%20solid%20%23e1e1e8%3B%0A%20%20%20%20border%2Dradius%3A%203px%3B%0A%7D%0A%0A%0Aa%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20crosshair%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20dashed%20Red%3B%0A%20%20%20%20padding%3A%201px%3B%0A%20%20%20%20color%3A%20black%3B%0A%7D%0A%0A%0Aa%3Ahover%20%7B%0A%09background%2Dcolor%3A%20LightGrey%3B%0A%7D%0A%0A%0Aimg%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20box%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dtop%3A%2010px%3B%0A%20%20%20%20margin%2Dbottom%3A%2010px%3B%0A%20%20%20%20%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%09width%3A%20100%25%3B%0A%7D%0A%0A%0Ahr%20%7B%0A%20%20%20%20color%3A%20LightGrey%3B%0A%7D%0A%0Atable%2C%20th%2C%20td%20%20%7B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%20%20border%3A%20solid%201px%20black%3B%0A%7D%0A%0Ath%20%7B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0Atd%20%7B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20text%2Dalign%3A%20left%3B%20%20%20%20%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+
+<div id="think-in-javanotes" class="section level1">
+<h1>《Think In Java》Notes</h1>
+<hr />
+<ul>
+<li><p>当你开发或理解某个程序时，最好的方法就是将对象想象为SP，ServiceProvider，服务提供者。</p></li>
+<li><p>将程序员分为 类创建者和客户端程序员是个不错的注意。类创建这必须要仔细的设计类接口，隐藏不必要的细节，让客户端程序员，绝无法涉及他们不该触及的部分。</p></li>
+<li><p>java中不需要显示声明virtual来实现多态，因为，这是缺省的。</p></li>
+<li><p>依赖于抽象编程更加优秀的一个简单的场景就是：当一个函数的参数是基类（抽象）时，那么该方法就天然具备了，不仅对所有已存在派生类的处理，而且也会正确的处理以后可能产生的各种派生类。很明显，这样就保证了函数的稳定性 。以此类推，在系统构建中，依赖抽象构建，会显著增加系统的稳定性和可扩展性。</p></li>
+<li><p>virtual关键字的作用就是实现函数调用过程的late binding，后期绑定（运行期确定调用的函数代码的实际物理地址），这与非面向语言的前期绑定（编译期即可确定调用的函数代码的实际物理地址）</p></li>
+<li><p>C++，C中使用堆栈 创建对象，这样编译器，就可以明确知道销毁对象的时间，而在java，c#中使用堆heap创建对象，这样编译器就无法确切知道销毁对象时间，所以需要在运行期动态回收。</p></li>
+<li><p>单继承大大降低了实现垃圾回收期器的难度。</p></li>
+<li><p>多线程设计的最关键问题是资源共享。</p></li>
+<li><p>脚本语言（js，vbs）可以解决客户端编程的80%问题，另外的20%可以通过ActiveX，java applet来解决。相比较而言，java applet比ActiveX更加安全，因为，applet运行在“沙盒”之中，它并不能访问沙盒之外的资源，同时不 能对磁盘和文件系统产生影响。而ActiveX确完全像是本地windows编程一样，允许对磁盘操作。数字签名可以使applet突破沙盒限制，但此时产生的安全问题，应当有客户自己负责，而不是applet。</p></li>
+<li><p>servlet是java实现服务器端编程的基础。在这之前实现服务器端编程时使用cgi程序（c++，c，perl，python编写），但cgi在高并发时的性能成为问题。servlet运行在java的web服务器上，它很好的解决了网络高并发问题，因此 得到了广泛的应用。jsp就是applet的衍生物，jsp最终还是要转换为applet得以执行。</p></li>
+<li><p>java和c#中的基本类型（int等）还是采用和c，c++中一样方式，存储在堆栈中，而非堆中，这样能够提供更高的性能。访问这些变量时，并非是通过引用。</p></li>
+<li><p>java和c#中即使没有初始化基本类型变量，编译器也会给该变量赋值一个默认值。但是必须注意，只有当基本类型的变量是类的成员时，才会赋默认值，对于那些局部基本类型变量，则不会。</p></li>
+<li><p>在面向对象领域，对象方法的调用，可以理解为“向对象发送消息”。</p></li>
+<li><p>java中要求文件名必须与其中的类名一致。</p></li>
+<li><p>import用于导入一个java包（jar）。</p></li>
+<li><p>java和c#中可以通过参数类型列表（顺序也可以区分，但不建议这样）和函数名来区分，不能通过函数返回值类型来区分。</p></li>
+<li><p>不建议使用this关键字来调用对象函数。因为我们使用高级语言的原因就是编译器可以帮助我们做许多额外的事情。保持一致的编程风格很重要。</p></li>
+<li>除构造器外，禁止在其他任何函数中显示调用构造函数。在构造函数中调用构造函数时，可以使用this(param1,…) 调用相应的构造函数，但是该调用必须放在构造函数的最前面（第一条语句）。在同一个构造函数中不能同时调用两个其他的构造函数。</li>
+<li><p>面向对象的一种解释就是“向对象发送消息”，具体就是：外部调用对象函数时，就等价于class obj; obj.funcntion == class(obj, function).</p></li>
+</ul>
+<p>而在类内部调用成员时，实际等价于class(this.function); 其中this是编译器“偷偷”传入的。上述的描述其实就是java和c#的编译器在内部的表示方式。 + static函数不是面向对象的编程方式，因为他不是通过“向对象发送消息”的方式调用，即obj.funcntion == class(obj, function)，因此，当你的设计中使用了大量的static时，那么需要谨慎的重新思考自己的设计。</p>
+<ul>
+<li><p>垃圾回收器只知道回收那些通过new创建的对象，对于占用的一些特殊内存块，却无法释放回收。此时需要给对象提供单独的finalize方法完成此项功能。但是因为java和c#中“一切皆为对象”，所以基本不会存在“特殊的内存”，除非是 调用了本地方法（c,c++库），那么这种情况下酒可能需要手抖个释放。由此可以看出，finalize并没有多大必要大范围的使用。在使用finalize时，我们绝对不应该直接调用它，它的调用交由运行时的垃圾回收器。</p></li>
+<li><p>finalize很难被指望去释放资源，但它有另外一种有趣的用途“验证终结条件”。因为在垃圾回收器回收资源之前，会先执行对象的finalize函数，因此可以在该函数中判断某种条件，决定是否可以继续回收对象，如果不能，可以抛出异 常或作出其他动作。另外一个用途就是第21条所说的。</p></li>
+<li><p>java中每个源文件.java文件中有且只能有一个public类。</p></li>
+<li><p>java包的命名（jar）必须是小写的。</p></li>
+<li><p>在每个文件的第一句（除注释外）使用package [name] 来声明当前文件时名为[name]的包文件的一部分。</p></li>
+<li><p>c语言中有条件编译，通产用来完成跨平台的程序，根据不同的平台编译为具有不同行为的程序。java中去掉了这一功能，因为java虚拟机的存在，使得java天然跨平台。</p></li>
+<li><p>java中默认的访问权限是package（对应于c#中的internal），c#中默认为private。</p></li>
+<li><p>类的访问权限要么是包访问权限package，要么是public。但是内部类确可以声明为private或者protected</p></li>
+<li><p>当一个类只有private的构造函数时，那么只能通过该类的静态函数去构造一个该类的实例对象。单件模式可由此实现。</p></li>
+<li><p>相同目录下的一切不具有显示package声明的文件都会一起被当做该目录下缺省包的一部分。</p></li>
+<li><p>设计人员和客户端程序员的本质区别在于：设计人员必须首先关注接口设计，而客户端程序员则首先关注细节。接口设计的稳定性，直接决定了设计的优良性，两者之间是等价的。因为，设计人员是为客户端程序员服务的，接口是设计人 员提供出的唯一可见产品，至于内部设计是否合理，客户端程序员无从感知，对于内部的随意修改甚至完全无法给客户端程序员感知。但是，接口一旦改变，整个基于该接口的上层程序都需要作出适应性改变。</p></li>
+<li><p>建议在java的每个类中都保留一个公共的public方法，便于对该类进行单元测试。将测试代码放在main方法中。在正式编译时也没必要删除，可留待下一次的重用。</p></li>
+</ul>
+<p>main签名如：public static void main(String[] args);</p>
+<ul>
+<li><p>当包中的类的访问权限设置为package时，类中的static成员仍然可以被包的外部访问。</p></li>
+<li><p>与c#中的继承使用 ‘：’不同，java中使用关键字‘extends’；c#中使用关键字“base”只待基类，而java中使用关键字‘super’指代基类。</p></li>
+<li><p>java与c#一样，在对类未显示声明构造函数时，编译器会默认的构造一个无参的构造函数。</p></li>
+<li><p>对于垃圾回收器，除了将内存寄希望于它之外，其他的资源最后是编写自定义的清除函数。</p></li>
+<li>组合技术适用于，当需要使用某个类（嵌入对象）的功能而非接口时，对客户程序暴露新类中的接口；继承适用于使用基类的接口时，对于客户程序同时暴露基类和继承类中的接口。但在面向对象设计中，组合通常优于继承，因为它的耦 合性更低，符合“高内聚，低耦合”的理念。</li>
+<li><p>要准确的区分‘Is—A’和‘Has-A’确实极具困难。一条颇具参考意义的标准是：需要做“向上转型”uppercasting（即子类隐式转换为基类）吗？</p></li>
+<li><p>继承技术的优点之一就是支持增量开发模式。通过新增派生类，不会讲新的bug引入已有的代码程序库（如jar包）中，有效的隔离类。</p></li>
+<li><p>java中的final关键字等价于c#中的readonly关键字，是运行期的常数。static final在整个程序空间中只占有一份存储空间。一种良好的习惯是对于带有恒定初始值（编译期值）的static final变量名全部使用大写，并且单词于单词之间使用’_’下划线隔开。java中如：static final CAR_WINDOW = 3； c#中如：static readonly CAR_WINDOW = 3;</p></li>
+<li><p>与c#中的readonly一样，final可以用变量初始化，因此在编译期并不一定知道他的值。这是区别于c#中的const的。</p></li>
+<li><p>final变量可以不再声明是给予初始值，即可以允许空的final，这点和c#是一致的。</p></li>
+<li><p>在java中允许定义函数的参数为final，这样，对于数值型final参数，在函数内部就不能修改他了;对于引用型final参数，在函数内部就不能修改参数的引用，但是可以修改该引用指向的对象值。</p></li>
+<li><p>在java中可以使用final定义方法，final方法有两个特性：</p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>不允许派生类修改其定义（重载）。</li>
+<li>对于方法的所有调用，在编译器都（可能，因为编译器需要判断效率，通常，方法越大越不适宜内嵌）会被转换为inline内联函数的方式，可以提高性能。C++中有内联函数的声明定义支持，c#中没有。</li>
+</ol>
+<ul>
+<li><p>程序中性能消耗的两大块是：1.对象的创建；2.函数调用。</p></li>
+<li><p>java中的所有private方法都是隐式的final方法。</p></li>
+<li><p>java中的final类就是c#中的sealed类，不能够被继承。</p></li>
+<li><p>需要慎用final。因为预见类，方法的可用性，确实不太容易。</p></li>
+<li><p>于c#中一样，java中也有抽象基类的概念，也用abstract关键字。抽象类和抽象方法定义“做什么”，至于“怎么做”交由派生类决定。</p></li>
+<li><p>类的构造函数时一个隐式的static方法。</p></li>
+<li><p>一种有益的设计准则是：在构造器内部只调用那些final方法（包含private方法），因为其他方法都有可能被派生类重载，考量继承层次中类的构造顺序，可能出现还未调用派生类的构造器，就先在基类的构造器中调用了派生类重载基 类的那个方法，从而让我们感到“震惊（表明一丝不合常理之处）”。</p></li>
+<li><p>在做设计时，优先考虑继承通常会加重设计负担，相反，应当优先考虑组合。</p></li>
+<li><p>java中继承接口使用关键字‘implements’。 接口中的成员（方法，数据）必须被定义为public，这与c#中是一致的。</p></li>
+<li><p>面向对象语言中设计接口的核心原因就是：使得类能够向上转型为不只一个基类型，即“多重继承”。</p></li>
+<li><p>放入接口中的任意数据成员都是static final的。可以利用这一特性实现群组常量。但他们不能是空final，但是可以被非常量表达式初始化。</p></li>
+<li><p>内部类，嵌套类，嵌套接口的设计意图还不是很清楚，需要进一步思考？？？。</p></li>
+<li><p>内部类的一种典型用途是控制向下转型。static的内部类称为嵌套类。</p></li>
+<li><p>与c#一样，java中同样没有提供指针。</p></li>
+<li><p>内部类是实现回调的一种方式，指针也可以实现，但是内部类更加安全。</p></li>
+<li><p>当我们不能理解一个知识体系中的某个概念时，那么尝试假想将该概念去掉，有助于我们理解该概念背后所蕴含的实际意义。</p></li>
+<li><p>在构建系统时，考虑构建一套自定义异常，能够提高程序的健壮性。异常的名称通常是表明该异常诱因的唯一元素，因此，自定义的异常必须要具有有意义的名称。</p></li>
+<li><p>在向控制台输出消息时，使用system.err.println();而非system.out.println();因为前者不会被重定向，更容易为客户注意。</p></li>
+<li><p>对于异常最重要的是它的类型名称。</p></li>
+<li><p>java中可以为方法预先声明该方法可能产生的各种异常，强制在编译期即对函数作出检查。void f（） throw Exception1，Exception2…… 。当重载方法时，只能抛出基类方法中规定的异常，换句话，就是说，方法的异常也是被继承的，但是构造器方法却不受这一限制。但是这种“被检查的异常”的函数风格，并不推荐，因为在程序越来越大的时候，会产生一些问题。</p></li>
+<li><p>Exception和Error都继承于throwable。Error不需要程序员关心，是编译器异常。</p></li>
+<li><p>当我们需要不论是否有异常 ，都需要将非内存的某些资源恢复时，就可以用finally。</p></li>
+<li><p>在有多个catch的情况下，需要将基类异常放在最后，派生类放在前面，否则，就可能派生类异常在到达其专属的catch之前被基类的专属catch截断。</p></li>
+<li><p>异常处理的一个准则“只有在你确切知道如何处理一个异常的情况下，才捕获异常”</p></li>
+<li><p>“所有模型都是错的，但有些是能用的”——一个基本的理念</p></li>
+<li><p>java的最初设计目标就是“建立给别人使用的构件”的。</p></li>
+<li><p>java中的每一个类都有一个对应的Class对象来加载该类，该Class类在编译后的.class文件中可以看到。</p></li>
+<li><p>可以通过ClassA.class 或者 ClassA.TYPE 获取ClassA（类名，不是对象）类型的创建该类的Class对象的引用。在对象上调用getClass()方法可以获取该 对象的实际类型。ClassA.class == ClassB.class 表明的是“两者确切是同样的类”。objA.getClass() == String.class表明对象A是String类型，不是String的派生类型，仅仅是String。</p></li>
+<li><p>instanceof关键字用来判断某个变量、对象是否是特定的类型，如： X instanceof Int;但是有一条准则需要记住：“当你的代码中包含了大量的instanceof时，那么很可能代码是有瑕疵的”。也可以使用函数ClassA.class. isInstance（x）来判断x的类型。但是必须注意，instanceof（含isinstance（））表示的是“是这个类或者是派生自该类吗？”</p></li>
+<li><p>也可以通过Class.forName(‘<类名>’);获取该类的Class引用，这种方法，不会生成Class对象即可获取引用。但是并不安全，不推荐。</p></li>
+<li><p>通过Class[] cc = obj.getInterfaces()可以获取对象实现的所有接口的Class引用，Class引用唯一表示了一个类型。</p></li>
+<li><p>通过调用一个Class对象的getSupperClass()可以获取该class引用所表示的类型的直接基类。这意味着，可以在运行时获得一个类的完整的层次继承关系。java中就是应用Class实现运行时获取对象的实际类型的。</p></li>
+<li><p>不要过早的关注性能，这是个诱人的陷进，应当先让程序运行起来。当性能有问题时，通过重构来改善。</p></li>
+<li><p>在java中容器类型只能保存对象的引用，而数组对于基本类型可以保存其值。如果要用容器类处理基本类型的数据，只能使用基本类型的包装类。如：int的包装类是Integer。</p></li>
+<li><p>java中最常用的容器类ArrayList可以看做是一个可扩展的数组。</p></li>
+<li><p>java中有三种基本容器类型：List，Set，Map。与C++中貌似很相像。Collection是List和Set的基类。</p></li>
+<li><p>为自定义类些HashCode和equal方法非常需要技巧。</p></li>
+<li><p>垃圾回收的判断准则是“如果对象是可获得的，那么就不能回收；反之，可以安全回收。”这里的“对象可以获得”是指程序中总是能够通过某种方式直接或间接的在内存中找到该对象。</p></li>
+<li><p>HashTable，Vector，Stack只是过去遗留下来的类，为的是兼容以前的老程序，因此，在新的程序中应该尽量避免这些容器类的使用。</p></li>
+<li><p>不同的容器类在不同的场景下，对于不同的操作有着不同的性能表现，这就是设计众多容器类的原因。</p></li>
+<li><p>java中可以将容器类变换为只读的。</p></li>
+<li><p>applet的设计目标就是：增强浏览器重网页的功能。</p></li>
+<li><p>applet是基于应用框架编写的，java核心类库提供了基本的应用框架application framework，只需要继承JApplet，并重载响应的方法即可。</p></li>
+<li><p>applet不需要main方法，因为，他的运行时有应用框架加载到内部运行的。</p></li>
+<li><p>如果要在浏览器中运行某个applet，那么需要针对不同的浏览器借助其扩展机制来实现。对于IE，扩展机制就是ActiveX，对于火狐等，就是plug-in。</p></li>
+<li><p>jdk中有一个HTMLConverter工具可以自动生成包含特定Applet的HTML页代码。同时包含一个AppletViewer可以从HTML中抽取出Applet，然后只运行applet而不运行其他的Html。</p></li>
+<li><p>只需要在applet中加个main函数，并使用JFrame（SWing中的东东）类创建一个applet的实例，这样就可以在命令含各种直接将applet作为应用程序运行测试，而不必再HTML中运行测试。</p></li>
+<li><p>Swing其实就是java领域的MFC，专门用于开发本地应用程序的GUI界面，它是以AWT（抽象窗口工具包）为基础的。</p></li>
+<li><p>“类是最可重用的单元”，因为它将数据和方法整合，既可以直接使用，也可以通过组合和继承来使用。</p></li>
+<li><p>JavaBean于Delephi和VB一样，就是一种可视化的组件编程，vs中的拖曳控件，设计器就是可视化编程的直接体现。</p></li>
+<li><p>AWT是java1.0的GUI库，在java2中已经被Swing替换。</p></li>
+<li><p>断言只适合在开发过程中发现错误，在运行环境中日志是更好的方式。</p></li>
+<li><p>产品开发就是风险管理。</p></li>
+<li><p>只有抛开用户界面，与硬件相关或系统相关的细节、算法、效率，才能找到简单而直接的系统核心。</p></li>
+<li><p>对项目最最纯粹的描述是项目的起点，这个最纯粹的描述在小说中就称为‘中心思想’—-最多只有三句话。</p></li>
+<li><p>需求分析书是与客户之间唯一的契约，因此它的完备性非常重要，输在起点，相当于输掉了一半。</p></li>
+<li><p>对中小型项目，建议控制文档的大小，尽量使用精简的文档。</p></li>
+<li><p>在项目进入设计阶段前，系统说明最重要的任务就是搞清楚“系统要做什么？”（不包含怎么做），可以用列表列出，配以适当的图片。但是最有利的工具是使用用例，即极限编程中的</p></li>
+</ul>
+<p>‘用户故事’。</p>
+<ul>
+<li><p>即使底层技术非常复杂，用例也不是很复杂，用例只需要表现展示给用户的那一面，通过这一面，我们能够比较‘感性’的‘推导’出展现给程序员的这一面，即底层技术实现。</p></li>
+<li><p>找到系统的所有用例，那么需求说明书也就基本出来了。因此，生成项目需求的一种直接可行的方式就是用例。</p></li>
+<li><p>专注于用例，它总可以让你回归问题的本质。</p></li>
+<li><p>必须时刻保持‘迭代’的思想，那种希望一次性得到‘完美’方案的想法，不仅会使自己再一开始陷入困境迷惑，同时也会增加项目的风险。</p></li>
+<li><p>用例也能够揭示出一些基本类的概貌。</p></li>
+<li><p>迭代最重要的一点就是将产品交付分阶段进行，而不是只在最终点交付一次。</p></li>
+<li><p>优先编写测试，编写测试时会强制你重新思考你设计出来的各种对象的合理性。其实，编程语言最显著的变化趋势就是‘以测试为中心’，更加‘强语义’，这样就可以使得编译器</p></li>
+</ul>
+<p>能够‘测试’出程序的错误。当我们编写测试时，其实具有同编译器编译同样的作用，测试现行，那么每次的代码编写后，运行 编译器（第一重测试） — 运行测试用例（第二重测试）。</p>
+<ul>
+<li><p>只有当性能确实是新系统的关键因素是，才将其在设计阶段予以考虑。</p></li>
+<li><p>函数设计的准则是“绝不修改传入的参数”。scala中的面向函数编程的准则就是此。调用函数仅仅是需要他的返回值或者是改变调用对象的状态。</p></li>
+<li><p>空接口也称为‘标记接口’，相当于给类贴了个标签。这种标签功能的一种用途是，当类向上转换为基类后，基类可能需要知道派生类是否支持某个接口，已决定是否可以执行某种方法。</p></li>
+<li><p>java中序列化复制对象与object.clone复制对象相比，慢四倍。程序员通产个都是实现自己的clone，永不调用object.clone()；</p></li>
+<li><p>派生类中不能削弱基类中方法的访问能力，但是可以提高。如：基类方法A:protected ；那么派生类重载时就不能够将为private</p></li>
+<li><p>程序员尤其要抵挡住浮躁心态的诱惑：欲速则不达。</p></li>
+<li><p>在设计类时，一个指导原则：将类之间的联系降低到最少。</p></li>
+<li><p>在编写类（不是设计类）之前，先编写测试代码，如果无法编出，那么说明你对类的功能还不是很清楚。</p></li>
+<li><p>静态类在第一次构造对象实例或者类的静态成员第一次访问时，初始化。静态初始化动作只进行一次。</p></li>
+<li><p>初始化在任何语言中都是非常重要的环节。c++创始人在设计c++时所作的调查显示，大多数错误都源于不正确的初始化，而这种问题向来比较难于发现。这就是设计构造器的根本原因。</p></li>
+<li><p>通常情况下覆写equal时，需要同时覆写hashcode方法，否则，在某些情况下equal不能正常的工作。</p></li>
+<li><p>在java中泛型方法如下定义：public static <T> GetName(T person);C#中如下定义：public static GetName<T>( T person);</p></li>
+<li><p>在方法（包含static变量）内部不允许声明static变量。因为static变量的作用域是类域，而不是方法域，因此在方法内部声明显然不合理。</p></li>
+<li><p>java中不能对普通类声明为static，只能声明static的内部类。这点与c#中是不一样的。c#中可以将普通类声明static。</p></li>
+<li><p>类初次使用之时，也是静态初始化之处。所有static变量和static代码段函数都会依次（在类中的书写顺序）初始化。父类的初始化优先于子类，但是子类的static成员却是先于父类中的非static成员。</p></li>
+<li><p>你解决问题复杂性的能力，取决于你的对事物分类及抽象的能力。</p></li>
+<li><p>面向对象的思想的实质是： 程序（或系统）可以通过添加对象使自身适应于某个特定问题。每个对象都是一台微型计算机，它拥有自己的状态，它能够执行你要求他执行的任务，并对你做出反馈。</p></li>
+<li><p>面向对象程序的设计基本理念：</p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>万物皆对象。你可以抽取问题域中的任何概念，表示为对象。</li>
+<li>程序是对象的集合。对于任何系统（程序）的设计都只需要两个步骤： a. 找出对象 b. 设计对象之间的关系</li>
+<li>每个对象都有类型</li>
+<li>某一特定类型的所有对象都可以接受同样的消息。这表明对象之间在某种情况下（接受同样的消息）是‘可替代’的。这种可替代性事oop最强有力的概念</li>
+</ol>
+<ul>
+<li><p>对象： 唯一标识 + 状态 + 行为</p></li>
+<li><p>对象引用存储在栈中。</p></li>
+<li><p>存储在栈中的数据，必须要有确定的大小，因为，需要生成一定量的代码用于移动栈指针。正因为这样，会损失一些灵活性。</p></li>
+<li><p>存储在堆中的数据，不必知道数据的大小，这样灵活性更好。</p></li>
+<li><p>new 的过程其实就是将对象引用与对象进行关联的过程。</p></li>
+<li><p>布尔类型所占存储空间的大小没有明确的规定。</p></li>
+<li><p>java中定义了两个用于高精度计算的类： BigInteger, BigDecimal.两者均属于包装器类型，但无对应的基本类型。 C#中则只有Decimal。同时，高精度相关的类，牺牲了性能，换取到了精度。</p></li>
+<li><p>java和c#中确保数组在使用之前，是已经被初始化了的。</p></li>
+<li><p>java和c#中同时也会保证数组不能在其范围（作用域）外被访问。这是通过在每个数组上增加一点内存开销和运行时的虚拟机索引校验实现的，损失效率，换取了安全。</p></li>
+<li><p>在下面的代码： { String s = new String(“ssssssss”);}.在{}之外，对象引用s已经消失了，但是，对象“ssssssss”仍然是存在的，它的销毁由虚拟机进行统一的销毁。</p></li>
+<li><p>java会确保类的数据成员中的那些基本类型成员被初始化为一个默认值，但是对于函数中的临时变量，是不会进行初始化，需要显示初始化，否则编译器会报错。</p></li>
+<li><p>为了防止类名重复，c++和c#中使用了“命名空间”的概念来解决。而java中则使用与Internet类似的指定符。事实上，java设计者希望我们反转使用域名。</p></li>
+<li><p>只允许在java构造器中调用构造器，其他函数不能够调用构造器。</p></li>
+<li>只能对int和long类型进行移位运算（A &gt;&gt; B）,对于比int小的类型（如byte，short等），在运算前会先转换为int类型。为确保不产生益处，如A为int类型，只取B的低五位（2的五次方为32，int的长度为32位）； 如A为long， 只取B的低六位（2的六次方为64，long的长度为64位）。</li>
+<li><p>在计算机语言中，2e-47代表的真正意义是2*（10的-47次方）。e代表的实际意义是10，而不是自然常数2.718.</p></li>
+<li>java不需要sizeOf运算符的原因： 在c和c++中需要改运算符的原因是为了移植，因为不同类型的机器上， 基类型的位数有可能不一样，此时就需要知道分配给某个变量的具体位数。但在java和c#中，因为虚拟机的存在，屏蔽了具体操作系统的差异，在虚拟机上，将类型分配的位数固定了下来，如int为32位。</li>
+<li><p>垃圾回收器只知道如何释放那些通过new申请到得内存空间，如果是数据库连接，是无法被垃圾回收器释放的。</p></li>
+<li>为什么需要finalize()函数： 当你的代码通过非java方式（new）申请了内存空间的情况。但是java中一切皆为对象，所以，只有当调用了本地代码的情况下，才需要显示重载finalize（）方法，释放内存空间。java只能调用c和c+ +本地代码，但是由于c和c++可以调用其他任何语言代码，因此，java事实上可以调用任何语言的本地代码。finalize（）方法由垃圾回收器进行调用。</li>
+<li><p>对于某个垃圾回收的行为何时发生完全是有jvm决定的。</p></li>
+<li><p>可以通过重载finalize方法，验证某种回收条件，在条件不满足时不要进行对象回收，打印出一些回收时的信息。</p></li>
+<li><p>静态成员只有在被第一次调用时才会被初始化。</p></li>
+<li><p>条件编译的用途： 1. 解决跨平台问题（c和c++）； 2. 便于调试（java和debug）；</p></li>
+<li><p>class默认访问权限是包访问权限。</p></li>
+<li><p>多态的实质： 将“做什么”和“怎么做”，即接口和实现进行分离。 多态相关的两个重要技术概念： “向上转型”和“动态绑定”。</p></li>
+<li><p>继承可以实现多态，组合也可以实现多态。</p></li>
+<li><p>内部类提供了，某种“进入”外部类的“窗口”。</p></li>
+<li><p>为什么需要内部类：</p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>内部类使得多重继承的方案更加完整。 接口只是解决了多重继承（允许实现多个接口）的部分问题， 而内部类则“事实上”实现了“外部类”继承多个类或接口，扥等。 接口无法解决一个类如何继承多个类的情况。</li>
+<li>内部类就是面向对象的“闭包”。一个闭包就是一个对象， 该对象包含创建它的外部环境的引用，并自动拥有该引用（以使得在该对象对不可以随意使用外部创建者环境的信息）。</li>
+</ol>
+<ul>
+<li><p>与继承一样，我们需要慎用内部类。只有内部类确实为我们的设计做出足够大的有利作用的时候，再去使用它。</p></li>
+<li><p>实现回调的方式：</p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>指针（c）</li>
+<li>接口（java和c#）</li>
+<li>内部类（java和c#）</li>
+<li>委托（c#）</li>
+</ol>
+<p>其中，后面三种方式，归根到底还是基于第一种方式指针的。</p>
+<ul>
+<li><p>向控制台打印也是一个开销大的动作，这一动作是不能够被中断的，否则，在多线程情况下，控制台输出就乱套了。</p></li>
+<li><p>和c#中一样，volatile关键字，用来向声明“不要优化”；</p></li>
+<li><p>jdk中有十个线程优先级，但是因为不同的操作系统，有着不同个数的线程优先级，因此，两者的映射不是固定的。建议只使用jdk中的三个优先级： MAX,NORM,MIN</p></li>
+<li><p>必须在调用线程之前，调用setDaemon（），这样就可以将线程设置为后台线程，当所有的非后台线程都结束后，那么，所有的后台线程也将自动被关闭结束。</p></li>
+<li><p>在后台线程中创建的线程，均为后台线程。</p></li>
+<li><p>thread.sleep()方法可以被中断，因此，通常需要被放在try中，捕获ThreadInterruptException异常。</p></li>
+<li><p>thread.join()方法也可以被中断。</p></li>
+<li><p>java中只能用equals(), 比较两个字符串， ==比较的是两个对象的引用是否相等。 但是当一个字符串变量与static final比较时，==却又是对的，why？即使如此，为了一致性，统一用equals()进行比较</p></li>
+<li><p>java中的final关键字根据上下文有着不同的含义，最容易混淆的就是在其在数据上使用时：</p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>当其用在class 或者 function上时，代表该类或者方法是 非虚 的，不能够被子类继承overide</li>
+<li>当对值类型变量使用时，如果在声明时即初始化，则代表该变量是编译时常量，就和const一样； 经实验，能够在声明时初始化，构造函数中初始化。</li>
+<li>当对引用类型使用时，代表的是该引用不变（即不能再指向其他对象），但是可以改变其指向的对象的值。</li>
+<li>当对函数参数使用时，代表不能够在函数内部改变该参数值。</li>
+</ol>
+<ul>
+<li><p>零长度的byte数组对象创建起来将比任何对象都经济――查看编译后的字节码：生成零长度的byte[]对象只需3条操作码，而Object lock = new Object()则需要7行操作码。因此，new byte[0]对象常用于作为lock对象。</p></li>
+<li><p>搞清楚synchronized锁定的是哪个对象，就能帮助我们设计更安全的多线程程式。</p></li>
+<li><p><code>A instanceof ClassB 和 ClassB.class.isInstanceof(A)</code>是等价的， 两者都代表的是 是这个类或者其子类。</p></li>
+<li><p><code>A.getClass() == B.class 与 A.getClass().equals(B.class)</code>是等价的，两者都表示，是不是这个类，不包含继承关系。</p></li>
+<li><p>泛型类型T是不能够获得Class的，因为，java中规定，只有编译器类型已知的类型才能够使用RTTI（runtime type indentification 运行期类型识别）</p></li>
+<li><p>RMI- remote method invocation 远程方法调用</p></li>
+<li><p>java中的反射，三个基础类： Field， Method， Constructor</p></li>
+<li><p>RTTI 和 反射的区别： RTTI 在编译期打开class文件，用于检查类型信息；而对于反射，编译期是不存在class文件的，因此，需要在运行期打开.class文件，访问对象的成员。</p></li>
+<li><p>RTTI 和 多态: 考虑一组类（Base， ClassA ： Base， ClassB ： Base， ClassC ： Base）</p></li>
+</ul>
+<p>用RTTI方式组织程序</p>
+<pre>
+abstract class Base{
+      public void excute(){
+        if(this.getClass() == ClassA.class){
+            // do
+        }
+        else if(this.getClass() == ClassB.class){
+            // do
+        }
+        else if(this.getClass() == ClassC.class){
+            // do
+        }
+  }
+}
+class ClassA extends Base{
+}
+class ClassB extends Base{
+}
+class ClassC extends Base{
+}
+</pre>
+<p>使用多态组织程序</p>
+<pre>
+abstract class Base{
+   public abstract void excute();
+}
+class ClassA extends Base{
+   public void excute(){
+      // do;
+   }
+}
+class ClassB extends Base{
+   public void excute(){
+       // do;
+   }
+}
+class ClassC extends Base{
+    public void excute(){
+      // do;
+    }
+}
+</pre>
+<ul>
+<li>java中的异常分为Error和Exception，两者均继承自Throwable。</li>
+</ul>
+<p>Error一般由虚拟机抛出，应用程序员不用关注。</p>
+<p>Exception分为：RuntimeException和非RuntimeException异常。</p>
+<p>RuntimeException： 如数组索引越界等等，出现此类错误，那么一定是应用程序员的错误，程序员可以通过修改程序避免，因此，此类异常没必要在方法中throws。 非RuntimeException： 如IOException，出现此类错误，一般是外部错误引起的，因此，需要在方法中声明，这样方法的调用者就需要关注这种外部错误，而不是编写该方法的程序员去关注。</p>
+<ul>
+<li><p>URL地址中是分字母的大小写的。</p></li>
+<li><p>确切的说java（c#）中是有指针的，只不过指针受到编译器和运行时环境的监控。 reference其实就是安全的指针。确切的说，java有指针，但是没有指针的运算。</p></li>
+<li><p>java中除基本类型外，每个对象的标识符就是一个指针。</p></li>
+<li><p>java中的Object类的toString()方法默认是打印出类名以及对象的地址。</p></li>
+<li><p>Comparable<T> 和Comparator<T>区别:</p></li>
+</ul>
+<p>前者强调赋予对象“与…比较”的行为能力，而后者则强调创造一个“第三方”的比较器来实现对象之间的”比较行为“。</p>
+<p>Comparable<T>的接口方法是int compareTo(T o);而Comparator<T>的接口方法是两个int compareTo(T o1, T o2); equals(Object o), equals方法的作用是与Object#equals方法一致的，两者的区别主要体现在compareTo方法上。</p>
+<p>Comparable<T>#compareTo方法只含一个参数，它的比较双方是：继承给接口的对象 和 compareTo方法的参数。 Comparator<T>#compareTo方法含两个参数，它的比较双方是：compareTo的两个参数</p>
+<p>Comparable<T>主要用途：用来扩展某个类型以提供同类型对象之间的比较功能。其关键点在于扩展对象，就是将比较这一普遍的特性从具体类型中抽象出来，单独为一个接口。通常配合Collections#sort(List<T> list)实现排序比较。 Comparator<T>主要用途：以参数注入的方式，为集合类提供元素比较和排序。其关键点在于扩展集合对象，将集合元素比较这一普遍特性从具体集合类型中抽象出来，单独为接口，以实现“按需比较”（有客户端自定义比较行为） .通常配合Collections#sort(List<T> list, Comparator&lt;? super T&gt; c)实现排序比较。</p>
+<p>通常情况下， 引入的第三方类库是不可修改的，因此此时无法使用Comparable<T> 扩展该类，从而使该类的集合支持比较功能。 此时就可以使用Comparator<T>配合Collections#sort(List<T> list, Comparator&lt;? super T&gt; c)实现该类集合的排序比较</p>
+<p>前者是以继承方式来扩展， 实现指定类的排序比较； 后者是以组合方式来扩展，实现指定类的排序比较。</p>
+<ul>
+<li>Iterable<T> ，Iterator<E>和Enumeration<E>的区别：</li>
+</ul>
+<p>Enumeration<E>是java1.0的遗留接口，Iterator<E>用来替代Enumeration<E>接口，两者的主要区别在于Iterator<E>新增了remove方法。因此，Enumeration<E>属于废弃接口，以下主要比较Iterator<E>和Iterable<T>.</p>
+<p>Iterable<T>是为集合类型（此处的类型特定为集合，因为只有集合才会迭代）提供迭代功能，以支持foreach关键字.</p>
+<p>Iterator<E>是对迭代过程中的迭代点（通常就是被迭代集合元素）的一种抽象。</p>
+<p>两者的联系在于,Iterable<T>#iterator接口方法返回的就是Iterator<E></p>
+<ul>
+<li><p>JDK集合库中遗留废弃的类主要是：Vector<E>, Stack<T>, HashTable<T>. 三者均是类，而非接口。</p></li>
+<li><p>地址连续存储和非连续存储是最基本的两个数据存储方式，在此基础上可以构建：链表，数组，哈希表，树，堆等复杂的数据结构，其中除数组（定义为地址连续存储）外，都可以使用两种存储方式中的任何一种进行实现。</p></li>
+<li><p>HashTable是Java集合Library中遗留（不建议使用，基本上都有替代类）的类，其内部的方法基本都是Synchronized，因此，效率不是很高，同时，使用性也不强。其替代者是HashMap<T, K>类，HashMap<T, K>是不同步的。</p></li>
+<li><p>Vector<E>与HashTable<T>一样，方法基本都是Synchronized，性能低下，且实用性不高。该类主要是通过在内部声明一个Object[]，提供了一种“可扩展数组”。其替代者是ArrayList<T>类，ArrayList<T>是不同步的。</p></li>
+<li><p>Stack<E>继承Vector<E>，实现了LIFO栈。其替代者是Deque<E>接口（该接口的实现者主要有ArrayDeque, ConcurrentLinkedDeque, LinkedBlockingDeque, LinkedList ）, Deque<E>接口继承Queue<E>（FIFO队列）接口，是不同步的。</p></li>
+<li><p>Set<E>接口就是“元素不重合”的集合，其是实现者为HashSet<E>，不同步。</p></li>
+<li><p>Java集合库发展的一个重要思路，就是“并发集合和非并发集合分离”。因此，在Java1.5中加入了大量的专用于并发场景的高性能集合。基本上每个非并发集合都有与之对应的并发集合。</p></li>
+<li><p>Java集合库中的两个工具类：Arrays和Collections.</p></li>
+<li><p>Java集合库的三个顶级接口：Collection<E>, Map<K,V>, Iterable<E></p></li>
+<li><p>Set集合内部必须确定一种存储元素的顺序机制（注意，不是顺序，而是一种机制，也就是说顺序可能在某种机制下运行时变化）。为了保持一致的风格，Set接口规定必须同时实现equal和hashcode。从功能上来说，equal对于所有继承类都是必须的（因为Set规定元素不能重复），但hashcode对于某些继承类是可选的(比如：TreeSet)。一定要注意：Set并不保证元素的存储顺序，这也是各个具体Set(HashSet, TreeSet, LinkedHashSet)的主要区别。</p></li>
+<li><p>HashSet<E>应该成为使用Set时的默认选择。</p></li>
+</ul>
+<p>其前三个构造函数采用HashMap<E, Object>进行存储，也就是哈希表的方式存储，因此，在运行时，随着add新的元素，使用迭代器，存储Order（直接体现就是迭代输出顺序）可能发生变化。并不是遵循add顺序迭代输出。这一点是所有哈希表的特性，因为哈希地址是根据散列函数计算（存在地址冲突的情况）的，因此，各个元素的存储地址并不是连续和符合添加顺序，HashXXX容器类均存在此问题。</p>
+<p>其最后一个构造函数HashSet(int initialCapacity, float loadFactor, boolean dummy))采用LinkedHashMap，通过增加一个双向链表，以此辅助确定了添加顺序即为迭代器迭代顺序。</p>
+<p>LinkedHashSet<E>通过使用一个辅助的双向量, 确定了迭代顺序，但是实际的存储顺序仍然是不确定的。由于使用了链表，因此，其迭代的时间复杂度与容量无关，只与size有关（这一点与HashSet相反）。其底层使用LinkedHashMap实现。 TreeSet<E>的存储Order（直接体现就是迭代输出顺序）也是不一定的，树随着元素的不断添加是动态构建的。并不是遵循add顺序迭代输出。是根据元素之间的比较。其在底层是用TreeMap实现。 可以看出具体的Set，在底层都基本依赖于具体的Map构建。</p>
+<p>HashSet的主要缺点：迭代顺序不可预测； TreeSet的主要缺点：迭代顺序不可预测，添加元素代价太大； LinkedHashSet的主要缺点（主要针对HashSet）：由于维护了一个辅助的双向链表来确保迭代顺序，因此，存在一定的空间开销，添加元素时相比HashSet也效率低些，但并不大，其他方面与HashSet效率基本一致。</p>
+<ul>
+<li><p>默认的HashMap是给予数组构建的，而LinkedHashMap是介于双向链表构建的，实际存储也是数组，只不过使用了一个辅助链表来确定遍历顺序。</p></li>
+<li><p>各个具体的Set之间的不同主要是体现在元素的顺序（迭代）。</p></li>
+<li><p>总的来说，集合类底层的实现包含几种基本的数据结构（这主要也体现在集合类的命名上）：</p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>顺序表（Array）：ArrayList</li>
+<li>链表（Linked）：LinkedList</li>
+<li>哈希表（Hash Table）：HashTable，HashMap，HashSet</li>
+<li>二叉树（Tree）：TreeMap，TreeSet</li>
+</ol>
+<p>集合类只是上述数据结构的包装和应用，对于集合类进行选择的实质就是选择合适的数据结构。</p>
+<ul>
+<li>数据的四个基本操作（增，删，改，查）</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>顺序表：擅长查，改；不擅长增，删。</li>
+</ol>
+<p>查复杂度：o(1); 增删复杂度：o(n);</p>
+<ol start="2" style="list-style-type: decimal">
+<li>链表：擅长增，删；不擅长查找，改</li>
+</ol>
+<p>查复杂度：o(n);增删复杂度：o(1)；</p>
+<ol start="3" style="list-style-type: decimal">
+<li>哈希表：擅长查，改，增，删。性能主要取决于散列函数（地址冲突频率及处理），因此，属于综合性能最高。</li>
+</ol>
+<p>查复杂度：无冲突时为o(1)；增删复杂度：无冲突时为o(1)；</p>
+<ol start="4" style="list-style-type: decimal">
+<li>二叉树(通常是指使用链表生成，顺序表也可以，但不方便)：擅长查，改；不擅长增，删</li>
+</ol>
+<p>查复杂度：与二叉树的具体构造方式相关; 增删复杂度：o(1);</p>
+<p>以上只是一个大概的区分，并非绝对的。</p>
+<ul>
+<li><p>Java I/O中对于路径和文件采用同一个类File来表示，File就是两者统一的抽象，代表了文件或路径在操作系统中的本地信息 DataInputStream和DataOutputStream主要是为了方便将primitive type与二进制流进行转换（就像String一样）。Primitive Type包含所有的数值类型</p></li>
+<li><p>在I/O库中有一个类是特殊的：RandomAccessFile。它没有继承DataInputStream或者DataOutputStream。而且它的大多数方法都是native的，这与其功能有很大关系，因为该类可以随意的从文件的某个起始点读取文件（回退或向前跳跃）。</p></li>
+<li><p>InputStream（OutputStream）主要用于byte-oriented的场景；Reader（Writer）主要用于unicode-oriented的场景。 基本每个byte-oriented类都有对应的unicode-oriented类。</p></li>
+<li><p>InputStreamReader和OutputStreamWriter是InputStream（OutputStream）与Reader（Writer）的适配器。</p></li>
+</ul>
+<p>FilterInputStream（FilterOutputStream）类相当于一个其他类的适配器或装饰者，通常通过继承扩展子类实现。 Java.lang.System中提供了三个static方法，用来重新设置标准输入，输出，错误流。System#setIn; System#setOut;System#setErr. 这种方式在command-line的用户程序中比较有用 Java.util.concurrency可以完全替代原来的Thread，Runable，也就是说原来代码中出现Thread，Runable的地方都可以替换为concurrence中的相应excutor Thread.sleep(100)可以被替换为TimeUnit.MILLISECOND.sleep(100); 如果一个线程是daemon，那么，其创建出的线程默认均为daemon。 必须注意，一旦程序中的最后一个non-daemon线程exit，那么程序会强制结束所有的daemon线程。这个问题导致的一个常见问题：daemon线程任务的整个或者部分（比如finally语句）没有被执行。 不要在Constructor中（直接或者间接）启动线程。 Concurrence库中的同步标志类： CountDownLatch， CyclicBarrier等等用来替代原来线程中的Thread#join。 Thread Group 是一个失败的设计，因此，应当摒弃使用。 在Java1.5中，新增加了Thread.UncaughtException线程异常处理接口。通过继承该接口，使用ThreadObj#setUncaughtExceptionHandler来设置线程异常处理类。通过结合Excutor的ThreadFactory，可以使得每个线程池中的线程都有一致的异常处理机制。 另外，Thread类有一个static方法Thread#setUncaughtExceptionHandler可以设置全局线程异常处理类 系统会先检查单个线程对象的异常处理类，如果没有设置，就使用全局的异常处理类。 Volatile关键字用于保证变量的可见性。具体来说，就是该关键字修饰的变量的值变化后，会立即被同步更新到JVM的寄存器中，而不是向平常一样存在一定的时延。通常，在Multi-Thread Enviroment 中使用比较多. 注意可见性和原子性的区别：原子性代表其过程不会被打断；可见性则是代表其最新变化值“立即”可见。 多线程程序设计第一准则：“尽可能避免使用多线程” 多线程程序设计第二准则：“时刻关注共享资源（数据）” Java中的多线程机制规定可以 通过Thead#yield（static method）主动建议JVM线程调度器： 停止当前线程对CPU的占用。 通过ThreadObj.setPriority()设置线程优先级，建议JVM线程调度器：当CPU空闲时，优先调用高优先级的线程。 但需要注意的是，这仅仅是一种“建议”，而非强制执行。这通常依赖于具体的平台以及JVM的实现。因此，程序员不能依靠它们来安排线程的执行顺序。 Java.util.concurrency库增加了Lock接口（实现者如：ReentrantLock），其在下面的场景下比Synchronized更加适用： 如果需要在互斥锁申请失败或者释放互斥锁时，进行必要的动作（比如：清除某种状态，以保持程序状态的正确性），那么就可以使用Lock（Synchronized无法做到）。但是必须注意，如果使用了LockObj#lock()，就必须使用finally块进行LockObj#unlock 使用Lock接口的一个常见场景就是，需要中断申请同步锁的过程。Synchronized申请同步锁的过程，外部无法干预中断 在大多数情况下，由于Synchronized的代码更简洁，因此，应该使用Synchronized。 多线程程序设计第三准则：“不要依赖JVM原子操作”。GotezTest“如果你可以在现代CPU上写出高性能的JVM，那么，可以忽略本条Principal” 需要关注两个不同的概念：可见性和原子性。 可见性通过volatile保证一个task对变量的修改，对于另外一个task“立即可见”。原子性保证操作不被（其他线程）打断 通常情况下，如果一个field可能被多个线程访问（至少有一个是写），那么就应该考虑声明为volatile 如果一个field的所有写和读操作都是使用一个锁进行同步（Synchronized）的话，那么，就是volatile的，没必要声明为volatile volatile修饰的field在两种情况下会失效（失去对其他线程的可见性）：1. field值依赖于该field自身之前的值（比如说自增，自减）；2. field值依赖于其他field的值。 concurrence并发库增加了很多具有原子操作的原子类。 ThreadLocal<T>类用于create“线程本地变量”，即：多个线程用于变量的不同副本，不产生竞争条件，因此，这种变量就类似于Scala中的“Immutable 变量”一样，天然线程安全。 concurrence并发库中的Excutor#shutdownNow会中断（通过调用interrupt）开启的所有线程。如果想要单独中断某个线程，那么就需要使用Excutor#submit获取Future<T>或Future&lt;?&gt;来调用Future<T or ?>#cancel来中断线程。 concurrence并发库中的condition对象（如：CountDownLatch）用来替代Object的wait()，notify(), notifyAll(), 以协调不同线程之间的工作。 必须注意Thread#sleep方法并不会释放同步锁，wait则会释放同步锁。 notify方法是唤醒某个被挂起的线程（调用了wait），但是并没有规定唤醒哪个。这种不确定性，可能导致潜在的问题，应该尽量避免使用，而使用notifyAll(), notifyAll唤醒的是所有被挂起的申请当前锁对象（注意此处对当前锁对象的理解：与调用wait的块或函数相同的锁对象）的线程。 Thread#join是通过wait方法实现的。 join方法的功能就是使异步执行的线程变成同步执行。也就是说，当在主线程A调用线程实例B的start方法后，这个方法会立即返回，如果在调用start方法后后，主线程A需要使用一个由这个线程计算得到的值，就必须使用join方法。如果不使用join方法，就不能保证当主线程A执行到start方法后面的某条语句时，B线程一定会执行完。而使用join方法后，直到这个线程退出，程序才会往下执行。 线程（任务）之间协作的方式： 使用low-level： wait(), notify(), notifyAll(), 使用Concurrence库：Lock， Condition，CounDownLatch，CyclicBarrier等等同步控制类。 使用同步队列(producer-consumer pattern)，如BlockingQueue<T>，使用同步队列，就是增加一个间接层，使得有间接层处理同步，从而简化实际业务类的逻辑，对于复杂情况，具有明显的优势。 使用I/O Pipe（PipeReader/PipeWriter）, 其实Pipe就相当于一个同步队列。该方式是C方式出现之前的方式，因此，大多数情况下，应当用C方式替换。 接口（或委托）回调 BlockingQueue<T>接口的两个直接实现者：LinkedBlockingQueue<T>, ArrayBlockingQueue<T> DeadLock真正的问题不在于“那些一定会出现的Deadlock”, 而是“那些可能会出现的DeadLock”。因此，小心翼翼的设计并发程序，是非常重要的。 “不确定性”是计算机程序的第一敌人。 CountDownLatch与CyclicBarrier在功能上非常类似，不同的是： CountDownLatch对象是一次性的，而CyclicBarrier是可以重复使用的。 CyclicBarrier可以被赋予一个称为“Barrier Action的runnable对象，当count==0时，自动执行该Barrier Action DelayQueue实现了以时间为优先级的队列。其中的元素（任务）须实现Delayed 接口。 PriorityBlockingQueue实现了通用的优先级队列。 Semaphore对象： 不同于synchronized和concurrent.locks一次只允许一个对象使用某个资源，Semaphore一次允许N个对象使用某个资源。这种特性在对象池实现中比较有用。 多线程程序很重要的一个应用就是模拟现实问题。 Java中的枚举，通过编译后，由编译器编译为一个特殊的类，该类使用enum关键字而非class关键字， 如：public final enum main.lang.extensions.enumeration.Test{ ……………………………. } final enum: 不可被继承 构造函数为Private 所有的枚举项又都为static final enum + [main.lang.extensions.enumeration.Test] + fieldName 枚举项均在Static Constructor中进行实例化和赋值 枚举类继承了Enum基类，但是，开发者不可以显示继承Enum 注：如果需要彻底了解枚举的实现，需要了解enum关键字在jvm中的意义 JVM中存在四种Reference类型： StrongReference：最普通和常用的引用，程序中隐式默认使用该类型引用。被其引用的对象绝不会被JVM GC回收。内存不足时，JVM会抛出OutOfMemoryError。 SoftReference （引用Soft-Reachable对象）: 被其引用的对象，及时没有其他直接引用，也不会在后续的某个GC周期中将其回收，只有当内存不足且没有直接引用时，JVM将其回收。其典型应用场景为Object-Cache等内存敏感的高速缓存，这样，可以再缓存对象的同时，避免引起内存不足（OutOfMemoryError）。软引用可以和一个引用队列（ReferenceQueue）联合使用，如果软引用所引用的对象被垃圾回收器回收，Java虚拟机就会把这个软引用加入到与之关联的引用队列中。</p>
+<p>WeakReference（引用Weak-Reachable对象）：被其引用的对象，当没有其他引用时，JVM会在后续某个GC周期中将其回收。其典型的应用场景为Debugger，Optimizer等等开发工具，以下为一个简单描述： 假如，现在我们需要随时获取对象信心，但又不希望影响对象回收，那么，就应当使用WeakReference A obj = new A(); WeakReference wr = new WeakReference(obj); obj = null;</p>
+<p>//等待一段时间，obj对象就会被垃圾回收 if (wr.get()==null) { System.out.println(“obj 已经被清除了”); } else { System.out.println(“obj 尚未被清除，其信息是” obj.toString()); } 弱引用可以和一个引用队列（ReferenceQueue）联合使用，如果弱引用所引用的对象被垃圾回收器回收，Java虚拟机就会把这个软引用加入到与之关联的引用队列中。 PhantomReference（虚引用，引用Phantom-Reachable对象）： “虚引用”顾名思义，就是形同虚设，与其他几种引用都不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收器回收。 虚引用主要用来跟踪对象被垃圾回收器回收的活动。虚引用与软引用和弱引用的一个区别在于：虚引用必须和引用队列 （ReferenceQueue）联合使用。当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在回收对象的内存之前，把这个虚引用加入到与之 关联的引用队列中。 程序可以通过判断引用队列中是否已经加入了虚引用，来了解被引用的对象是否将要被垃圾回收。如果程序发现某个虚引用已经被加入到引用队列，那么就可以在所引用的对象的内存被回收之前采取必要的行动。</p>
+<p>源文档 <a href="http://blog.csdn.net/feng88724/article/details/6590064" class="uri">http://blog.csdn.net/feng88724/article/details/6590064</a> 内部(非static)类需要外部类的实例才能够访问(因为闭包特性, 内部对持有外部对象的this), 而内部接口，static类，abstract类只需要外部类即可访问，如下：</p>
+<p>Java7中引入的Fork/Join机制主要包含几个核心类（ForkJoinTask，ForkJoinPool，ForkJoinWorkerThread），该机制是一种轻量级的并发机制（相比Excute, Runable/Future等等），主要用于处理以下场景：并发执行递归形式的计算过程，每个递归单元都是独立的，可拆分的任务。通常，为了最佳性能，对于该机制下并发执行的Task有如下要求： Task内部不建议存在Synchronized代码 Task内部不共享竞争型资源 Task之间相互独立，各Task的Result不存在时序关系 与ForkJoinTask/ForkJoinPool对应的是Runnable/Excutor, 相比于后者，前者更加轻量级，因为其分离了通常意义上并发task与thread之间的一对一关系，转而以多对一的关系替代之，即多个并发task可能在一个Thread中执行。并且，在Fork/Join框架中Task可以是有层级的，通常是一个Task可以被并行划分为多个不依赖的SubTask。 java.util.RandomAccess是一个Java Collection类库中的一个Marked Interface，主要用于标记集合支持“fast random access”，这样，当某个泛型参数被传入到方法中时，利于在方法内部根据其是否支持“fast random access”来选择性能更好的算法。比如： for (int i=0, n=list.size(); i &lt; n; i++) list.get(i);</p>
+<p>runs faster than this loop:</p>
+<pre><code>  for (Iterator i=list.iterator(); i.hasNext(); )
+     i.next();</code></pre>
+<p>那么如果集合支持“fast random access”，那么就应该采用第一种算法，而非第二种算法 多线程编程基本的一个理念：“进入临界区（同步代码）的线程不能够被外部（线程）强制中断，这会破坏安全性。替代方案：外部线程需要通过设置状态值（可能是中断状态，也可能是其他自定义状态值），同时，被中断线程内部需要循环检查状态值，自身对状态值得变化作出相应（比如，调整执行流程，抛出异常等等）”。 一个比较形象的比喻： 比如现在有一辆轿车（线程），正在高速公路上高速行驶（执行过程），假设该轿车载有某种重要物品（临界区同步访问对象），现在需要某时刻某个路口让该轿车停下（中断线程），有两种方案： 不给出任何警示，立即升起防护栅栏（JVM终止线程），使该车停止。 使得交通灯（相当于状态值）变红，该车自身刹车制动。 比较两种方案，方案一通过外力，强制轿车停止，可能导致车内重要物品的损坏；方案二通过给出警示信息，由该车自身作出制动动作，相比而言，更加安全可靠。 为什么Thread#stop被deprecated？因为，线程的stop方法调用后，线程的所持有的锁对象（假设为LockA）都会被释放掉，从而导致原先被LockA同步保护访问的对象（假设为ObjectA）被其他线程访问（线程访问顺序是不可预知的，由底层操作系统根据一定的算法调度），从而导致ObjectA具有不可预测的状态，进而导致程序出现bug。 当调用Thread#stop时，程序会抛出ThreadDeath异常，虽然，在理论上可以通过探测ThreadDeath解决前面所述说的问题，但是，这会极大的增大多线程编程的难度和复杂度，在实践中并不可取。 一言以概之，stop导致正在执行临界区（同步）代码的线程中断，从而导致某些对象状态的不稳定性，破坏了安全性。 为什么Thread#suspend, resume被deprecated?因为,当现场suspend后,并不会释放其持有的lock,当其他线程申请锁时,会导致死锁. 为什么Thread#destroy被deprecated?因为,该方法相当于是没有后续Thread#resume的Thread#suspend,因此,同样可能导致死锁. Java中每个Object都有一个相关联的Monitor，lock/unlock的实际含义就是：当前线程获取Monitor上的锁对象，该锁对象任何时候都只能被一个Thread持有。 Java中每个Object都有一个相关联的WaitSet集合，其中包含了所有等待获取【对象Monitor上锁对象】的线程。该WaitSet的移除和添加元素操作均为Atomic.该WaitSet只能够通过下列方式操作影响： Object#wait，notify，notifyAll 线程中断状态的变化 处理线程中断的方法 Thread#join，sleep其实都是通过Object#wait，notify，notifyAll来实现的。 当线程 t 调用Object#wait，notify，notifyAll，如果此时t线程还没有获取到objA的Monitor上的锁对象，此时，会抛出IllegalMonitorStateException异常。验证代码如下： public class Concurrecy { public static void main(String[] args) { try { Thread thread = new Thread(new Task()); thread.start();</p>
+<p>// catch IllegalMonitorStateException new Thread(new Runnable() { <span class="citation">@Override</span> public void run() { try{ // synchronized (Task.class) { System.out.println(“start test”); Task.class.wait(2000); // Task.class.notifyAll(); // Task.class.notify(); System.out.println(“end test”); // } }catch(IllegalMonitorStateException e){ System.out.println(“catch the IllegalMonitorStateException”); } catch (InterruptedException e) { System.out.println(“catch the InterruptedException”); } } } ).start(); } catch (Exception e) { e.printStackTrace(); } } } class Task implements Runnable{ <span class="citation">@Override</span> public void run() { try { synchronized (Task.class) { System.out.println(“start task”); TimeUnit.SECONDS.sleep(10); System.out.println(“end task”); }<br />} catch (Exception e) { System.out.println(“task excution error”); } } } 数组Array的类型判断: Instanceof Object[] 这种方式在jvm层面会被编译为一个operator，它无法判断primitive array，即int[] instanceof Object[] == false； getClass().isArray(); 这种方式在jvm层面会被编译为两个operator（因此，比较a而言，效率较低），它可以判断所有数组。 类的默认修饰符是friendly，只有在相同包中的对象才能使用这样的类。 成员变量的默认修饰符是friendly，在同一个包中的其他类可以访问此变量，而其他包中的类不能访问该变量。 成员方法的默认修饰符是friendly，在同一个包中的其他类可以访问此方法，而其他包中的类不能访问该方法。 C#中有所不同：类的默认修饰符是internal，访问仅限于当前工程。成员变量和成员方法的默认修饰符都是private，仅限类内部的成员才能访问该成员。 类的默认修internal，访问仅成员变量和成员方法的默认修饰符都是private，仅限类内部的成员才单打独斗 Java中extends关键字需要在implements之前。 Java中的匿名内部类的，可以使用接口， 抽象类，普通类。 多对多</p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

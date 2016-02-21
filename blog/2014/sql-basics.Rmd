@@ -1,0 +1,165 @@
+---
+author: "patrick.unicorn"
+output:
+  html_document:
+    css: ../css/main.css
+    highlight: null
+    theme: null
+---
+
+SQL基础-MySQL
+===
+
+* * *
+
+<q>
+SQL语句顺序
+SELECT FROM WHERE GROUP BY HAVING ORDER BY
+</q>
+
+## 语法
+
++ `_`可以用以匹配单个任意字符。
+
+```
+-- 匹配第二个字符为t的项
+SELECT ... FROM ... WHERE ... LIKE '_t%'
+```
+
++ 给创建权限
+
+```
+GRANT CREATE ON <db> TO <user>
+```
+
++ 库操作
+
+```
+CREATE DATABASE database_name;
+DROP DATABASE database_name;
+USE DATABASE database_name;
+```
+
++ 表操作
+
+```
+CREATE TABLE IF NOT EXITS track(
+  album CHAR(10) NOT NULL,
+  dsk INTEGER NOT NULL,
+  -- 联合主键
+  PRIMARY KEY (album, dsk)
+);
+DROP TABLE <name>;
+
+-- 重命名表
+ALTER TABLE table_name RENAME TO new_table_name;
+
+-- 删除表数据信息，(相比DELETE)自增字段的初始值也会初始化
+TRUNCATE TABLE table_name;
+
+INSERT INTO t_table_0(a, b) SELECT A, B FROM t_table_1; 
+
+-- 显示表的DDL语句
+SHOW CREATE TABLE table_name;
+```
+
++ 临时表
+
+临时表主要用于储存中间结果，当前session中断后，临时表会被自动删除。使用`SHOW TABLES`命令时，临时表不会被列出来。
+
+```
+CREATE TEMPORARY TABLE SALESSUMMARY ...
+DROP TABLE SALESSUMMARY;
+```
+
++ 列操作
+
+```
+ALTER TABLE table_name {ADD|DROP|MODIFY} column_name {data_ype};
+
+ALTER TABLE table_name ADD column_name <datatype> DEFAULT <defaultValue>;
+ALTER TABLE table_name DROP COLUMN column_name;
+
+-- 把x列重命名为y，类型不变
+ALTER TABLE a CHANGE x y INTEGER;
+
+-- 修改列的数据类型，并约束不可空
+ALTER TABLE table_name MODIFY column_name datatype NOT NULL;
+-- 修改列的数据类型，并约束可空
+ALTER TABLE table_name MODIFY column_name datatype NULL;
+
+-- 给表的列添加唯一性约束
+ALTER TABLE table_name 
+ADD CONSTRAINT MyUniqueConstraint UNIQUE(column1, column2...);
+
+ALTER TABLE table_name DROP CONSTRAINT MyUniqueConstraint;
+
+-- 给表添加主键
+ALTER TABLE table_name 
+ADD CONSTRAINT MyPrimaryKey PRIMARY KEY (column1, column2...);
+
+-- 删除表的主键
+ALTER TABLE t_table DROP PRIMARY KEY;
+```
+
++ 视图操作
+
+```
+CREATE VIEW v_name AS SELECT * FROM t_table;
+DROP VIEW <name>;
+```
+
++ 索引操作
+
+```
+-- 创建a列和b列的聚合索引
+CREATE INDEX i_dex ON t_table(a, b);
+
+-- 删除索引
+ALTER TABLE table_name DROP INDEX index_name;
+```
+
++ 判定NULL
+
+```
+SELECT * FROM t_table WHERE c_column IS NULL;
+SELECT * FROM t_table WHERE c_column IS NOT NULL;
+```
+
++ 区间搜索
+
+```
+select * from t_test where name BETWEEN 2 AND 3;
+-- 等价于
+select * from t_test where name >= 2 AND name <=3;
+```
+
++ 分页
+
+```
+-- 95行到结尾
+SELECT * FROM table LIMIT 95,-1;
+SELECT * FROM table LIMIT 5;
+--前五行
+SELECT * FROM table LIMIT 0,5;
+```
+
+## 性能
+
++ 避免使用SELECT *
+
++ 避免数字和字符串之间的转换
+
++ 谨慎设置索引，避免直接在插入更新操作非常频繁的表上设置索引
+
++ 设置合理索引，避免全表查询
+
++ 避免使用模糊匹配
+
++ 避免使用OR
+
++ 避免使用子查询，用连接查询替代
+
++ 合理使用存储过程
+
++ 使用UNION ALL，而非UNION

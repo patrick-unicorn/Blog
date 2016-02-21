@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="patrick.unicorn" />
+
+
+<title></title>
+
+
+
+
+<link href="data:text/css,body%20%7B%0A%20%20%20%20font%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0A%20%20%20%20font%2Dsize%3A%2018px%3B%0A%20%20%20%20margin%3A%205%25%2020%25%205%25%2020%25%3B%0A%20%20%20%20padding%3A%202%25%205%25%205%25%205%25%3B%0A%20%20%20%20width%3A%2050%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20border%3A%201px%20solid%20LightGrey%3B%0A%7D%0A%0AH1%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0A%0AH2%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dbottom%3A%2060px%3B%0A%20%20%20%20margin%2Dbottom%3A%2040px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border%2Dbottom%3A%202px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH3%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH4%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0Aul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2010px%3B%0A%7D%0A%0Ali%20%7B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%7D%0A%0Aq%20%7B%0A%20%20%20%20border%2Dleft%3A%204px%20lightgrey%20solid%3B%0A%20%20%20%20padding%2Dleft%3A%205px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20border%3A%20dashed%201px%20lightgrey%3B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20margin%2Dright%3A%2010px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%7D%0A%0A%2Eanswer%2Dblock%20%7B%0A%20%20%20%20word%2Dbreak%3A%20normal%3B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20padding%3A%200px%3B%0A%20%20%20%20margin%3A%200px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%20%20%20%20font%2Dsize%3A%2080%25%3B%0A%20%20%20%20word%2Dwrap%3A%20break%2Dword%3B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f5f5f5%3B%0A%20%20%20%20border%3A%201px%20solid%20%23000%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20overflow%3A%20auto%3B%0A%7D%0A%0A%0Apre%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20%0A%20%20%20%20font%2Dsize%3A%2075%25%3B%20%0A%20%20%20%20border%3A%20solid%201px%20lightgrey%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%3B%20%0A%20%20%20%20padding%3A%205px%3B%20%0A%20%20%20%20line%2Dheight%3A%20130%25%3B%20%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20width%3A%2095%25%3B%0A%7D%0A%0Apre%20code%20%7B%0A%20%20%20%20font%2Dsize%3A%20100%25%20%21important%3B%20%0A%20%20%20%20border%3A%20none%20%21important%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%20%21important%3B%20%0A%20%20%20%20color%3A%20%23000%20%21important%3B%0A%20%20%20%20border%2Dradius%3A%200%20%21important%3B%0A%20%20%20%20padding%3A%200%200%20%21important%3B%0A%7D%0A%0A%0Acode%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20padding%3A%202px%204px%3B%0A%20%20%20%20color%3A%20%23d14%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f7f7f9%3B%0A%20%20%20%20border%3A%201px%20solid%20%23e1e1e8%3B%0A%20%20%20%20border%2Dradius%3A%203px%3B%0A%7D%0A%0A%0Aa%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20crosshair%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20dashed%20Red%3B%0A%20%20%20%20padding%3A%201px%3B%0A%20%20%20%20color%3A%20black%3B%0A%7D%0A%0A%0Aa%3Ahover%20%7B%0A%09background%2Dcolor%3A%20LightGrey%3B%0A%7D%0A%0A%0Aimg%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20box%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dtop%3A%2010px%3B%0A%20%20%20%20margin%2Dbottom%3A%2010px%3B%0A%20%20%20%20%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%09width%3A%20100%25%3B%0A%7D%0A%0A%0Ahr%20%7B%0A%20%20%20%20color%3A%20LightGrey%3B%0A%7D%0A%0Atable%2C%20th%2C%20td%20%20%7B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%20%20border%3A%20solid%201px%20black%3B%0A%7D%0A%0Ath%20%7B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0Atd%20%7B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20text%2Dalign%3A%20left%3B%20%20%20%20%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+
+<div id="sql-mysql" class="section level1">
+<h1>SQL基础-MySQL</h1>
+<hr />
+<p><q> SQL语句顺序 SELECT FROM WHERE GROUP BY HAVING ORDER BY </q></p>
+<div class="section level2">
+<h2>语法</h2>
+<ul>
+<li><code>_</code>可以用以匹配单个任意字符。</li>
+</ul>
+<pre><code>-- 匹配第二个字符为t的项
+SELECT ... FROM ... WHERE ... LIKE '_t%'</code></pre>
+<ul>
+<li>给创建权限</li>
+</ul>
+<pre><code>GRANT CREATE ON &lt;db&gt; TO &lt;user&gt;</code></pre>
+<ul>
+<li>库操作</li>
+</ul>
+<pre><code>CREATE DATABASE database_name;
+DROP DATABASE database_name;
+USE DATABASE database_name;</code></pre>
+<ul>
+<li>表操作</li>
+</ul>
+<pre><code>CREATE TABLE IF NOT EXITS track(
+  album CHAR(10) NOT NULL,
+  dsk INTEGER NOT NULL,
+  -- 联合主键
+  PRIMARY KEY (album, dsk)
+);
+DROP TABLE &lt;name&gt;;
+
+-- 重命名表
+ALTER TABLE table_name RENAME TO new_table_name;
+
+-- 删除表数据信息，(相比DELETE)自增字段的初始值也会初始化
+TRUNCATE TABLE table_name;
+
+INSERT INTO t_table_0(a, b) SELECT A, B FROM t_table_1; 
+
+-- 显示表的DDL语句
+SHOW CREATE TABLE table_name;</code></pre>
+<ul>
+<li>临时表</li>
+</ul>
+<p>临时表主要用于储存中间结果，当前session中断后，临时表会被自动删除。使用<code>SHOW TABLES</code>命令时，临时表不会被列出来。</p>
+<pre><code>CREATE TEMPORARY TABLE SALESSUMMARY ...
+DROP TABLE SALESSUMMARY;</code></pre>
+<ul>
+<li>列操作</li>
+</ul>
+<pre><code>ALTER TABLE table_name {ADD|DROP|MODIFY} column_name {data_ype};
+
+ALTER TABLE table_name ADD column_name &lt;datatype&gt; DEFAULT &lt;defaultValue&gt;;
+ALTER TABLE table_name DROP COLUMN column_name;
+
+-- 把x列重命名为y，类型不变
+ALTER TABLE a CHANGE x y INTEGER;
+
+-- 修改列的数据类型，并约束不可空
+ALTER TABLE table_name MODIFY column_name datatype NOT NULL;
+-- 修改列的数据类型，并约束可空
+ALTER TABLE table_name MODIFY column_name datatype NULL;
+
+-- 给表的列添加唯一性约束
+ALTER TABLE table_name 
+ADD CONSTRAINT MyUniqueConstraint UNIQUE(column1, column2...);
+
+ALTER TABLE table_name DROP CONSTRAINT MyUniqueConstraint;
+
+-- 给表添加主键
+ALTER TABLE table_name 
+ADD CONSTRAINT MyPrimaryKey PRIMARY KEY (column1, column2...);
+
+-- 删除表的主键
+ALTER TABLE t_table DROP PRIMARY KEY;</code></pre>
+<ul>
+<li>视图操作</li>
+</ul>
+<pre><code>CREATE VIEW v_name AS SELECT * FROM t_table;
+DROP VIEW &lt;name&gt;;</code></pre>
+<ul>
+<li>索引操作</li>
+</ul>
+<pre><code>-- 创建a列和b列的聚合索引
+CREATE INDEX i_dex ON t_table(a, b);
+
+-- 删除索引
+ALTER TABLE table_name DROP INDEX index_name;</code></pre>
+<ul>
+<li>判定NULL</li>
+</ul>
+<pre><code>SELECT * FROM t_table WHERE c_column IS NULL;
+SELECT * FROM t_table WHERE c_column IS NOT NULL;</code></pre>
+<ul>
+<li>区间搜索</li>
+</ul>
+<pre><code>select * from t_test where name BETWEEN 2 AND 3;
+-- 等价于
+select * from t_test where name &gt;= 2 AND name &lt;=3;</code></pre>
+<ul>
+<li>分页</li>
+</ul>
+<pre><code>-- 95行到结尾
+SELECT * FROM table LIMIT 95,-1;
+SELECT * FROM table LIMIT 5;
+--前五行
+SELECT * FROM table LIMIT 0,5;</code></pre>
+</div>
+<div class="section level2">
+<h2>性能</h2>
+<ul>
+<li><p>避免使用SELECT *</p></li>
+<li><p>避免数字和字符串之间的转换</p></li>
+<li><p>谨慎设置索引，避免直接在插入更新操作非常频繁的表上设置索引</p></li>
+<li><p>设置合理索引，避免全表查询</p></li>
+<li><p>避免使用模糊匹配</p></li>
+<li><p>避免使用OR</p></li>
+<li><p>避免使用子查询，用连接查询替代</p></li>
+<li><p>合理使用存储过程</p></li>
+<li><p>使用UNION ALL，而非UNION</p></li>
+</ul>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

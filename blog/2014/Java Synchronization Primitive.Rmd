@@ -1,0 +1,114 @@
+**声明：** 所写均为个人阅读所思所想，限于知识层次和结构，难免有错误遗漏之处，请批判阅读。探讨可循：<mr.geek.ma@gmail.com>
+
+* * *
+
+## 概述
+
+Object对象的**wait()**, **notify()**, **notifyAll()**三个方法是线程间进行通信和协作的原语，更准确的是Java中对象与对象之间进行通信的原语，这也是它们被放入Object基类的根本原因。wait与notify/notifyAll的操作是互反的，因此，两者通常结对使用。Thread的join，sleep方法也是依赖这三个操作原语实现的。<!--more-->
+
+## wait
+
+该方法意在使当前线程等待，即不再继续执行wait()之后的code。
+
+<pre>注：该方法调用后会释放同步锁，这一点与<code>Thread#sleep()</code>不同。</pre>
+
+## notify/notifyAll
+
+这两个方法用于唤醒当前对象WaitSet中的线程（即那些调用过当前对象wait方法的线程）。其中notify只会选择性的唤醒其中一个线程，而notifyAll则唤醒WaitSet中的所有线程。由于无法准确知道notify唤醒的线程，因此，该方法不建议使用，更多的时候我们使用notifyAll。
+
+Java中的所有Object都关联两个隐藏对象：**Monitor**和**WaitSet**。
+
+Java提供的众多线程通信机制，其中最基本的就是Synchronization机制，而该机制是通过**Monitor**对象实现的，线程可以通过对该Monitor lock/unlock实现对当前对象的同步访问。线程可以多次对同一个Monitor做lock操作。unlock操作在synchronized block区代码执行完成后自动执行。如下：
+
+<pre>synchronized (String.class) {
+    synchronized (String.class) {
+        synchronized (String.class) {
+            try{
+                String.class.wait();
+            }catch (InterruptedException e) {
+                // TODO: handle exception
+            }
+        }
+    }
+}</pre>
+
+上面的code，在执行完line 5后，会unlock 3次，与lock次数一致。在实际应用中，由于同步代码会对performance产生一定的影响，因此，应当尽量使用Synchronized Block，而非Synchronized Method。本质上，Synchronized Method就是Synchronized Block：
+
+<pre>/**
+ * equivalent  to <code> public synchronized void test3(){ ... } </code>
+ */
+public synchronized void test3(){
+    synchronized (this) {
+        // ...
+    }
+}
+/**
+ * equivalent  to <code> public synchronized static void test3(){ ... } </code>
+ */
+public static void test4(){
+    // Concurrecy is the class in which #test4() was defined 
+    synchronized (Concurrecy.class) {
+        // ...
+    }
+}</pre>
+
+WaitSet是一个线程集合，其中的线程都是调用了当前对象的wait方法后被添加进当前对象的WaitSet中。WaitSet在对象刚创建时为空，其中元素的添加删除是Atomic的。以下几种情况会影响到WaitSet：
+
+*   wait()会导致向WaitSet中添加元素（当前线程）
+*   notify(), notifyAll()会导致从WaitSet中删除元素
+*   WaitSet中线程的中断会导致该线程从WaitSet中删除
+
+**值得注意的是，当线程T调用对象ObjA的`wait, notify, notifyAll`方法时，线程T必须持有ObjA的Monitor上的同步锁，否则，这将导致`IllegalMonitorStateException`：**
+
+<pre>public class Concurrecy {
+    public static void main(String[] args) {
+        try {
+            test0();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void test0(){
+        Thread thread = new Thread(new Task());
+        thread.start();
+
+        // catch IllegalMonitorStateException
+        new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        // synchronized (Task.class) {
+                            System.out.println("start test");
+                            Task.class.wait(2000);
+                            // Task.class.notifyAll();
+                            // Task.class.notify();
+                            System.out.println("end test");
+                        // }
+                    }catch(IllegalMonitorStateException e){
+                        System.out.println("catch the IllegalMonitorStateException");
+                    }catch (InterruptedException e) {
+                        System.out.println("catch the InterruptedException");
+                    }
+                }
+            }
+        ).start();
+    }
+}
+class Task implements Runnable{
+    @Override
+    public void run() {
+        try {
+            synchronized (Task.class) {
+                System.out.println("start task");
+                TimeUnit.SECONDS.sleep(5);
+                System.out.println("end task");
+            }           
+        } catch (Exception e) {
+            System.out.println("task excution error");
+        }
+    }
+}</pre>
+
+上述的代码，在注释line 18/24后，会导致程序抛出 IllegalMonitorStateException 异常。
+
+**最后，与并发相关的问题从来都是极为困难的，因此， 在实际使用这三个原语是需要格外注意。**

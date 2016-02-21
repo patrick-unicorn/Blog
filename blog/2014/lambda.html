@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="patrick.unicorn" />
+
+
+<title></title>
+
+
+
+
+<link href="data:text/css,body%20%7B%0A%20%20%20%20font%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0A%20%20%20%20font%2Dsize%3A%2018px%3B%0A%20%20%20%20margin%3A%205%25%2020%25%205%25%2020%25%3B%0A%20%20%20%20padding%3A%202%25%205%25%205%25%205%25%3B%0A%20%20%20%20width%3A%2050%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20border%3A%201px%20solid%20LightGrey%3B%0A%7D%0A%0AH1%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0A%0AH2%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dbottom%3A%2060px%3B%0A%20%20%20%20margin%2Dbottom%3A%2040px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border%2Dbottom%3A%202px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH3%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH4%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0Ali%20%7B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%7D%0A%0Aq%20%7B%0A%20%20%20%20border%2Dleft%3A%204px%20lightgrey%20solid%3B%0A%20%20%20%20padding%2Dleft%3A%205px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20border%3A%20dashed%201px%20lightgrey%3B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20margin%2Dright%3A%2010px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%7D%0A%0A%0Apre%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20%0A%20%20%20%20font%2Dsize%3A%2075%25%3B%20%0A%20%20%20%20border%3A%20solid%201px%20lightgrey%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%3B%20%0A%20%20%20%20padding%3A%205px%3B%20%0A%20%20%20%20line%2Dheight%3A%20130%25%3B%20%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20width%3A%2095%25%3B%0A%7D%0A%0Apre%20code%20%7B%0A%20%20%20%20font%2Dsize%3A%20100%25%20%21important%3B%20%0A%20%20%20%20border%3A%20none%20%21important%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%20%21important%3B%20%0A%20%20%20%20color%3A%20%23000%20%21important%3B%0A%20%20%20%20border%2Dradius%3A%200%20%21important%3B%0A%20%20%20%20padding%3A%200%200%20%21important%3B%0A%7D%0A%0A%0Acode%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20padding%3A%202px%204px%3B%0A%20%20%20%20color%3A%20%23d14%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f7f7f9%3B%0A%20%20%20%20border%3A%201px%20solid%20%23e1e1e8%3B%0A%20%20%20%20border%2Dradius%3A%203px%3B%0A%7D%0A%0A%0Aa%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20crosshair%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20dashed%20Red%3B%0A%20%20%20%20padding%3A%201px%3B%0A%20%20%20%20color%3A%20black%3B%0A%7D%0A%0A%0Aa%3Ahover%20%7B%0A%09background%2Dcolor%3A%20LightGrey%3B%0A%7D%0A%0A%0Aimg%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20box%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dtop%3A%2010px%3B%0A%20%20%20%20margin%2Dbottom%3A%2010px%3B%0A%20%20%20%20%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%7D%0A%0A%0Ahr%20%7B%0A%20%20%20%20color%3A%20LightGrey%3B%0A%7D%0A%0Atable%2C%20th%2C%20td%20%20%7B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%20%20border%3A%20solid%201px%20black%3B%0A%7D%0A%0Ath%20%7B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0Atd%20%7B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20text%2Dalign%3A%20left%3B%20%20%20%20%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+
+<div id="lambda" class="section level1">
+<h1>简明Lambda算子介绍</h1>
+<p><strong>声明：</strong> 本篇是<a href="http://www.aplusplus.net/lcintro.pdf">《The Lambda Calculus - A Brief Introduction》</a>的翻译。</p>
+<hr />
+<p><q> <strong>Lambda中一切都是函数，包括数字(指整数)。</strong> </q></p>
+<p>第一次接触Lambda是在C#语言中，当时的第一印象是简化的“匿名函数”，除此之外，对其背后的数学思想也并未深究。再到后来，逐渐接触到了<a href="http://zh.wikipedia.org/zh/%E5%87%BD%E6%95%B8%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80">函数式编程</a>概念，了解到了其背后的数学思想就是<a href="http://zh.wikipedia.org/zh/%CE%9B%E6%BC%94%E7%AE%97">Lambda算子</a>，并进行了初步的了解，但也是不求甚解。这次在翻看Scheme相关的资料时，感觉是时候深入的理解下其数学意义了。本文是一篇导论性质的文章，有很强的前后依赖性，因此不能跳读，只能按序阅读章节，并需要具备一定的数学基础(初中以上)和某种编程语言中的Lambda使用经验(如Java8/C#/Scheme等等)，才能比较好的理解。文中有很多数理概念的英语单词我都进行了保留。下面是译文：</p>
+<!--more-->
+<div id="chapter-1-introduction" class="section level2">
+<h2>Chapter 1 Introduction(介绍)</h2>
+<div id="origin" class="section level3">
+<h3>1.1 Origin(起源)</h3>
+<p><strong>Lambda Calculus</strong>是美国逻辑学家<strong>Alonzo Church</strong>在1930年代发明的，并于1941年在论文<strong>《The Calculi of Lambda Con-version》</strong>中理论化。</p>
+<p>Alonzo Church本意是创建形式化的数理逻辑系统，并未曾想到去创建一种编程语言。事实上，直到计算机编程产生后，这一理论与编程之间的关系才被发现。</p>
+</div>
+<div id="definition" class="section level3">
+<h3>1.2 Definition(定义)</h3>
+<blockquote>
+<p>定义1</p>
+<p>Lambda Calculus定义了一套<strong>Lambda表达式</strong>变换和形式化的规则。</p>
+</blockquote>
+</div>
+<div id="literature" class="section level3">
+<h3>1.3 Literature(文献)</h3>
+<p>Lambda算子作为一套数理逻辑系统，[Bar81]中以简明的方式详细解释了其内涵，另外，[Sto81]中提供了可读性更好的的表述。Curry和Fey在他们的书[CF58]中叙述了Lambda算子的一些历史成因和基本属性。这一观点是基于[Jon87]的第23页。</p>
+<p>在[Jon87]、[Kam90]、[Cha96]中，从程序员的视角对Lambda算子进行了探讨。</p>
+</div>
+</div>
+<div id="chapter2-syntax-of-lambda-expressionlambda" class="section level2">
+<h2>Chapter2 Syntax of Lambda Expression(Lambda表达式的语法)</h2>
+<p>Lambda表达式中的语法定义如下：</p>
+<blockquote>
+<p>定义2</p>
+<p>t是一个Lambda表达式，仅当如下条件之一成立时：</p>
+<ul>
+<li>t=x, x ∈ Var</li>
+<li>t=λx.M, x ∈ Var且M是Lambda表达式</li>
+<li>t=(MN), M和N均为Lambda表达式</li>
+</ul>
+</blockquote>
+<p>由此，Lambda算子包含三种不同类型的Lambda表达式:</p>
+<ul>
+<li><strong>variables - 变量(用于引用Lambda表达式)</strong></li>
+<li><strong>lambda abstraction - Lambda抽象(用于定义函数)</strong></li>
+<li><strong>applications - 应用(用于调用函数)</strong></li>
+</ul>
+<p><strong>Remarks(附注)</strong>：</p>
+<p>其中application中的<code>()</code>并非必须的。使用<code>()</code>主要是因为后面即将阐述的application的结合律。</p>
+<blockquote>
+<p><strong>译注：</strong></p>
+<p>对于第二条要有必要提醒的是，其只规定了<strong>一个参数</strong>的lambda表达式(函数)，那么很自然地，我们要问“多参数函数”怎么办呢？如果接触过Javascript语言，很自然地会想到<a href="http://zh.wikipedia.org/wiki/%E6%9F%AF%E9%87%8C%E5%8C%96">Curry(柯里化)</a>，在这一方式中所蕴含的基本思想是“程序即数据”，具体的说就是，<strong>N参函数</strong>可以表述为返回<strong>N-1参函数的函数</strong>的重复应用(调用)，即函数可以像“数据一样”被返回。下面以一个三参函数(javascript)为例说明上述思想：</p>
+<pre>
+三参函数调用：
+var f1 = function(p1, p2, p3) { 
+    return p1 + p2 + p3; 
+};
+f1(1, 2 ,3); //output: 6
+
+=&gt;
+两次单参函数调用：
+var f2 = function(p1) { 
+    return function(p2) { 
+        return p1 + p2; 
+    }
+};
+f2(1)(2);    //output: 3
+
+=&gt;
+三次单参函数调用：
+var f3 = function(p1) {
+    return function(p2) {
+        return function(p3) {
+            return p1 + p2 + p3;
+        }
+    }
+};
+f3(1)(2)(3); // output: 6
+</pre>
+</blockquote>
+</div>
+<div id="chapter-3-basic-rules-for-lambda-conversionslambda" class="section level2">
+<h2>Chapter 3 Basic Rules for Lambda Conversions(Lambda变换的基本规则)</h2>
+<div id="notation-used-in-conversion-rules" class="section level3">
+<h3>3.1 Notation used in Conversion Rules(变换的符号记法)</h3>
+<div id="notation-used-to-specify-conversion-of-lambda-expressionslambda" class="section level4">
+<h4>3.1.1 Notation used to specify conversion of lambda expressions(lambda表达式变换中的符号记法)</h4>
+<blockquote>
+<p>记法1(变换操作符)</p>
+<ul>
+<li>M →<sup>α</sup> N 从左到右应用规则</li>
+<li>M ←<sup>α</sup> N 从右到左应用规则</li>
+<li>M ↔<sup>α</sup> N 双向应用规则</li>
+</ul>
+<p>箭头线<code>→</code>、<code>←</code>、<code>↔</code>附带的希腊字符(此处为α)代表了应用的变换类型</p>
+</blockquote>
+</div>
+<div id="notation-used-to-specifiy-substitution" class="section level4">
+<h4>3.1.2 Notation used to specifiy substitution(代换的符号记法)</h4>
+<blockquote>
+<p>记法2(代换操作符)</p>
+<ul>
+<li>M[x → N] 用N代换M中的X</li>
+<li>M[x ← N] 用x代换M中的N</li>
+<li>M[x ↔ N] 双向代换</li>
+</ul>
+</blockquote>
+</div>
+</div>
+<div id="alpha-conversion" class="section level3">
+<h3>3.2 Alpha Conversion(α变换)</h3>
+<div id="bound-and-free-variables" class="section level4">
+<h4>3.2.1 Bound and Free Variables(绑定变量和自由变量)</h4>
+<blockquote>
+<p>定义3(绑定变量和自由变量)</p>
+<p>如下的Lambda表达式: λx.xy</p>
+<p><code>y</code>是自由变量，而<code>x</code>是绑定变量。自由变量的值从高层(外部)的Lambda表达式中获取。</p>
+</blockquote>
+</div>
+<div id="rules-of-alpha-conversion" class="section level4">
+<h4>3.2.2 Rules of Alpha Conversion(α变换规则)</h4>
+<p>Lambda表达式的α变换定义如下：</p>
+<blockquote>
+<p>规则1-3(α变换)</p>
+<ul>
+<li>λx.M →<sup>α</sup> λx<sub>0</sub>.M[x →<sup>α</sup> x<sub>0</sub>]</li>
+<li>λx.M ←<sup>α</sup> λx<sub>0</sub>.M[x ←<sup>α</sup> x<sub>0</sub>]</li>
+<li>λx.M ↔<sup>α</sup> λx<sub>0</sub>.M[x ↔<sup>α</sup> x<sub>0</sub>]</li>
+</ul>
+<p>x<sub>0</sub>在M中不能是自由变量。</p>
+<p>α变换的处理过程不会改变表达式的值</p>
+<p>表达式M和它的值N之间可以表述为modulo α相等: M =<sub>α</sub> N</p>
+</blockquote>
+<blockquote>
+<p><strong>译注：</strong>α变换的意义在于，Lambda表达式内部的<strong>绑定变量(非自由变量)</strong>的名称是可置换的。以数学中的多项式为例，可以理解多项式<code>x+2</code>与<code>y+2</code>是等价意义的。</p>
+</blockquote>
+<p>α的第三条规则是前两条的综合。在Lambda表达式内部进行置换时，α变换法则是必须的。</p>
+</div>
+</div>
+<div id="beta-conversion" class="section level3">
+<h3>3.3 Beta Conversion(β变换)</h3>
+<p>β变换包含两个过程变换：β-Reduction和β-Abstraction。前者是指将<strong>Lambda Abstraction</strong>内部的绑定变量用函数的(实)参数代换的过程。后者是指逆过程，即将经过β-Reduction后的表达式还原为原Lambda表达式的过程。</p>
+<div id="rule-of--conversion" class="section level4">
+<h4>3.3.1 Rule of β-Conversion(β变换规则)</h4>
+<blockquote>
+<p>规则4(β变换)</p>
+<p>如下的变换称为β变换:</p>
+<p>((λx.M)N) ↔<sup>β</sup> M[x ↔ N]</p>
+<p><strong>译注：</strong></p>
+<p>左侧的<code>((λx.M)N)</code>是一个application[参看定义2]，其内部的<code>λx.M</code>是一个abstraction[参看定义2]；右侧是一个substitution[参看记法2]。</p>
+</blockquote>
+</div>
+<div id="-reduction" class="section level4">
+<h4>3.3.2 β-Reduction</h4>
+<p><strong>Reducible Expression(可约表达式) ‘redex’</strong> β-reduction可以仅被用于可约的表达式。可约表达式简称为‘redex’，其定义如下：</p>
+<blockquote>
+<p>定义4(Redex)</p>
+<p>redex是可约表达式，如下表示：</p>
+<p>((λx.M)N)</p>
+</blockquote>
+<p><strong>Rule of β-Reduction</strong></p>
+<blockquote>
+<p>规则5(β-reduction)</p>
+<p>如下的变换称为β-reduction：</p>
+<p>((λx.M)N) →<sup>β</sup> M[x → N]</p>
+</blockquote>
+</div>
+<div id="-abstraction" class="section level4">
+<h4>3.3.3 β-Abstraction</h4>
+<p><strong>Rule of β-Abstraction</strong></p>
+<blockquote>
+<p>((λx.M)N) ←<sup>β</sup> M[x ← N]</p>
+</blockquote>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>((λx.x)(λy.y)) →<sup>β</sup> ((λy.y)(λy.y)) →<sup>β</sup> (λy.y)</li>
+</ul>
+<blockquote>
+<p><strong>译注：</strong> 将<code>((λx.x)(λy.y))</code>看做<strong>规则5</strong>中的<code>((λx.M)N)</code>，其中<code>(λy.y)</code>看做<code>N</code>，<code>(λx.x)</code>看做<code>(λx.M)</code>，如此，经过β-reduction后，就变换为了<code>((λy.y)(λy.y))</code>;后续过程类似。</p>
+</blockquote>
+<ul>
+<li>((λx.(λy.xy))y) →<sup>β</sup> ((λy<sub>0</sub>.x.y<sub>0</sub>))</li>
+</ul>
+<blockquote>
+<p><strong>译注：</strong></p>
+<p>仍然将<code>((λx.(λy.x.y))y)</code>看做<strong>规则5</strong>中的<code>((λx.M)N)</code>，其中最后一个<code>y</code>看做<code>N</code>，<code>λx.(λy.x.y)</code>看做<code>(λx.M)</code>，<code>λy.x.y</code>看做<code>M</code>，之后进行β-reduction变换的同时，需要同时应用α变换来置换<code>(λy.xy)</code>中的<code>y</code>→<code>y0</code>以避免变量名重复歧义。</p>
+</blockquote>
+<p><strong>Remarks(附注):</strong></p>
+<p>第二个例子表明了α变换的必要性。其中<code>(λy.xy)</code>中的绑定变量<code>y</code>必须被重命名为<code>y0</code>，才能避免当其中的自由变量<code>x</code>被β-reduction应用的外部参数<code>y</code>代换时产生冲突。</p>
+<blockquote>
+<p>译注：β变换的意义在于，函数调用等价于将函数体中的参数使用参数值替代。以多项式为例，对于函数<code>f(y)=2*y + 1</code>，有<code>f(2) &lt;=&gt; 2*2 + 1</code>。</p>
+</blockquote>
+</div>
+</div>
+<div id="eta-conversion" class="section level3">
+<h3>3.4 Eta Conversion(η变换)</h3>
+<p>与β变换一样，η变换同样包含了从左到右和从右到左两个过程。</p>
+<ul>
+<li>η-reduction</li>
+<li>η-abstraction</li>
+</ul>
+<blockquote>
+<p>规则7(η变换)</p>
+<p>如下形式的Lambda表达式变换称为η变换:</p>
+<p>(λx.Mx) ↔<sup>η</sup> M, x在M中不能是自由变量(即为绑定变量)</p>
+</blockquote>
+<div id="-reduction" class="section level4">
+<h4>3.4.1 η-Reduction</h4>
+<p>η-reduction用于消除冗余的<strong>lambda abstraction</strong>[参看定义2]。具体的解释如下：</p>
+<p>如果<strong>lambda abstraction</strong>的唯一目的是将它的参数传递给另一个函数，那么该<strong>lambda abstraction</strong>就是冗余的，并可以对其应用η-reduction。</p>
+<blockquote>
+<p><strong>译注：</strong></p>
+<p>用Java程序语言的方式可以表述为，如果函数f内部仅仅是调用了另外一个函数时，那么函数f是可消除的。如下：</p>
+<pre>
+public void f(x, y) {
+  g(x, y, null);
+}
+public void g(x, y, z) {
+  ...
+}
+</pre>
+</blockquote>
+<p>如果在类似Scheme的语言中使用<strong>及早求值(eager evaluation)</strong>的情形下，这样的冗余<strong>lambda abstraction</strong>被用于对lambda表达式进行包装，以避免立即求值。</p>
+<blockquote>
+<p>规则8(η-reduction)</p>
+<p>如下形式的变换称为η-reduction:</p>
+<p>(λx.Mx) →<sup>η</sup> M, x在M中不能使自由变量(即为绑定变量)</p>
+</blockquote>
+</div>
+<div id="-abstraction" class="section level4">
+<h4>3.4.2 η-Abstraction</h4>
+<p>η-abstraction用于在<strong>及早求值(eager evaluation)</strong>的语言中为lambda表达式创建一个包装。在<strong>惰性求值(lazy evaluation)</strong>的语言中，如Lambda Calculus、A++、SML、Haskell、Miranda等，η-abstraction和η-reduction主要被用于编译器内部。</p>
+<blockquote>
+<p>规则9(η-abstraction)</p>
+<p>如下形式的变换称为η-abstraction:</p>
+<p>(λx.Mx) ←<sup>η</sup> M, x在M中不能使自由变量(即为绑定变量)</p>
+</blockquote>
+</div>
+</div>
+<div id="rule-of-associativity" class="section level3">
+<h3>3.5 Rule上 of Associativity(交换规则)</h3>
+<div id="rule-of-associativity-for-abstractionabstraction" class="section level4">
+<h4>3.5.1 Rule of Associativity for Abstraction(Abstraction结合规则)</h4>
+<blockquote>
+<p>规则10(Abstraction结合规则)</p>
+<p>Abstraction(指Lambda Abstraction[参看定义2])是<strong>从左到右</strong>结合。</p>
+</blockquote>
+<p><strong>Example</strong>: 表达式<code>λx.λy.λz.M</code>等价于<code>λxyz.M</code>。</p>
+</div>
+<div id="rule-of-associativity-for-applicationapplication" class="section level4">
+<h4>3.5.2 Rule of Associativity for Application(Application结合规则)</h4>
+<blockquote>
+<p>规则11(Application结合规则)</p>
+<p>Application(指Lambda Application[参看定义2])从<strong>右到左</strong>结合。</p>
+</blockquote>
+<p><strong>Example</strong>: 表达式<code>((MN)P)</code>等价于<code>(MNP)</code>。</p>
+</div>
+<div id="example-for-both-rules" class="section level4">
+<h4>3.5.3 Example for both rules(同时应用两种规则的例子):</h4>
+<p><code>λx.λy.((xy)z))</code>等价于<code>λxy.xyz</code>。</p>
+</div>
+</div>
+<div id="y-combinatory" class="section level3">
+<h3>3.6 Y-Combinator(Y协变器)</h3>
+<p>Y-combinator也称为<strong>fixpoint combinator</strong>，是H.Curry发明的。有了它，就可以处理Lambda算子中的递归函数了[<strong>引入Y-Combinator的终极目的</strong>]。</p>
+<p>在许多编程语言中，函数内部调用自身(即递归调用)可以简单地使用函数名。这被称为隐式递归，但是这点在Lambda算子中是不能实现的，因为Lambda算子中所有的<strong>lambda abstraction</strong>均为匿名函数。</p>
+<blockquote>
+<p>定义5(Y-Combinator)</p>
+<p>Y-Combinator定义如下：</p>
+<p>Y = λf.((λx.(f(x x))))(λx.(f(x x)))</p>
+</blockquote>
+<div id="basic-usage-of-y-combinatory-combinator" class="section level4">
+<h4>3.6.2 Basic Usage of Y-Combinator(Y-Combinator基本使用)</h4>
+<p><strong>Fixpoint of a Function</strong> 如果满足(M N) =<sup>β</sup> N为true，那么N就称为M的“fixpoint”。</p>
+<blockquote>
+<p>理解这一概念的一个关键是，需要铭记在Lambda中：<strong>变量和函数经常互换角色</strong>，因此，此处的N也既可能是变量，也可能是函数。而在使用不动点和Y-Combinator表述<strong>递归</strong>的过程中，此处的N通常是指函数。如果假设函数F的不动点是(函数)f，Y是函数F的Y-Combinator，则存在如下的关系：</p>
+<p><span class="math">\[Y(F) = f = F(f) = F(Y(F))\]</span></p>
+</blockquote>
+<p>按照H.Curry的表述，对于M，存在一个函数可以生成M的fixpoint。这个函数就是上面定义的Y-Combinator。</p>
+<blockquote>
+<p><strong>译注：</strong></p>
+<p>关于不动点以及Y-Combinator的详细说明可参考<a href="http://mindhacks.cn/2006/10/15/cantor-godel-turing-an-eternal-golden-diagonal/">《康托尔、哥德尔、图灵——永恒的金色对角线(rev#2)》</a>。</p>
+</blockquote>
+<blockquote>
+<p>定义6(Fixpoint of A Function)</p>
+<p>(M N) →<sup>β</sup> N</p>
+</blockquote>
+<p>根据上面的定义，函数的fixpoint可以被看做一个lambda表达式，如果把该表达式作为参数传递给函数，那么函数又会返回该表达式。</p>
+<p><strong>Generation of fixpoint using Y-combinator</strong></p>
+<p>根据定义，Y-combinator有一个函数可以生成M的fixpoint：</p>
+<blockquote>
+<p>规则12(Fixpoint Generation Using Y-Combinator):</p>
+<p>(M(Y M)) →<sup>β</sup> (Y M)</p>
+</blockquote>
+<p><strong>Fixpoint expansion by β-reduction</strong> 上面的过程是可逆的：</p>
+<blockquote>
+<p>规则13(Fixpoint Expanation):</p>
+<p>(Y M) →<sup>β</sup> (M(Y M))</p>
+</blockquote>
+<p>验证过程如下：</p>
+<blockquote>
+<p>证明1(Fixpoint Expanation):</p>
+<p>(Y M) →<sup>β</sup> ((λx.(M(x x)))(λx.(M(x x)))) →<sup>β</sup> (M((λx.(M(x x)))(λx.(M(x x))))) →<sup>β</sup> (M(Y M))</p>
+<p><strong>译注：</strong></p>
+<p>第一步中，直接用Y的定义替代<code>Y</code>，并应用β-reduction变换，此时Y(<code>λf.((λx.(f(x x))))(λx.(f(x x)))</code>)中的绑定变量<code>f</code>全部代换为<code>M</code>；</p>
+<p>第二步中，第一个<code>λx.(M(x x))</code>作为β-reduction定义中的<code>λx.M</code>，第一个<code>λx.(M(x x))</code>作为β-reduction定义中的<code>N</code>；</p>
+<p>第三步中，对(λx.(M(x x)))(λx.(M(x x)))应用β-abstraction。</p>
+</blockquote>
+</div>
+<div id="using-the-y-combinator-to-implement-recursion" class="section level4">
+<h4>3.6.3 Using the Y-Combinator to implement recursion</h4>
+<p><strong>Introduction</strong> 下面是经典的阶乘的递归问题，用于测试Y-combinator。</p>
+<p>为了简化过程，我们把函数<code>IF</code>、<code>=</code>、<code>*</code>、<code>-</code>作为预定义的<strong>lambda abstraction[参看定义2]</strong>，同时假定所有的自然数都是可以获取的值。将这些预定义在Lambda算子中实现并不至于太难，这里只是为了简化问题，使我们聚焦于<strong>Using the Y-Combinator to implement recursion</strong>这一主题。</p>
+<blockquote>
+<p><strong>译注：</strong></p>
+<p>使用Lambda算子实现加号<code>+</code></p>
+<p>最简单直观的方式，把<code>+</code>当做一个<strong>两参函数</strong>: <code>λx.λy.x+y</code> &lt;=&gt; <code>λxy.x+y</code>，问题是显而易见，函数体中的<code>+</code>引用了自身；为了解决消除这一递归定义矛盾，很自然我们会想到Y-Combinator，因为Y-Combinator就是解决Lambda算子中递归问题而引入的。</p>
+</blockquote>
+<p><strong>Steps to Eliminate Implicit Recursion</strong></p>
+<ul>
+<li>包含不合法的隐式递归[<strong>译注：</strong>指使用了不支持的命名函数]的计算阶乘的递归函数</li>
+</ul>
+<pre><code>FAC = λn.(IF(= n 0) 1 (* n (FAC(- n 1))))</code></pre>
+<ul>
+<li>不合法的隐式递归</li>
+</ul>
+<pre><code>FAC = λn.(...FAC...)</code></pre>
+<ul>
+<li>去除不合法的隐式递归</li>
+</ul>
+<pre><code>FAC = (λfac.λn.(...fac...)FAC)</code></pre>
+<ul>
+<li>简化形式</li>
+</ul>
+<pre><code>FAC = (M FAC), 其中M = λfac.λn.(...fac...)</code></pre>
+<p>通过将递归函数封闭为一个lambda abstraction消除了递归， 该lambda abstraction接受被递归访问的函数作为参数。</p>
+<ul>
+<li>应用<strong>定义12</strong>后，步骤4结果中的FAC可以认为是M的fixpoint，因此，我们可以写为如下形式：</li>
+</ul>
+<pre><code>FAC = (Y M)</code></pre>
+<blockquote>
+<p><strong>译注：</strong>这一步真正消除了递归</p>
+</blockquote>
+<ul>
+<li>计算阶乘的函数现在可以被写为：</li>
+</ul>
+<pre><code>FAC = (Y λfac.λn.(...fac...))</code></pre>
+<ul>
+<li>计算n的阶乘的表达式如下：</li>
+</ul>
+<pre><code>(Y λfac.λn.(...fac...)n)</code></pre>
+<p><strong>Examples of Step by Step Evaluation</strong></p>
+<ul>
+<li>预定义变量</li>
+</ul>
+<pre><code>FAC = (Y M)
+M = λfac.λn.(IF(= n 0)1(* n (fac(- n 1))))</code></pre>
+<ul>
+<li>表达式求值</li>
+</ul>
+<pre><code>(FAC 1)</code></pre>
+<ul>
+<li>使用FAC重写表达式，FAC是(Y M)，M是一个fixpoint</li>
+</ul>
+<pre><code>((Y M)1)</code></pre>
+<ul>
+<li>应用规则12重写biaodashi</li>
+</ul>
+<pre><code>((M(Y M))1)</code></pre>
+<ul>
+<li>替换第一个M</li>
+</ul>
+<pre><code>((λfac.λn.(IF(= n 0)1(* n (fac(- n 1))))(Y M))1)</code></pre>
+<ul>
+<li>应用β-reduction变换，用参数(Y M)代换lambda abstraction中的变量fac</li>
+</ul>
+<pre><code>(λn.(IF(= n 0)1(* n ((Y M)(- n 1))))1)</code></pre>
+<ul>
+<li>应用β-reduction变换，用参数1代换lambda abstraction中的变量n</li>
+</ul>
+<pre><code>(IF(= n 0)1(* 1 ((Y M)(- 1 1))))</code></pre>
+<ul>
+<li>根据条件，选择并计算IF表达式的分支</li>
+</ul>
+<pre><code>(* 1 ((Y M)0))</code></pre>
+<ul>
+<li>应用规则12，用(M(Y M))代换(Y M)</li>
+</ul>
+<pre><code>(* 1 ((M(Y M))0))</code></pre>
+<ul>
+<li>用M的值替换第一个M</li>
+</ul>
+<pre><code>(* 1 ((λfac.λn.(IF(= n 0)1(* n (fac(- n 1))))(Y M))0))</code></pre>
+<ul>
+<li>应用β-reduction变换，用参数(Y M)代换fac</li>
+</ul>
+<pre><code>(* 1 (λn.(IF(= 0 0)1(* n ((Y M)(- n 1)))))0)</code></pre>
+<ul>
+<li>计算IF表达式</li>
+</ul>
+<pre><code>(* 1 1)</code></pre>
+<ul>
+<li>计算*表达式</li>
+</ul>
+<pre><code>1</code></pre>
+</div>
+</div>
+</div>
+<div id="bibliography" class="section level2">
+<h2>Bibliography(参考书目)</h2>
+<p>[Bar81] H. Barendregt. The Lambda Calculus  Its Syntax and Semantics. North-Holland, Amsterdam, 1981.</p>
+<p>[CF58] Howard B. Curry and R. Feys. Combinatory Logic, volume 1. North-Holland, Amsterdam, 1958.</p>
+<p>[Cha96] Jacques Chazarain. Programmer avec Scheme  De la pratique  a la th ´ eorie. International Thomson Publishing France, Paris, 1996. ISBN 2 84180 130 4.</p>
+<p>[Chu41] Alonzo Church. The Calculi of Lambda Conversion. Princeton University Press, Princeton, New Jersey , 1941.</p>
+<p>[Jon87] Simon L. Peyton Jones. The Implementation of Functional Programming Languages. Prentice Hall International, Hertfordshire,HP2 7EZ, 1987. ISBN 0 13 453325 9.</p>
+<p>[Kam90] Samuel N. Kamin. Programming Languages  An Interpreter -Based Approach. AddisonWesley Publishing Company , Reading, Massachusetts, 1990. ISBN 0 201 06824 9.</p>
+<p>[Sto81] J .E. Stoy . Denotational Semantics. MIT Press, Cambridge, Massachusetts, 1981.</p>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

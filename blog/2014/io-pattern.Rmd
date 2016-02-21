@@ -1,0 +1,69 @@
+---
+author: "patrick.unicorn"
+output:
+  html_document:
+    css: ../css/main.css
+    highlight: null
+    theme: null
+---
+
+IO模式
+===
+
+**声明：** 所写均为个人阅读所思所想，请批判阅读。
+
+* * *
+
+不像程序设计有23中设计模式，I/O操作只有两种模式：同步模式和异步模式；与此对应的I/O并发模式也只有两种：Reactor和Proactor。
+
+## （非）阻塞与（异）同步
+
+#### 释义
+
+* Synchronous : occurring or existing at the same time or having the same period or phase
+
+* Asynchronous: not occurring or existing at the same time or having the same period or phase
+
+从上述的定义看，所谓同步异步，是相对于“主客”双方而言的。比如：A向前走一步，B向前也走一步，那么我们说A，B是同步的，反之为异步。在这个例子中需要明确一点，同步并非指“同一时刻”走一步，而是指，两者的“步调（**完成时序**）一致”。也就是说A向前走了一步之后，B在十分钟之后也向前走一步，那么，我们说A，B仍然是同步的，因为它们的**完成时序**是一致的。
+
+那么具体到I/O系统而言，A是指用户空间（如某个应用程序），B是指内核空间。比如：A先读操作o1，随后写操作o2，那么同步情况下，B会先执行**完**读操作o1，再执行写**完**操作o2；而对于异步，o1和o2的**完成时序**不一定和A保持一致。
+
+#### 理解
+
+I/O操作的步骤：
+
++ 发起I/O请求（用户空间）
++ 实际I/O操作（内核空间）
+
+同步I/O和异步I/O的关键区别在于第二个步骤是否阻塞，同步指的是用户进程触发IO操作并等待或者轮询的去查看IO操作是否就绪，而异步是指用户进程触发IO操作以后便开始做自己的事情，而当IO操作已经完成的时候会得到IO完成的通知（**异步的特点就是消息通知**）。
+
+而阻塞I/O与非阻塞的I/O的关键区别在于第一个步骤是否阻塞，说白了只是一种读取或者写入**操作函数的实现方式**而已，阻塞方式下读取或者写入函数将一直等待，而非阻塞方式下，读取或者写入函数会立即返回一个状态值。
+
+从上述定义看，其实阻塞与非阻塞都可以理解为同步范畴下才有的概念，对于异步，就不会再去分阻塞非阻塞。对于用户进程，接到异步通知后，就直接操作进程用户态空间里的数据好了，异步I/O本身必然是非阻塞的，需要操作系统内核的支持。
+
+<blockquote>
+通常提到的I/O模型：
+
+1. 同步阻塞I/O - 同步模式
+2. 同步非阻塞I/O - 同步模式
+3. I/O复用 - 同步模式
+4. 异步I/O - 异步模式
+</blockquote>
+
+## Reactor和Proactor
+
+两者是IO并发模式，如果你曾经和我一样纠结于这两种模式的异同，我推荐你直接看Department of Computer Science
+Washington University关于两种模式的论文，简单明了到你只需要看这两篇论文的标题，就知晓了两种模式的异同了：
+
+* [Reactor : An Object Behavioral Pattern for Demultiplexing and Dispatching Handles for Synchronous Events](http://www.cs.wustl.edu/~schmidt/PDF/reactor-siemens.pdf) 
+
+* [Proactor: An Object Behavioral Pattern for Demultiplexing and Dispatching Handlers for Asynchronous Events](http://www.cs.wustl.edu/~schmidt/PDF/proactor.pdf) 
+
+1. 两者是对象行为模式。
+2. 两个核心组件：分离组件(demultiplexer)和派发组件(dispatcher)
+3. 前者基于同步事件，后者基于异步事件。
+
+著名的select/poll机制就是基于Reactor模式的，如果你使用过它，那么这点很好理解。
+相对应的，Window中的完成IO机制和Linux中的epoll是基于Proactor模式的。
+
+上面的两篇论文已经阐述的足够详尽了，再写有点多余了，莫不如直接看Paper来的简单直接：）。

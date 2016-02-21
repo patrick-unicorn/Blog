@@ -1,0 +1,81 @@
+---
+title: "Java Biscuits - Concatenation of String"
+author: "patrick.unicorn"
+date: "Monday, November 10, 2014"
+output: html_document
+---
+
+**声明：** 所写均为个人阅读所思所想，限于知识层次和结构，难免有错误遗漏之处，请批判阅读。探讨可循：<mr.geek.ma@gmail.com>
+
+* * *
+
+## Addition(\+)
+最常用的方法。
+
+优点：足够简单易懂。
+缺点：对象复制导致加大内存使用。
+
+> 在Java中String是不可变对象，因此，当你使用`+`进行字符串叠加时，每个新的中间结果都会导致分配内存，从而引起内存错误，降低性能。
+
+<!--more-->
+
+## StringBuilder
+
+大量字符串叠加时的常用方法。
+
+优点：降低内存使用。
+
+缺点：引入新的类，并不直观简单。
+
+<pre>
+new StringBuilder().append("A")
+                   .append("B");
+</pre>
+
+> 与其对应的还有StringBuffer，只不过后者是线程安全的，因此，性能较低。
+
+## StringObj.concat
+
+通常用于单个字符串对象结尾拼接另外一个字符串。依赖于`Arrays.copyOf`。
+
+优点：简单。
+
+缺点：只能拼接到字符串尾部。
+
+<pre>
+"A".concat("B");
+</pre>
+
+## String.format
+
+字符串格式化拼接方法。
+
+优点：支持格式化组合拼接。
+
+缺点：无。
+
+<pre>
+// 2$和1$用于控制参数拼接次序 
+String.format("concat the %2$s and %1$s", "A", "B");
+</pre>
+
+*注：详细的格式化字符可参看JDK文档。*
+
+## System.arraycopy
+
+底层的本地方法，用于进行数组的复制组合，当然也包含了字符数组。除`+`以外，以上各方法，或直接，或间接依赖于该方法。
+
+优点：性能优秀。
+
+缺点：操作对象为字符数组，使用不方便。
+
+<pre>
+String A = "A";
+String B = "B";
+char[] ret = new char[A.length() + B.length()];
+
+System.arraycopy(A.toCharArray(), 0, ret, 0,  A.length());
+System.arraycopy(B.toCharArray(), 0, ret, A.length(), B.length());
+
+new String(ret);
+</pre>

@@ -1,0 +1,70 @@
+---
+title: "Scheme Basics_2"
+author: "patrick.unicorn"
+date: "Thursday, November 13, 2014"
+output: html_document
+---
+
+**声明：** 所写均为个人阅读所思所想，限于知识层次和结构，难免有错误遗漏之处，请批判阅读。探讨可循：<mr.geek.ma@gmail.com>
+
+* * *
+
+**{:}** 定义在let、letrec、lambda等内部首部的`define`称为内部定义。如下：
+
+```
+(let () 
+     (define f (lambda (y) (+ y x)))
+     (f 2))
+```
+
+letrec*和内部定义基本上是等价的：
+
+```
+(letrec* ((var expr0) ...) expr1 expr2 ...)
+
+等价于
+
+(let ()
+    (define var expr0)
+    ·
+    ·
+    ·
+    expr1
+    expr2
+    ·
+    ·
+    ·
+)
+```
+
+有几点需要注意下：
+
++ 内部定义与letrec一样，可以互相递归定义，即下面的定义时合法的：
+
+```
+```
+
++ 内部定义强制从左到右求值。
+
+这也是上面的等价形式中使用了`letrec*`，而不是`letrec`，因为`letrec`不一定从左到右求值。
+
++ 内部定义必须在body的头部。
+
+```
+非法：
+(let ()
+    ·
+    ·
+    ·
+    expr1
+    (define var expr0)
+    expr2
+    ·
+    ·
+    ·
+)
+```
+
++ 内部定义中可以定义符号扩展
+
+**{:}** 

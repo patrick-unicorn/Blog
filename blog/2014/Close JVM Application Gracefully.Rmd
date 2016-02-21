@@ -1,0 +1,18 @@
+**声明：** 所写均为个人阅读所思所想，限于知识层次和结构，难免有错误遗漏之处，请批判阅读。探讨可循：<mr.geek.ma@gmail.com>
+
+* * *
+
+## M1
+
+ShutdownHook  
+kill (-15) PID
+
+Kill -9无条件强制杀死进程，不会运行ShutdownHook
+
+## M2
+
+Command Thread
+
+## M3
+
+Watch File

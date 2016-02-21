@@ -1,0 +1,244 @@
+---
+author: "patrick.unicorn"
+date: "July 28, 2015"
+output:
+  html_document:
+    css: ../../css/main.css
+    highlight: null
+    theme: null
+---
+
+Java线程同步机制
+===
+
+- - -
+
+## Thread
+
+Java中基本的并发机制是多线程。线程是程序执行的最小单位。多线程编程最困难的地方在于处理**共享资源**的竞争性访问。
+
+### Daemon
+
+Java中线程分为守护线程（Daemon）和用户线程（User）。两者的区别如下：
+
++ 守护线程是为用户线程服务的，它的优先级为低。
+
++ 守护线程的生命周期依赖于外部的用户线程。
+
+当JVM中的用户线程都结束后，系统会退出（守护线程自然也会被终结）。通常在守护线程中，不应放入过多的用户逻辑，因为守护线程的结束依赖于外部用户线程生命周期，因此，无法预知其执行的时机，有可能造成潜在的错误。
+
+```
+Thread t = new Thread(...);
+// 必须在线程启动之前设置
+t.setDaemon(true);
+t.start();
+```
+
+## Monitor
+
+Java中每个对象都伴随一个监控器对象（monitor），其概念来自于操作系统。监控器对象（monitor）相当于每个对象的“线程访问接待室”，对每个访问线程排队，进而实现对象数据安全访问。详细的说明可以参看附录。
+
+## Synchronized & Wait/Notify
+
+### Synchronized
+
+```
+class Ex {
+    private Object L = new Object();
+
+    // 锁对象是Ex.class
+    public static synchronized A() { ... }
+    
+    // 锁对象是当前对象（this）
+    public synchronized A() { ... }
+    
+    public A() {
+        // 锁对象是L
+        synchronized(L) {
+            ...
+        }
+    }
+}
+```
+
+### Wait/Notify
+
+wait/notify[all]可以简单的理解为对Monitor等待区线程队列的操作。
+
++ wait
+
+当前线程进入协调对象（调用wait）的Monitor等待区(wait-set)，不会再被调度执行。
+
++ notify[All]
+
+唤醒所有在协调对象（调用notify[All]）Monitor等待区的线程，使其可以被调度执行。
+
+wait/notify[All]定义在Object基类，它们是一组协作方法，必须配合使用。值得注意的是，当前线程必须先持有**协调对象**的monitor，才能调用它们。
+
+```
+class Ex {
+    public static void main(String[] args) {
+		Object L = new Object();
+		try {
+		    // 因为此处线程并没有持有对象L的monitor，所以
+		    // 会导致java.lang.IllegalMonitorStateException
+			L.wait(); 
+			
+			// 正确的方式
+			synchronized(L) {
+			    L.wait();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+<blockquote>
+#### 为什么必须持有**协调对象**monitor，才可以调用其wait/notify[all]?
+
+线程之间通过对象的wait/notify[all]方法进行协作，那么，该对象必然是“共享资源”，面临竞争性使用，因此，获取该对象的Monitor就理所当然成为使用其方法wait/notify[All]的先决条件了。
+</blockquote>
+
+### Join
+
+`Thread#Join`方法是对`Object#wait`方法的一个包装，主要是为了方便线程之间协调等待。
+
+```
+// 注意synchronized
+public final synchronized void join(long millis)
+    throws InterruptedException {
+        long base = System.currentTimeMillis();
+        long now = 0;
+        ...
+        
+        if (millis == 0) {
+            // 判断Thread对象代表的线程是否活跃
+            while (isAlive()) {
+                wait(0);
+            }
+        } else {
+            // 判断Thread对象代表的线程是否活跃
+            while (isAlive()) {
+                long delay = millis - now;
+                if (delay <= 0) {
+                    break;
+                }
+                wait(delay);
+                now = System.currentTimeMillis() - base;
+            }
+        }
+    }
+```
+
+典型的使用场景：
+
+```
+public static void main(String[] args) {
+    Thread t1 = new Thread(/*某些耗时的动作*/);
+    Thread t2 = new Thread(/*某些耗时的动作*/);
+    
+    //主线程会等待t1和t2线程结束
+    t1.join();
+    t2.join();
+}
+```
+
+## Lock & Condition
+
+在Java1.5之前，多线程编程只能基于上述的**Syncrhonized & Wait/Notify**机制，其具有明显的弊端：
+
++ 性能低
+
+synchronized底层的实现机制（*JDK1.5以前*）导致锁的性能成本太高。
+
++ 不灵活
+
+<blockquote>
+1. synchronized不能跨方法使用，即不能在A方法中加锁，而在B方法中解锁。
+2. synchronized加锁会导致不可中断的阻塞。
+</blockquote>
+
++ 不完备
+
+<blockquote>
+1. 从上面的表述中，我们可以看到**锁**和**协调对象**之间是具有明显关联的。而**Syncrhonized & Wait/Notify**机制中，对这一关联并未有显著的设定，设计上并不完备。
+2. wait/notify的协作机制过于单调。
+3. synchronized由于是语言特性，无法扩展。
+4. 不支持锁公平性
+</blockquote>
+
+因此，Java1.5引入了**Lock & Condition**机制。
+
+### Lock
+
+<blockquote>
+#### 锁的可重入性
+
+如果线程A已经获取了锁对象L，当A线程（释放L之前）再次获取锁对象L，如果可以获取，则为**可重入锁**；否则，为**不可重入**。synchronized支持可重入。
+
+#### 锁的公平性
+
+如果锁获取的顺序严格遵从于线程申请的顺序，那么，即为公平锁；否则，为不公平锁。synchronized不支持公平锁。
+</blockquote>
+
+Lock的典型使用形式：
+
+```
+lock.lock();
+try{
+	//do critical section code,
+	//which may throw exception
+} finally {
+	lock.unlock();
+}
+```
+
++ ReentrantLock
+
+synchronized关键字的直接替代者。
+
++ ReadWriteLock
+
+支持单独的读写锁。
+
++ StampedLock
+
+增强版的读写锁。锁的状态包含一个“邮戳”，其实就是进一步降低了锁的粒度。
+
+### Condition
+
+Condition相当于将之前设定在Object中的wait/notify抽取到了单独的对象中。通过`Lock#newCondition`生成实例。每个Condition是与具体的Lock对象相关联的。
+
+### Application
+
++ CountDownLatch
+
+<q>
+A synchronization aid that allows one or more threads to wait until a set of operations being performed in other threads completes.
+</q>
+
+当计数值为0时，(调用了`CountDownLatch#await`)的线程会继续执行。每次调用`CountDownLatch#countDown`，计数值减1。
+
++ CyclicBarrier
+
+<q>
+A synchronization aid that allows a set of threads to all wait for each other to reach a common barrier point.
+</q>
+
+当所有调用`CyclicBarrier#await`方法的线程都结束后：
+
+1. 在最后一个结束的线程中执行`CyclicBarrier#barrierAction`。
+2. 所有线程继续取消阻塞，继续执行。
+
+CyclicBarrier调用reset方法后可以重用。
+
+## References
+
+1. [Thread Synchronization][1]
+2. [Monitors – The Basic Idea of Java Synchronization][2]
+3. [More flexible, scalable locking in JDK 5.0][3]
+
+[1]: https://www.artima.com/insidejvm/ed2/threadsynch.html
+[2]: http://www.programcreek.com/2011/12/monitors-java-synchronization-mechanism/
+[3]: http://www.ibm.com/developerworks/java/library/j-jtp10264/index.html

@@ -1,0 +1,34 @@
++ 一个主循环线程，一个请求，一个线程
++ 一个主循环线程，一个请求，一个逻辑处理线程池
++ 一个主循环线程，一个数据池，一个数据解码线程，一个逻辑处理线程池
+
+画出架构图
+<pre>
+public byte[] readToPool(SocketChannel socketChannel) throws IOException {
+    // bytespool 可以使用RingBuffer http://lmax-exchange.github.io/disruptor/
+    Queue<byte[]> bytesPool = new ConcurrentLinkedQueue<byte[]>();
+    
+    ByteBuffer readBuffer = ByteBuffer.allocate(1024);
+    
+    ByteBuffer outBuffer = ByteBuffer.allocate(N);
+    
+    int reads = 0;
+    while ((reads = socketChannel.re.read(readBuffer)) != -1) { 
+        if (reads == 0) { continue; }
+        if (!outBuffer.hasRemaining()) { break; }
+        
+        int remainings = outBuffer.remaining() > reads ? reads : readBuffer.remaining();
+        outBuffer.put(readBuffer.array(), 0, remainings);
+        
+        readBuffer.
+    }
+    if (readBuffer.hasRemaining()) {
+       // TODO: throw exception or other operations, because
+       // the content is incomplete.
+    }
+    
+    // continue to process the bytesPool's bytes 
+    // eg. decode/decompress/decrypt in the other Thread
+    bytesPool.add(outBuffer.array());
+}
+</pre>

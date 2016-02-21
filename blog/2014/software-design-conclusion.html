@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="patrick.unicorn" />
+
+
+<title></title>
+
+
+
+
+<link href="data:text/css,body%20%7B%0A%20%20%20%20font%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0A%20%20%20%20font%2Dsize%3A%2018px%3B%0A%20%20%20%20margin%3A%205%25%2020%25%205%25%2020%25%3B%0A%20%20%20%20padding%3A%202%25%205%25%205%25%205%25%3B%0A%20%20%20%20width%3A%2050%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20border%3A%201px%20solid%20LightGrey%3B%0A%7D%0A%0AH1%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0A%0AH2%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dbottom%3A%2060px%3B%0A%20%20%20%20margin%2Dbottom%3A%2040px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border%2Dbottom%3A%202px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH3%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH4%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0Aul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2010px%3B%0A%7D%0A%0Ali%20%7B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%7D%0A%0Aq%20%7B%0A%20%20%20%20border%2Dleft%3A%204px%20lightgrey%20solid%3B%0A%20%20%20%20padding%2Dleft%3A%205px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20border%3A%20dashed%201px%20lightgrey%3B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20margin%2Dright%3A%2010px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%7D%0A%0A%2Eanswer%2Dblock%20%7B%0A%20%20%20%20word%2Dbreak%3A%20normal%3B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20padding%3A%200px%3B%0A%20%20%20%20margin%3A%200px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%20%20%20%20font%2Dsize%3A%2080%25%3B%0A%20%20%20%20word%2Dwrap%3A%20break%2Dword%3B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f5f5f5%3B%0A%20%20%20%20border%3A%201px%20solid%20%23000%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20overflow%3A%20auto%3B%0A%7D%0A%0A%0Apre%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20%0A%20%20%20%20font%2Dsize%3A%2075%25%3B%20%0A%20%20%20%20border%3A%20solid%201px%20lightgrey%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%3B%20%0A%20%20%20%20padding%3A%205px%3B%20%0A%20%20%20%20line%2Dheight%3A%20130%25%3B%20%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20width%3A%2095%25%3B%0A%7D%0A%0Apre%20code%20%7B%0A%20%20%20%20font%2Dsize%3A%20100%25%20%21important%3B%20%0A%20%20%20%20border%3A%20none%20%21important%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%20%21important%3B%20%0A%20%20%20%20color%3A%20%23000%20%21important%3B%0A%20%20%20%20border%2Dradius%3A%200%20%21important%3B%0A%20%20%20%20padding%3A%200%200%20%21important%3B%0A%7D%0A%0A%0Acode%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20padding%3A%202px%204px%3B%0A%20%20%20%20color%3A%20%23d14%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f7f7f9%3B%0A%20%20%20%20border%3A%201px%20solid%20%23e1e1e8%3B%0A%20%20%20%20border%2Dradius%3A%203px%3B%0A%7D%0A%0A%0Aa%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20crosshair%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20dashed%20Red%3B%0A%20%20%20%20padding%3A%201px%3B%0A%20%20%20%20color%3A%20black%3B%0A%7D%0A%0A%0Aa%3Ahover%20%7B%0A%09background%2Dcolor%3A%20LightGrey%3B%0A%7D%0A%0A%0Aimg%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20box%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dtop%3A%2010px%3B%0A%20%20%20%20margin%2Dbottom%3A%2010px%3B%0A%20%20%20%20%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%09width%3A%20100%25%3B%0A%7D%0A%0A%0Ahr%20%7B%0A%20%20%20%20color%3A%20LightGrey%3B%0A%7D%0A%0Atable%2C%20th%2C%20td%20%20%7B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%20%20border%3A%20solid%201px%20black%3B%0A%7D%0A%0Ath%20%7B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0Atd%20%7B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20text%2Dalign%3A%20left%3B%20%20%20%20%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+
+<div class="section level1">
+<h1>软件设计原则与模式</h1>
+<p><strong>声明：</strong> 所写均为个人阅读所思所想，请批判阅读。</p>
+<hr />
+<p>本篇是我在2011北京工作时所做的数篇阅读笔记的整理总结和增补，其中应该有引用到他人的文章，但由于年代久远，难以找出原文引用了，在此一并致敬。</p>
+<div id="abstraction" class="section level2">
+<h2>Abstraction</h2>
+<div class="section level3">
+<h3>原则与模式</h3>
+<p>曾经我也是捧着GOF的书啃设计模式，后来慢慢明白，那些“生硬”的<strong>设计模式</strong>过于形式主义了，模式背后的“灵活”的<strong>设计原则</strong>才是最重要的，这种关系有点像欧式几何中公理和定理的关系。</p>
+<p>设计原则具有哲学抽象性，更加基础，因此，更难把握和理解，必须通过实践的“反哺”才能深刻理解。而设计模式更加具化，“看得见，摸得着”，因此，容易被人所“学”。但生搬硬记学习“设计模式”无异于本末倒置，到头来，设计出的系统，通篇是别扭的模式组合。我自己曾经就走过这样的弯路。</p>
+</div>
+<div class="section level3">
+<h3>对象与类</h3>
+<p>OOP的全称是“面向对象编程”，但是，对于我自己而言，长期以来是OCP（面向类编程）的。很长很长的一段时间内，我都没能准确的区分出“面向对象”和“面向类”设计。最近读到了《ThoughtWorks文集》，颇有相见恨晚之感。</p>
+<p>现在理解，两者的本质区别在于<strong>设计视角</strong>，OOP的设计视角是运行时的动态场景，关注对象；而OCP的设计视角是静态的领域概念，关注类。OOP所关注的是运行时对象的<strong>（协作）行为和角色</strong>，兼具<strong>时空属性</strong>；而OCP则是领域概念的类定义化，只有<strong>空间属性</strong>，而缺少<strong>时间属性</strong>。</p>
+<p>落实到具体的代码层面，OOP的设计视角，通常会催生出一组<strong>交互行为或角色的接口</strong>；OCP则通常催生出一组<strong>层次继承的类族</strong>。</p>
+</div>
+<div class="section level3">
+<h3>组合与继承</h3>
+<p>组合优于继承基本算是OOP的公理之一。可是为什么呢？这个问题曾经困扰过我很久，我查到的很多资料，都是模糊的一句“组合的耦合性低于继承”。在之后阅读和实践中，才慢慢理解：继承之与类，组合之于对象。类是静态编译时的，对象是动态运行时的；一静一动，正好表述出了两者的耦合性质的差异。</p>
+</div>
+</div>
+<div id="principal" class="section level2">
+<h2>Principal</h2>
+<p>在我看来，软件设计原则如数学公理体系一般，是存在层次和脉络的，因此，我将原则分为了两个层次：first-class、second-class。在我看来，前者更加基础，外延更大，内涵更聚合。</p>
+<div id="first-class" class="section level3">
+<h3>First-Class</h3>
+<div id="kisskeep-it-simple-stupid" class="section level4">
+<h4>KISS(Keep it simple &amp; stupid)</h4>
+<p>“简洁就是美”，简单的东西不但好用，而且好理解。</p>
+<blockquote>
+<p>完美之道，不在无可增加，而在无可删减。</p>
+</blockquote>
+</div>
+<div id="dbcdont-blindly-coding" class="section level4">
+<h4>DBC(Don’t blindly coding)</h4>
+<p>软件设计的本质是思考，不是Coding。不要盲目写代码，确保在实际编程前，进行充分的思考，而不是在需要思考的时候急忙去编程。</p>
+</div>
+<div id="kiakeep-it-automated" class="section level4">
+<h4>KIA(Keep it automated)</h4>
+<p>善用工具，尽可能一切都自动化，所谓磨刀不误砍柴工。</p>
+</div>
+<div id="kimkeep-it-modularized" class="section level4">
+<h4>KIM(Keep it Modularized)</h4>
+<p>编写复杂软件系统，应当用定义清晰的一组接口把若干简单模块组合起来。</p>
+</div>
+<div id="ocpopen-close-principle" class="section level4">
+<h4>OCP(Open-Close Principle)</h4>
+<p>OOP的核心原则。系统应该对修改关闭，对扩展（增加）开放。一种典型情况，当我们要给一个类新增功能的时候，是否可以通过新增一个类来直接替换掉已有的类。实现该原则的关键是<strong>封装、抽象、多态性</strong>。</p>
+<p>下面是一个方法层面的OCP原则应用的例子：</p>
+<pre><code>class Parent {
+
+  public void method0() { }
+  
+  public void method1() { }
+  
+}
+
+class Son extends Parent {
+  
+  /** 扩展 */
+  @Override
+  public void method0() {
+    super.method0();
+    //...
+  }
+  
+  /** 覆盖 */
+  @Override
+  public void method1() {
+    //...
+  }
+
+}</code></pre>
+<p>上例中，OCP原则倡导扩展方法，而不是整个修改方法。</p>
+</div>
+</div>
+<div id="second-class" class="section level3">
+<h3>Second-Class</h3>
+<div id="srpthe-single-responsibility-principle" class="section level4">
+<h4>SRP(The single responsibility principle)</h4>
+<p>每个元素（类、模块、子系统）的职责必须具有最强的单一内聚性。</p>
+</div>
+<div id="drydont-repeat-yourself" class="section level4">
+<h4>DRY(Don’t repeat yourself)</h4>
+<p>尽量避免（功能和形式上的）重复代码。</p>
+</div>
+<div id="lspthe-liskov-substitution-principle" class="section level4">
+<h4>LSP(The Liskov substitution principle)</h4>
+<p>该原则是比较抽象的，相比其他原则并不好理解。因此，祭出“WWW”方法进行复杂概念的理解：</p>
+<ul>
+<li>WHAT</li>
+</ul>
+<p>子类必须能够替换基类（被<strong>客户</strong>使用）</p>
+<ul>
+<li>WHY</li>
+</ul>
+<p>衡量类继承的质量，判断子类和基类是否具有“IS-A”关系。下面引用的讲解比较生动的说明了问题：</p>
+<blockquote>
+<p>生物学的分类体系中把企鹅归属为鸟类。我们模仿这个体系，设计出这样的类和关系。 类“鸟”中有个方法fly，企鹅自然也继承了这个方法，可是企鹅不能飞阿，于是，我们在企鹅的类中覆盖了fly方法，告诉方法的调用者：企鹅是不会飞的。这完全符合常理。但是，这违反了LSP，企鹅是鸟的子类，可是企鹅却不能飞！需要注意的是，此处的“鸟”已经不再是生物学中的鸟了，它是软件中的一个类、一个抽象。 有人会说，企鹅不能飞很正常啊，而且这样编写代码也能正常编译，只要在使用这个类的客户代码中加一句判断就行了。但是，这就是问题所在！首先，客户代码和“企鹅”的代码很有可能不是同时设计的，在当今软件外包一层又一层的开发模式下，你甚至根本不知道两个模块的原产地是哪里，也就谈不上去修改客户代码了。客户程序很可能是遗留系统的一部分，很可能已经不再维护，如果因为设计出这么一个“企鹅”而导致必须修改客户代码，谁应该承担这部分责任呢？（大概是上帝吧，谁叫他让“企鹅”不能飞的。^_^）“修改客户代码”直接违反了OCP，这就是OCP的重要性。违反LSP将使既有的设计不能封闭！</p>
+</blockquote>
+<ul>
+<li>HOW</li>
+</ul>
+<p>遵从契约式设计。</p>
+<blockquote>
+<p>Pre-condition: 每个方法调用之前，该方法应该校验传入参数的正确性，只有正确才能执行该方法，否则认为调用方违反契约，不予执行。这称为前置条件(Pre-condition)。</p>
+<p>Post-Condition: 一旦通过前置条件的校验，方法必须执行，并且必须确保执行结果符合契约，这称之为后置条件(Post-condition)。</p>
+<p>Invariant: 对象本身有一套对自身状态进行校验的检查条件，以确保该对象的本质不发生改变，这称之为不变式(Invariant)。</p>
+</blockquote>
+<p>以上是单个对象的约束条件。为了满足LSP，当存在继承关系时，需要满足：</p>
+<ol style="list-style-type: decimal">
+<li><p>子类中方法的前置条件(即该方法被执行的条件)必须与超类中被覆盖的方法的前置条件相同或者更宽松。联系企鹅和鸟的例子，也就是说，如果鸟(超类)飞的动作可以执行，那么企鹅(子类)也必须可以飞。</p></li>
+<li><p>子类中方法的后置条件必须与超类中被覆盖的方法的后置条件相同或者更为严格。联系企鹅和鸟的例子，也就是说，假设鸟和企鹅均可飞，同时，鸟可以飞1000米，那么，企鹅飞的距离必须小于1000米。</p></li>
+</ol>
+<p>Java语言中存在一些明显的特性，其背后就是遵循LSP原则的。</p>
+<ol style="list-style-type: decimal">
+<li><p>继承并且覆盖超类方法的时候，子类中的方法的可见性必须等于或者大于超类中的方法的可见性。</p></li>
+<li><p>子类中的方法所抛出的受检异常只能是超类中对应方法所抛出的受检异常的子类。</p></li>
+</ol>
+<pre><code>一个常见的违反LSP原则的情况
+
+public class P {
+
+    public void fly() {
+         ...
+    }
+
+}
+
+public class C extends P {
+    
+    public void fly() {
+        throw new UnSupportedOperation();
+    }
+
+}</code></pre>
+</div>
+<div id="dipdependency-inversion-principle" class="section level4">
+<h4>DIP(Dependency Inversion Principle)</h4>
+<p>依赖倒置原则。模块之间都依赖于抽象（接口），而非互相依赖。使用过DI容器（如Spring）都可以理解这一原则。</p>
+</div>
+<div id="ispinterface-seperation-principle" class="section level4">
+<h4>ISP(Interface Seperation Principle)</h4>
+<p>强调接口的内聚性，不应该强迫客户程序依赖它们不需要的使用的接口方法。实际应用中，不倡导“大而全”的接口，倡导“精而小”的接口。具体的例子可以看看Java NIO和Java BIO的设计对比。</p>
+</div>
+</div>
+</div>
+<div id="application" class="section level2">
+<h2>Application</h2>
+<p>如何避免设计时过早陷入细节，如何更好的应用设计原则？一个可能的答案是，在思考设计时，进行层次性思考，由抽象层向具象层思考。Martin Fowler提到了一种视角的分层方式：</p>
+<div id="conceptual-perspective" class="section level3">
+<h3>Conceptual Perspective</h3>
+<p>概念视角。最抽象、稳定的一层。</p>
+<p>将问题领域进行概念（对象）化，并对概念（对象）之间的关系进行梳理，最终，形成概念（对象）分组（模块）。</p>
+</div>
+<div id="specifiaction-perspective" class="section level3">
+<h3>Specifiaction Perspective</h3>
+<p>规格视角。</p>
+<p>基于概念视角得出的概念对象，<strong>抽取接口</strong>。如何抽取接口呢？关键在于分析概念对象之间的<strong>协作</strong>关系。</p>
+</div>
+<div id="implementation-perspective" class="section level3">
+<h3>Implementation Perspective</h3>
+<p>实现视角。最具象、不稳定的一层。</p>
+<p>基于规格视角得出的抽象接口，实现具体的类，并考虑对象的实现细节。</p>
+</div>
+<div id="conclusion" class="section level3">
+<h3>Conclusion</h3>
+<p>可以看出三层视角<strong>侧重</strong>不同的开发角色：</p>
+<ul>
+<li><p>Conceptual Perspective - <strong>架构师</strong></p></li>
+<li><p>Specifiaction Perspective - <strong>设计师</strong>、架构师</p></li>
+<li><p>Implementation Perspective - <strong>编码者</strong>、设计师、架构师</p></li>
+</ul>
+<p>它不但规范了设计系统时的<strong>思考过程</strong>，而且规范了<strong>开发分工</strong>。在时间上，让设计人员思考个视角层时，聚焦于单点；在空间上，让各种开发角色聚焦于对应的视角层。</p>
+</div>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

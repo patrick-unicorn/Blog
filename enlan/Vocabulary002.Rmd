@@ -1,0 +1,175 @@
++ **comma** - 逗号
++ **semicolon** - 分号
++ **mitigate** - 减轻，减缓。如：HttpOnly Cookies can mitigate certain kinds of cross-site scriptint attacks
++ **indeterminate** - 不确定的。如：indeterminate result
++ **convey** - 表达，传达，传递。如convey setup information
++ **encapsulate** - 压缩，封装。Encapsulate information
++ **transmit** - 传输，传送。如 something is transmitted from server to client
++ **specify** - 具体指定说明
++ **underlying** - 潜在的，底层的。如underlying buffer，底层缓冲器。
++ **parenthese** - 括号（）
++ **appropriate** - 适当的，恰当的
++ **slump** - vt-暴跌，突然倒下；n-萧条期。如：sale price slump
++ **expansion** - n-扩大扩张。如：product expansion
++ **intern** - vt-软禁，拘禁，n-实习生。如：IBM is looking for two interns。
++ **presidential** -  adj-总统的，统辖的。如：presidential election，总统大选
++ **affect** - vt-影响。如：the event will affect the next presidential election。
++ **perfect gift** - 完美的礼物。
++ **acquire** - 获得，求购，收购。如：lenovo has acquired PC department of IBM in .
++ **up to util now** - 截止到目前为止。
++ **unleash** - 发泄，发放，发布。如：unleash product。
++ **premium** - n-赠品，adj-高售价的。如：premium and commercial software package，商业版收费软件包。
++ **offer** - 提供。如offer free software。
++ **smartphone** - 智能手机。
++ **facility** - 基础设施。如enormous facilities 强（巨）大的基础设施
++ **square** - adj-正方形的，n-正方形，广场，vt-求平方
++ **convention** - 习惯，惯例，协议，会议，公约
++ **transform** - vt-改观，改革，变换，转换。
++ **compress** - 压缩。如：compress data
++ **instantiate** - 实例化。如：instantiate a servlet。
++ **subset** - 子集
++ **reflects** - 反映，反省，深思
++ **conference** - 大会。如Web 2.0 Conference
++ **profitable** - 有利可图的，有益的。
++ **Entertainment** - 娱乐。
++ **Politic** - n-政治
++ **comedy** - 喜剧
++ **headline** - 标题。如：latest news headline
++ **MultiPlayer Strategy Game** - 多角色策略游戏
++ **a small and experienced team** - 经验丰富的小团队。
++ **a competitive salary** - 有竞争力的薪水。
++ **6-month contact** - 6个月的合同。
++ **candidate** - 考生，候选人。
++ **bachelor's in computer science** - 电脑科学学士
++ **strong background with java** - 精通java
++ **extensive experience** - 广泛的经验。
++ **social game** - 社交游戏
++ **passion for something** - 对于某事的激情。
++ **be complaint with** - 符合...。complaint 顺从的。
++ **be embedded into** - 被嵌入
++ **interpreted** - 解释的。如： javascript is an interpreted language。
++ **braces** -  指{}大括号
++ **loosely typed language** - 弱类型语言。
++ **it is recommended that** - 建议…
++ **additon** - 加法
++ **subtraction** - 减法
++ **multiplication** - 乘法
++ **division** - 除法
++ **case-sensitive** - 大小写敏感。
++ ** primary (primitive) data types** - 基本数据类型。
++ **letters, digits** - 字母，数字
++ **single or double quotation** - 单引号或双引号
++ **is interpreted as** - 被解释为。
++ **scientific notation** - 科学计数法
++ **floating-point number** - 浮点数。
++ **recommended** - 推荐的。
++ **guardian** - 监护人，保护人。The Guardian也指《卫报》
++ **literature** - 文学
++ **lecturer** - 讲师.
++ **lecture** - 讲课。
++ **survey** - 调查. Eg. Anonymous survey
++ **accuracy** - n-准确性
++ **eurozone** - 欧元区。如Eurozone debt 欧元区债务。
++ **newborn baby** - 新出生的婴儿。
++ **intelligence** - 智力，智慧。
++ **scientific findings** - 科学发现。
++ **improve your english vocabulary skills
++ **revolution** - 革命，变革。
++ **co-founder** - 联合创始人
++ **colleague** - 同事
++ **college dropout** - 大学辍学生。
++ **the Cannes summit** - 戛纳首脑会议。
++ **summit host** - 会议主持国（东道国）
++ **the original intent** -  本意，原意，主旨。
++ **crisis** - 危机。如：europe debt crisis，欧债危机。
++ **spread through** - 蔓延，传播。如：Europe debt crisis spread through Europe.
++ **commercial** - 商业的。
++ **push ahead with something** - 推动…。如：push ahead with economic revolution,推动经济改革
++ **economic** - adj-经济的.  n-经济学。economy  n-经济
++ **financial** - 财政的。
++ **extraordinary** - adj-非凡的。如：extraordinary leadership 非凡的领导力。
++ **comprehensive** - 全面的，详尽的，广泛的，缜密的。
++ **bailout** - 救助。如：financial bailout 财政救助
++ **move beyond** - 摆脱。如：move beyond Europe debt crisis. 摆脱欧债危机。
++ **ackknowledge** - vt-认识到，意识到。
++ **the global economy** - 全球经济。
++ **dominate - 主宰，统治，支配，控制。
++ **correspond with** -  相符合。 Correspond to 通信，相类似。
++ **Hyper Text Transfer Protocol** -  HTTP
++ **stateless protocol** -  无状态协议。
++ **track** - 轨迹，轨道，跑道，小路。Vt-跟踪。
++ **involve** - vt-使卷入，使涉及。
++ **mechanism** - 机制。
++ **nuance** - n-细微之处 例句：developer involve himself in the nuance of various Session track mechanism.开发者不必深入关注各种Session机制的细微差别。
++ **compliant** - 适用的，顺从的
++ **the untrained** - 非专业人士
++ **think outside of the box** - 创造性思考（维）
++ **abstract away from** - 不考虑，忽略
++ **Denotational Semantics** - 指称语义
++ **be aware of** - 意识到
++ **ill-conceived** - 构想拙略的，计划不周的
++ **close over** - 遮蔽，淹没；封盖
++ **alma mater** - 母校
++ **understatement** - 保守的称述，不充分的陈述
++ **overnight** - 通宵地；通宵的；过一夜；一夜的逗留
++ **consequence** - 结果；结论，推论
++ **the present** - 当下，现在；礼物
++ **fascinating** - 迷人的，吸引人的，使人陶醉的
++ **burden [somebody] with [something]** - 使某人热衷于某事
++ **quantifier** - 量词；数量词；精于计算的人。如logic ~ 表示逻辑量词。
++ **logician** - 逻辑学家；论理学者
++ **subtlety** - 微妙，敏锐。 ~ of the logic  逻辑学的微妙
++ **substitution** - 代替；[数学]置换
++ **tuple** - 元组
++ **is likely to** - 有可能...
++ **subconsciously** - 潜意识地
++ **notation** - 符号
++ **be content with** - 对...感到满意
++ **well-meaning** - 好心的，用心良苦的
++ **for the moment** - 暂时；暂且；目前
++ **make every attempt to** - 尽量努力...
++ **bother to** - 费心地...
++ **presumption** - 推论；假设
++ **evident** - 明显的；明白的； 
++ **evidence** - 证据；迹象；vt-证明
++ **conventional** - 传统的；符合习俗的；常见的；惯例的
++ **how is it that ...** - 为何
++ **characterize** - 描述...的特性；具有...的特征；塑造人物
++ **fall short of** - 达不到；缺少
++ **graduate school** - 研究生院
++ **algebraic** - 代数
++ **textbook** - 课本
++ **definitely** - 明确地；肯定地
++ **at this stage** - 眼下
++ **resounding** - 响亮的；轰动的；彻底的
++ **deem** - 认为，持某种看法；相信
++ **systematic** - 系统化的
++ **convince** - 说服；使确信；使信服
++ **definitely** - 看法；认知；洞察力
++ **excerpt** - vt&n 摘录；引用
++ **associativity** - [数] 结合性；结合律
++ **conversion** - 转换；变换；兑换
++ **sole purpose** - 唯一目的
++ **strip** - vt 剥去，剥夺；vi 脱去衣服
++ **versatile** - 通用的；万能的
++ **syntactic forms** - 句法形式
++ **semantic concepts** - 语义概念
++ **a handful of** - 少数的
++ **respect** - 尊重；遵守
++ **are collectively called** - 统称为
++ **regularity** - 规则性；整齐；均称
++ **malformed** - 畸形的，有缺陷的，难看的
++ **Overspecified** - 多余指定的
++ **This need not be the case.** - 不需要这样
++ **It must be possible to** - 必须能够
++ **variation** - 变异，变种
++ **from time to time** - 不时，有时
++ **preemptive** - 抢占式的
++ **violation** - 违反，妨害，强奸
++ **normalization** - 归一化；规格化；正常化
++ **normalizing form** - 归一化形式；规格化形式；正常形式
++ **category theory** - 范畴论
++ **set theory** - 集合论
++ **type theory** - 类型论
++ **prerequisite** - 先决条件
++ **supervisor** - 管理者，监督者

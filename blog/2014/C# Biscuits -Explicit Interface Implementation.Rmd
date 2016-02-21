@@ -1,0 +1,79 @@
+---
+title: "C# Biscuits -Explicit Interface Implementation"
+author: "patrick.unicorn"
+date: "Tuesday, November 18, 2014"
+output: html_document
+---
+
+
+**声明：** 所写均为个人阅读所思所想，限于知识层次和结构，难免有错误遗漏之处，请批判阅读。探讨可循：<mr.geek.ma@foxmail.com>
+
+* * *
+
+C#中提供了两种接口实现方式：隐式和显示。隐式接口实现即为Java等大多数OOP语言中的普通接口实现；而显示接口实现如下：
+
+```
+interface A {
+    void S();
+}
+
+class C : A {
+
+    void A.S() {
+        throw new NotImplementedException();
+    }
+}
+```
+
+<!--more-->
+
+显示接口实现的意义主要表现在如下两个方面：
+
++ 解决不同接口的方法同名冲突
+
+```
+interface A {
+    void S();
+}
+
+interface B {
+    void M();
+
+    void S();
+}
+
+class C : A, B {
+
+    void B.M() {
+        throw new NotImplementedException();
+    }
+
+    void B.S() {
+        throw new NotImplementedException();
+    }
+
+    void M.S() {
+        throw new NotImplementedException();
+    }
+}
+
+class Demo {
+
+    public static void Main(string[] args) {
+        A a = new C();
+        m.S();
+        
+        B b = new C();
+        b.S();
+    }
+
+}
+```
+
+这种情况通常发生在接口A和B是外部提供的，不可控，比如是某两个框架的不同接口。在系统内部设计时，应当尽量避免这种接口设计风格，即系统内的具有**一定关联度的不同接口**应该避免**同签名函数**。在Java等不提供显示接口实现的OOP语言中，不能直接支持这种情况，需要一些**曲折**的方式才能间接处理。
+
++ 新维度访问控制
+
+相比private、protected、internal、public，显示接口实现本质上是实现了一种**特殊的函数访问域控制符**：函数只能通过接口引用访问。
+
+**依赖抽象而非具体实现**是OOP设计原则之一，其内涵是要求对象间的引用应依赖与抽象接口，目的是降低对象间耦合性，提供更好的维护和扩展性。而在我看来，**显示接口实现使得在语法层面强制执行该原则称为可能**。

@@ -1,0 +1,16 @@
+---
+title: "An Practical Project Progress"
+author: "patrick.unicorn"
+date: "Wednesday, December 24, 2014"
+output: html_document
+---
+
+**声明：** 所写均为个人阅读所思所想，限于知识层次和结构，难免有错误遗漏之处，请批判阅读。探讨可循：<mr.geek.ma@foxmail.com>
+
+* * *
+
+下面的图是自己在这些年项目开发过程中关于项目流程方面的大致总结，产品开发虽与项目开发有明显的差异，但在大致流程上也可如此。目前在两个从零开始的项目中完整的实施过以下的流程，还有不完美的地方，后续继续积累总结了。另外，对于维护型项目，下面的流程是有明显不适用之处的。
+
+<!--more-->
+
+![流程](https://raw.githubusercontent.com/patrick-unicorn/Blog/master/2014/img/common-project-progress.jpg)

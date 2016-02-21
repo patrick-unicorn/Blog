@@ -1,0 +1,94 @@
+**声明：** 所写均为个人阅读所思所想，限于知识层次和结构，难免有错误遗漏之处，请批判阅读。探讨可循：<mr.geek.ma@gmail.com>
+
+* * *
+
+## WHAT
+
+“无状态WEB应用服务”是针对传统的基于Session的有状态的应用服务器而言的。无状态服务器通常是利用Cookie，将“状态信息”从客户端传送到服务端。
+
+## WHY
+
+简而言之，采用无状态服务器主要是为了应对服务器端的“**分布式、集群**”化：
+
++ 提高服务器端的故障转移能力
++ 避免“不活跃”的未超时session占用服务器资源，影响性能
+
+<!--more-->
+
+通常，对基于Session的有状态服务器而言，当服务器端的规模逐渐过渡到分布式集群化时，将直接面对一个棘手的问题：**Session数据的共享和复制**。业界针对这一问题，也存在着常见的几种解决方案：
+
++ 基于负载均衡器的粘性Session方案
+
+> 粘性(sticky)Session是指，通过调整负载均衡器的负载方案，将同一个用户导向到同一个应用服务器上，避免需要Session共享的场景。但问题也很明显，如果这台机子宕机，那么用户的Session状态都会丢失。
+
++ 基于WEB容器的集群功能方案
+
+> 集群间复制Session存在“时延”问题。
+
++ 基于数据库的Session共享方案
+
+> 对于大并发服务器，存在DB性能问题。
+
++ 基于缓存的共享方案，如memcached、redis
+
+> 可用性最好的方案，有很多比较好的方案，比如[memcached-session-manager](https://code.google.com/p/memcached-session-manager/)。
+
+## HOW
+
+使用Cookie传输状态信息。
+
+#### Problems
+
+###### Security
+
+毫无疑问，在利用cookie传输状态信息时，安全是第一问题。
+
++ 利用HTTPS。
+
+*由于HTTPS会增加流量和降低性能，因此，需要对Cookie数据进行区分，将那些敏感的Cookie使用HTTPS传输，而对于不敏感的Cookie仍然使用HTTP传输。*
+
++ 自定义序列化加密。
+
+###### Unused Cookie
+
+Cookie是与域名关联的，因此，当客户端向同一域名发送任何请求时，浏览器均会将Cookie回传给服务器端。但是很明显，对于某些类型的请求（如静态图片、CSS等等）是不需要回传Cookie的。更广泛的情况下，RequestA请求只需要CookieA，而RequestB只需要CookieB，那么此时，我们需要对通过将不同类型的Cookie绑定到不同的子域名下，来避免浏览器回传不必要的Cookie而增加网络通信负担。比如可以规定：
+
++ static.myservice.com 不会传任何Cookie
++ user.myservice.com 回传与用户信息相关的Cookie
++ product.myservice.com 回传用户产品相关的Cookie
+
+> 域名是IP地址的“文本化别名”，不包含端口映射。HTTP协议的默认端口的80端口，因此，域名都是映射到[IP:80]地址上的。如果需要映射到其他端口，则需要应用URL转发，Nginx、Apache等应用服务器均支持此功能。
+> 
+> 一个主域名可以有多个子域名，并且这些域名可以映射到不同的IP地址上去。这可以在域名提供商的管理系统中进行配置。
+
+#### Implementation(via Java)
+
+###### Example-1 使用HTTPS传输Cookie
+
+<pre>
+...
+Cookie cookie = new Cookie("userId", 9);
+cookie.setDomain("www.unicornsummer.com");
+cookie.setSecure(true);
+
+HttpServletResponse.addCookie(cookie);
+...
+</pre>
+
+###### Example-2 设置子域名Cookie
+
+<pre>
+...
+Cookie cookie_1 = new Cookie("userId", 9);
+cookie_1.setPath(/user/);
+cookie_1.setDomain("user.unicornsummer.com");
+
+Cookie cookie_2 = new Cookie("productId", 10003);
+cookie_2.setPath(/pruduct/);
+cookie_2.setDomain("product.unicornsummer.com");
+
+HttpServletResponse.addCookie(cookie_0);
+HttpServletResponse.addCookie(cookie_1);
+...
+</pre>
+

@@ -1,0 +1,633 @@
+---
+author: "patrick.unicorn"
+date: "2014年08月02日"
+output: 
+  html_document:
+    theme: null
+    highlight: null
+    css: ../css/main.css
+---
+
+Scheme Basics (1)
+===
+
+**声明：** 所写为个人所读所想，限于知识层次，请批判阅读。
+
+* * *
+
+**{:}** Scheme是Lisp的方言,并非纯函数式语言，依赖于GC。
+
+**{:}** 基于Lambda Calculus，其核心的句法形式集合很小，基于该核心集构建了很多的其他句法形式。
+
+**{:}** 变量和关键词是词法作用域，程序以块的形式组织。
+
+<!--more-->
+
+<blockquote>
+
+作用域的两种形式：静态作用域和动态作用域。
+
+1. 静态作用域是指声明的作用域是根据程序正文在编译时就确定的，有时也称为词法作用域。
+2. 动态作用域是指程序中某个变量所引用的对象是在程序运行时刻根据程序的控制流信息来确定的。
+
+静态作用域和动态作用域的一个重要区别在于：静态作用域规则查找一个变量声明时依赖的是源程序中块之间的静态关系；而动态作用域规则依赖的是程序执行时的函数调用顺序。说的具体点，就是静态作用域查找的是距离当前作用域最近的外层作用域中同名标识符的声明，而动态作用域则是查找最近的活动记录（关于活动记录见我的上一篇随笔）中的同名标识符声明。
+
+大多数的编程语言都采用的是静态作用域，如C/Java/C#/Scheme/javascript等等；而有些语言采用动态作用域，比如[newLISP][2],有些语言同时支持两种作用域，比如Perl。
+
+下面是一个C的例子：
+
+```
+int x = 1;
+int g(int z) { return x + z; }
+int f(int y)
+{
+  int x = y + 1;
+  return g(y*x);
+}
+f(3);
+```
+
+调用f(3)之后，会间接调用g(12)，此时的堆栈结构如下：
+
++ 外层： x = 1
+
++ f(3):  y = 3   x = 4
+
++ g(12): z = 12
+
+在采用动态作用域规则的情况下，表达式`x+z`中的x会从最近的活动记录中寻找变量x的值，也即函数调用f(3)的活动记录中的x值，则x的值4；而如果采用静态作用域规则，表达式`x+z`中的变量x则从函数g定义所在作用域的外层作用域中寻找，此时x的值为1。
+
+</blockquote>
+
+**{:}** 支持自定义控制结构，如通常的if，while等等。这通常需要使用continuations。
+
+**{:}** Scheme支持定义新的句法形式和扩展。通过定义转换函数，可以使新的句法形式映射到既有的句法形式上。句法扩展可以被用于定义新的语言概念，进而模拟其他语言已经存在的语言概念。大多数的大型Scheme应用程序都内建了大量的句法扩展和自定义过程(函数)。
+
+**{:}** Scheme程序的组成元素：关键字、变量、结构化表、常量(数字、字符、字符串、引用vector、引用list、引用符号等等)、空格、注释。
+
+**{:}** 变量、关键字和符号可以统称为标识符。标识符可以包含字母、数字、特殊字符(?, !, ., +, -, *, /, <, =, >, :, $, %, ^, &, _, ~, and @,)以及Unicode字符，字母大小写是相关的。标识符的长度没有限制。
+
+**{:}** 注释：
+
++ 行后注释 `[行程序] ;这是注释`
+
++ 段前注释
+
+```
+;;;这是注释
+[函数]
+```
+
++ 多行注释
+
+```
+#|
+这是注释
+这是注释
+|#
+```
+
+**{:}** 元素注释
+
+```
+(1 #;ddddd 2 3)
+```
+
+**{:}** 命名约定
+
++ 判定性过程命名以`?`结尾，如eq?、zero?、string=?等。
+
++ 类型判定过程命名形如`[类型名称] + ?`，如pair?等。
+
++ 类型操作命名形如`[类型名] + - + [操作名]`，如string-append等。
+
++ 类型转换型函数命名形如`[源类型名] + -> +[目标类型名]`，如vector->list等。
+
++ 变量赋值型函数命名以`!`结尾，如set!、vector-set!等。
+
+
+**{:}** 常量对象、过程调用、引用(quote)表达式是三种基本的句法形式。 
+
+**{:}** 布尔类型 包含#f和#t，Shcme的条件判断中，会把所有非#f的对象判为真。
+
+**{:}** 字符类型 以符号组合`#\`开始，表示**单个字符**，可以是字母、数字或"[ ! $ % & * + - . / : %lt; = > ? @ ^ _ ~ ]"等等其它字符。`#\A`表示字符A，`#\1`表示字符1。其中特殊字符有：`#\space`表示空格符和`#\newline` 表示换行符。
+
+**{:}** 字符串类型 `(define str "hello,world")`
+
+**{:}** 符号(symbol) 符号类型，又称引用类型。它是Scheme中最基础的类型，因为Scheme祖先Lisp的最初目的就是用来处理符号。通过一个简单的例子可以理解符号的含义：`(define a 10)`，此时a表示10；而`(define b 'a)`,此时b代表的a这个字符本身锁代表的**符号**。
+
+quote等价于'(单引号), 即`(define a 'xyz) => (define a (quote xyz))`。
+
+该符号的意义是：阻止对其后的表达式或符号求值，直接返回表达式或符号本身，而不是求值后的东西。
+比如：`(define a xyz)`会报出"xyz是没有定义的变量的错误"；而`(define a 'xyz)`会正常将xyz赋予a。
+
+下面是一些引用的例子：
+
++ `'(+ 2 5)` 代表表达式(+ 2 3)本身，不会对(+ 2 3)求值
+
++ `'+` 代表加号本身
+
++ `'()` 代表空表
+    
+另外值得注意的一点是，`'xyz`与字符串`"xyz"`不等价，前者是xyz符号的引用，后者是字符串。
+
+```
+(define a 'xyz)
+(symbol? a) ;输出#t
+
+(define b "xyz")
+(symbol? b) ;输出#f
+```
+    
+**{:}** 点对(pair) <br/>
+  也称Cons单元，形如`(1 . 2)`，注意.的两边有空格。其中在点前面的值被称为**car**，在点后面的值被称为**cdr**，car和cdr同时又成为取pair的这两个值的过程。点对使用**cons**定义：
+  
+```
+; 定义
+(define p (cons 3 2))  => (3 . 2)
+
+; 获取值
+(car p)      => 4
+(cdr p)  		=> 5
+
+; 设置值
+(set-car! p "hello")
+(set-cdr! p "world")
+```
+
+car和cdr分别是寄存器地址部分（Contents of the Address part of the Register）和寄存器减量部分（Contents of the Decrement part of the Register）的简称。这些名字最初来源于Lisp首次被实现所使用的硬件环境中内存空间的名字。这些名字同时也表明Cons单元的本质就是一个内存空间。cons这个名字是术语构造（construction）的简称。
+
+**{:}** 表(list) <br/>
+最重要的概念，Lisp也被称为"表处理语言"。使用`list`函数定义。
+`(define la (list 1 2 3 ))` => `(define a (cons 1 (cons 2 (cons 3 '()))))`，从这个等式可以看出**点对**和**表**的关系。表是基于点对形成的格式，表是派生于点对的，下面的代码证明了这一点：
+
+```
+(define ls (list 1 2))
+(list? ls)      ;输出#t
+(pair? ls)      ;输出#t
+```
+
+**{:}** `#(···)`表示vector。元素索引从0开始，至第 n-1 结束，有点类似数组。定义：`(define v #(1 2 3 4))` => `(define v (vector 1 2 3 4))`
+
+**{:}** `#vu8(···)`表示二进制vector，括号中是无符号的二进制值序列，比如：#vu8(3 250 45 73)。
+
+**{:}** 算术运算
+
++ 加：`(+ 1 2)`
+
++ 减：`(- 1 2)`
+
++ 乘：`(* 1 2)`
+
++ 除：`(/ 1 2)`
+
++ 幂：`(expt 2 3)` 2的3次方
+
++ 商：`(quotient 7 3)`
+
++ 余：`(modulo 7 3)`
+
+**{:}** `(lambda (var...) body1 body2 ...)`定义过程(函数)：
+
+```
+(let ((double (lambda (x) (+ x x)))
+    (list (double (* 3 4))
+        (double (/ 99 11))
+        (double (- 2 7))))
+```
+
+**{:}** Lambda参数表形式
+
+1. (var0 var1 ... varn)
+
+```
+(let ((f (lambda x x))
+(f 1 2 3 4))   ; (1 2 3 4)
+```
+
+2. var<sub>r</sub>
+
+```
+(let ((f (lambda x x))
+(f `(1 2 3 4)) ; (1 2 3 4)
+```
+
+3. (var1 ... varn . var<sub>r</sub>)
+
+```
+(let ((h (lambda (x y . z) (list x y z)))
+    (h 'a 'b 'c 'd))  (a b (c d))) ; (a b (c d))
+(let ((f (lambda (x . y) y)))
+    (f 'a)) ; ()
+```
+
+需要特别注意形式2和3中的**var<sub>r</sub>**，其中形式2中的var<sub>r</sub>是不带`(...)`的，它所代表的含义是，**剩余的参数构成的List**。
+
+```
+(define f (lambda x x))  ; 参数形式为[2], x是list对象，参数均是该对象的元素。
+(f 1 2 3 4)              ; 输出(1 2 3 4)
+(f)                      ; 输出()
+
+(define g 
+  (lambda (x . y)        ; 参数形式为[3], x代表一个变量, y是list对象，代表余下的变量。
+    (list x y)))
+(g 1 2 3 4)              ; 输出(1 (2 3 4)), x=1, y=(2 3 4)
+
+(define h 
+  lambda (x y . z)       ; 参数形式为[3]
+    (list x y z))
+(h 1 2 3 4)              ; 输出(1 2 (3 4)), x=1, y=2, z=(3 4) 
+```
+
+**{:}** `(define ...)`定义全局变量。
+
+**{:}** `(cadr [list])`等价于`(car (cdr [list]))`；`(cddr [list])`等价于`(cdr (cdr [list]))`。
+
+**{:}** 下面的函数定义形式是等价的。
+
+```
+(define f_name 
+  (lambda (var0 var1 ... varn) e1 e2 ... en)
+  
+<=>  
+
+(define (f_name var0 var1 ... varn) 
+  e1 e2 ... en)
+  
+(define f_name 
+  (lambda varr 
+     e1 e2 ... en))
+
+<=>
+
+(define (f_name . varr) 
+  e1 e2 ... en)
+  
+(define f_name 
+  (lambda (var1 var2 ... varn . varr) 
+    e1 e2 ... en))
+
+<=>
+
+(define (f_name var1 var2 ... varn . varr) 
+    e1 e2 ... en)
+```
+
+**{:}** 逻辑运算符 
+
+`and`、`or`、`not`、`=`、`&lt;`、`&gt;`、`&lt;=`、`&gt;=` 
+
+<q>
+eq?
+该函数比较两个对象的地址，如果相同的话就返回#t。例如，(eq? str str)返回#t，因为str本身的地址是一致的。与此相对的，因为字符串”hello”和”hello”被储存在了不同的地址中，函数将返回#f。不要使用eq?来比较数字，因为不仅在R5RS中，甚至在MIT-Scheme实现中，它都没有指定返回值。使用eqv?或者=替代。
+</q>
+
+<q>
+eqv?
+该函数比较两个存储在内存中的对象的类型和值。如果类型和值都一致的话就返回#t。对于过程（lambda表达式）的比较依赖于具体的实现。这个函数不能用于类似于表和字符串一类的序列比较，因为尽管这些序列看起来是一致的，但它们的值是存储在不同的地址中。
+</q>
+
+<q>
+equal?
+该函数用于比较类似于表或者字符串一类的序列。
+</q>
+
+**{:}** 类型判断过程：
+
++ pair? 如果对象为序对则返回#t；
+
++ list? 如果对象是一个表则返回#t。要小心的是空表’()是一个表但是不是一个序对。
+
++ null? 如果对象是空表’()的话就返回#t。
+
++ symbol? 如果对象是一个符号则返回#t。
+
++ char? 如果对象是一个字符则返回#t。
+
++ string? 如果对象是一个字符串则返回#t。
+
++ number? 如果对象是一个数字则返回#t。
+
++ complex? 如果对象是一个复数则返回#t。
+
++ real? 如果对象是一个实数则返回#t。
+
++ rational? 如果对象是一个有理数则返回#t。
+
++ integer? 如果对象是一个整数则返回#t。
+
++ exact? 如果对象不是一个浮点数的话则返回#t。
+
++ inexact? 如果对象是一个浮点数的话则返回#t。
+
+**{:}** 分支语句：`(cond (test expr) ... (else expr))`，其中else部分不是必须的。
+
+**{:}** `(map [procedure] [list1] ... [listN])`是内置的过程，表示将某个过程应用到一些表上，其中各个list的长度必须是一致的。
+
+```
+(map + '(1 2 3) '(1 2 3))     ; (2 4 6)
+(map abs '(-1 -2 -3))         ; (1 2 3)
+```
+
+**{:}** Scheme中的赋值表达式为`set! [var-name]  [var-value]`
+
+**{:}** 在Scheme中，当需要变量(V)记录多个函数(过程)共享状态，而又不希望该变量在全局时，可以使用let绑定该变量，并在相应过程(A)中使用set!维护变量状态，最终，过程A在全局可见，但是变量V是全局不可见的。[注：这有点类似与Java/C#中的属性器，即用方法封闭变量的外部可见性]。
+
+```
+; 每次调用count，会打印当前调用次数。比如第一次调用打印1，第二次打印2，以此类推。
+(define count
+  (let ((next 1))
+    (lambda ()
+      (let ((v next))
+        (set! next (+ next 1))
+        v))))
+```
+
+
+**{:}** 变量的惰性求值基本思路就是，将变量包装为过程(函数)，只有实际使用时，才会求值，并且可以选择将前一次的值保持下来。
+
+**{:}** let只是句法扩展，相当于一个lambda表达式和该表达式的应用(调用)。
+
+**{:}** Scheme中**关键字**、**函数**、**变量**之间的界线很模糊，事实上，它们都可以理解为过程(函数)。
+
+**{:}** 布尔类型(boolean) `#t` - true; `#f` - false
+
+**{:}** 数值类型
+
+1. 整型(integer) `(define n 1)`
+
+<blockquote>
+   **#d10**   十进制，#d可以省略
+   
+   **#b010**  二进制
+   
+   **#o127**  八进制
+   
+   **#x32ef** 十六进制
+</blockquote>
+   
+2. 有理数(retional) `(defined n 1.2)`
+
+3. 实数(real) `(define n 2/3)`
+
+4. 复数(complex) `(define n 4+2i)`
+    
+**{:}** let绑定的一般形式`(let [name] ((var expr) ...) body1
+body2...)`，`let`的含义可以理解为**定义一个过程并用一组参数调用该过程**。需要注意三点：
+
++ 声明的变量`var`，只在`body`中可见，在expr中是不可见的，这意味着`expr`中使用普通递归不可行。
+    
+```错误：
+(let ((sum (lambda (ls) 
+         (if (null? ls) 0 (+ (car ls) (sum (cdr ls))))))) 
+  (sum '(1 2 3 4)))
+  
+修正：
+(let ((sum (lambda (sum ls) 
+         (if (null? ls) 0 (+ (car ls) (sum sum (cdr ls))))))) 
+  (sum sum '(1 2 3 4)))
+```
+
++ let本质上是lambda表达式的扩展。
+
+```等价于：((lambda (var1 var2 ...) body1 body2 ...) expr1 expr2 ...)```
+
+
++ 当一个过程只在外部被调用了一次时，可以使用`有name的let`进行简化。
+
+```
+(define factorial 
+    (lambda (n) 
+      (if (= n 0)
+          1
+          (* n (factorial (- n 1))))))
+(factorial 4)
+
+(let factorial ((n 3)) 
+  (if (= n 0)
+      1
+      (* n (factorial (- n 1)))))
+```
+    
+以下几种形式等价：
+
++ `(let [name] ((var expr) ...) body1 body2...)`
+
++ `((letrec ((name (lambda (var...) body1 body2...))) name) expr ...)`
+
++ `(letrec ((name (lambda (var...) body1 body2...))) (name expr...))`
+
+可以看出，带name的let相当于是将name变量作为一个参数传递，name变量本身引用lambda过程。
+
+**{:}** scheme提供了一个语法糖**`let*`**可以实现后初始化的binding引用之前初始化的binding:`(let* ((x 5) (y x))) (+ x y))`。
+   
+**{:}** letrec是let的变种，需要注意两点：
+
+1. 与let的唯一区别：声明的变量`var`，不只在`body`中可见，在expr中也可见的。
+
+```
+(letrec ((sum (lambda (ls) 
+         (if (null? ls) 0 (+ (car ls) (sum (cdr ls))))))) 
+  (sum '(1 2 3 4)))
+```
+
+2. 一个限制：必须满足expr的求值不依赖于任何var。通常，当expr均为lambda时，这点是满足的。
+
+```正确：
+(letrec ((odd? (lambda (num) 
+             (and (not (= num 0))
+                 (even? (- num 1)))))
+     (even? (lambda (num) 
+              (or (= num 0) 
+                  (odd? (- num 1)))))) 
+(list (odd? 20) (even? 20)))
+错误：
+(letrec ((x (+ 1 y)) (y 0)) x)  ; x的求值依赖于y的expr
+```
+
+**{:}** `fluid‑let`用于临时覆盖已存在的（全局或局部）变量；语法格式：`fluid‑let [bindings] [body]`。
+
+```
+(define counter 1)
+
+(define test
+  (lambda ()
+    (+ counter 1)))
+    
+(fluidlet ((counter 50))
+  (display (test)))
+
+输出51，而不是2。
+```
+  
+**{:}** 在Scheme环境**求值一个表达式**，会分为两个步骤：
+    1. 求值表达式本身。
+    2. 决定改值接下来**如何被处理**。这一步使用**Continuation**称谓。
+    
+**{:}** `call/cc f`用于获取**当前continuation**，并将其作为另一个函数f的传入参数，同时调用f。[注：在R5RS标准中，实际定义的过程名为`call-with-current-continuation`，但是很多scheme环境中都可简化为`call/cc`]
+
+<blockquote>
+
+#### continuation概念核心:
+ 
+1. continution代表“程序接下来做什么”，其表现形式为**过程函数**[即continuation可如函数一样被调用]。
+
+2. continuation代表的是程序执行过程中的某个**动态点(快照)**，而非**静态点**。因此其隐含两部分：a) 当前上下文环境；b) 接下来的执行语句。
+
+3. `call/cc`不是continuation，`call/cc`是过程函数[注:lambda中任何函数均有返回值]，用于在scheme中获取**当前continuation**。`call/cc`的返回值决定于f内调用continuation时是否带有传入参数： 
+
++ 带有传入参数，那么该传入参数就是call/cc的返回值。
+
++ 没有传入参数，那么continuation本身作为call/cc的返回值。
+
++ 如果在f内部没有调用continuation，那么f本身的返回值即为call/cc的返回值。
+      
+```
+(call/cc (lambda (k) "unicorn"))    ; 返回值为"unicorn"
+(call/cc (lambda (k) k))            ; 返回值为continuation本身
+(call/cc (lambda (k) 1))            ; 返回值为1
+```
+
+#### continuation调用方式
+  
+**第一种情况：在f内部调用continuation**
+
+现有的执行流被挂起，被调用的continuation所对应的执行流被恢复(相当于goto到call/cc的程序语句处)，调用这个continuation时的**传入参数**则作为创建它的call/cc(本身也是个函数过程)的返回值(如果调用continuation时没有传入参数，则将continuation本身作为返回值)。
+   
+```
+(define call/cc call-with-current-continuation)
+(define product
+(lambda (ls)
+  ; 命名此处动态执行点为cc-p
+  (call/cc  
+    (lambda (cc)        ; 命名此函数为cc-f
+      (cc "zero")))))   ; 标记该行为cc-r
+
+(product '(1))
+```
+  
+当调用过程product时，永远打印"zero"，具体步骤如下：
+
+1.程序执行到call/cc时，获取当前continuation，即指cc-p之后要做的事。
+
+2.将当前continuation作为call/cc作用函数cc-f的传入参数cc。
+
+3.调用call/cc作用函数cc-f。
+
+4.执行cc-r后，此时程序执行流返回到cc-p。
+
+5.将调用continuation时的参数"zero"作为返回值(放置于cc-p处)。
+ 
+6.程序执行"zero"，求值并打印。
+
+**第二种情况：在f外部调用continuation**
+
+最重要搞清楚continuation所代表的含义，是否有输入参数。
+
+      
+```
+(define call/cc call-with-current-continuation)
+(define retry #f)
+
+(define factorial
+  (lambda (x)
+    (if (= x 0)
+        (call/cc (lambda (k) (set! retry k) 1))
+        (* x (factorial (- x 1))))))
+
+(factorial 4)
+(retry 1)  ;24
+(retry 2)  ;48
+(retry 3)  ;72
+```
+    
+先描画下递归函数factorial的执行过程:
+
+```
+factorial(4)
+  4 * factorial(3)
+    4 * 3 * factorial(2) 
+      4 * 3 * 2 * factorial(1)  
+          ;cc-c
+          4 * 3 * 2 * 1 * factorial(0)    
+      factorial(1) ; return
+    factorial(2)   ; return
+  factorial(3)     ; return
+factorial(4)       ; return
+```
+
+从上面的调用可以看出，例子中获取的continuation即为cc-c之后的“执行动作”，可以描述为“将输入与`1`、`2`、`3`、`4`连乘并将结果返回”，即`x * (1 * 2 * 3 * 4)`，其中x是continuation的输入，对于`(factorial 4)`而言，x就是`factorial(0)`的返回值**1**。
+
+其实，每个函数的返回，都隐含一个continuation；而call/cc的作用就是显示获取continuation。Continuation可以被用来实现多线程、协程、显示回溯等。
+
+由于C系语言(如C、Java等等)，通常在语言层面屏蔽了这一概念，因此，学习起来确实比较抽象啊:(。如果希望以C的视角来理解continuation，可以看看[call-with-current-continuation-for-C-programmers][1]。
+
+</blockquote>
+
+**{:}** CPS(continuation passing style)是一种基于continuation思想(并不一定基于scheme中的continuation，当然也就不一定基于call/cc)的编程风格。它并不局限于某种语言平台。可以这样理解，CPS风格的程序可以看做是**一系列函数的串行传递和执行**。
+
+```
+普通风格：
+class Normal {
+  public static void main(String[] args) {
+      Normal c = new Normal();
+      int sum = c.sum(1, 2);
+      System.out.println(sum * sum);
+  }
+  
+  private int sum(int i, int j) {
+      return i + j;
+  } 
+}
+
+CPS风格：
+/**
+ * 此处为了方便传递函数，采用了Java8中的函数式编程相关特性。
+ */
+@FunctionalInterface
+interface ProductMethod {
+    void product(int sum);
+}
+
+class CPS {
+  public static void main(String[] args) {
+      CPS c = new CPS();
+      c.sum(1, 2, c::product);
+  }
+  
+  private void sum(int i, int j, ProductMethod product) {
+      product(i + j);
+  }
+  
+  private void product(int sum) {
+      System.out.println(sum * sum);
+  }
+}
+```
+
+CPS风格的程序可以看做是将continuation作为函数参数**显示传递**，这与通常的continuation**隐式传递**不同。CPS的程序在代码组织层面会比较复杂些，但是，也存在如下的优点：
+
++ 允许当前过程给其后续continuation传入多个参数
+
+这点其实比较好理解，因为在CPS中，continuation就是显示定义的普通函数过程，就和普通函数过程没有两样。
+
++ 可以方便地区分程序“正常”、“失败”或其他不同情形的处理方式
+
+```
+(define integer-divide
+    (lambda (x y success failure)
+        (if (= y 0)
+            (failure "divide by zero")
+            (let ([q (quotient x y)])
+                (success q (- x (* q y)))))))
+                
+(integer-divide 10 3 list (lambda (x) x))  (3 1)
+(integer-divide 10 0 list (lambda (x) x))  "divide by zero"
+```
+
+可以看出，CPS可以非常适合异常处理结构，因此，许多语言的编译中间格式都使用CPS，以便于实现一些语言特性。
+
+另外，所有使用call/cc的程序都可以被转换为等价的(去除call/cc)CPS程序。
+
+[1]: http://community.schemewiki.org/?call-with-current-continuation-for-C-programmers
+[2]: http://www.newlisp.org/

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="patrick.unicorn" />
+
+
+<title></title>
+
+
+
+
+<link href="data:text/css,body%20%7B%0A%20%20%20%20font%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0A%20%20%20%20font%2Dsize%3A%2018px%3B%0A%20%20%20%20margin%3A%205%25%2020%25%205%25%2020%25%3B%0A%20%20%20%20padding%3A%202%25%205%25%205%25%205%25%3B%0A%20%20%20%20width%3A%2050%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20border%3A%201px%20solid%20LightGrey%3B%0A%7D%0A%0AH1%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0A%0AH2%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dbottom%3A%2060px%3B%0A%20%20%20%20margin%2Dbottom%3A%2040px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border%2Dbottom%3A%202px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH3%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH4%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0Aul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2010px%3B%0A%7D%0A%0Ali%20%7B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%7D%0A%0Aq%20%7B%0A%20%20%20%20border%2Dleft%3A%204px%20lightgrey%20solid%3B%0A%20%20%20%20padding%2Dleft%3A%205px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20border%3A%20dashed%201px%20lightgrey%3B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20margin%2Dright%3A%2010px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%7D%0A%0A%2Eanswer%2Dblock%20%7B%0A%20%20%20%20word%2Dbreak%3A%20normal%3B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20padding%3A%200px%3B%0A%20%20%20%20margin%3A%200px%3B%0A%20%20%20%20margin%2Dleft%3A%2030px%3B%0A%20%20%20%20font%2Dsize%3A%2080%25%3B%0A%20%20%20%20word%2Dwrap%3A%20break%2Dword%3B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f5f5f5%3B%0A%20%20%20%20border%3A%201px%20solid%20%23ccc%3B%0A%20%20%20%20border%2Dradius%3A%204px%3B%0A%20%20%20%20overflow%3A%20auto%3B%0A%7D%0A%0A%0Apre%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20%0A%20%20%20%20font%2Dsize%3A%2075%25%3B%20%0A%20%20%20%20border%3A%20solid%201px%20lightgrey%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%3B%20%0A%20%20%20%20padding%3A%205px%3B%20%0A%20%20%20%20line%2Dheight%3A%20130%25%3B%20%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20width%3A%2095%25%3B%0A%7D%0A%0Apre%20code%20%7B%0A%20%20%20%20font%2Dsize%3A%20100%25%20%21important%3B%20%0A%20%20%20%20border%3A%20none%20%21important%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%20%21important%3B%20%0A%20%20%20%20color%3A%20%23000%20%21important%3B%0A%20%20%20%20border%2Dradius%3A%200%20%21important%3B%0A%20%20%20%20padding%3A%200%200%20%21important%3B%0A%7D%0A%0A%0Acode%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20padding%3A%202px%204px%3B%0A%20%20%20%20color%3A%20%23d14%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f7f7f9%3B%0A%20%20%20%20border%3A%201px%20solid%20%23e1e1e8%3B%0A%20%20%20%20border%2Dradius%3A%203px%3B%0A%7D%0A%0A%0Aa%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20crosshair%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20dashed%20Red%3B%0A%20%20%20%20padding%3A%201px%3B%0A%20%20%20%20color%3A%20black%3B%0A%7D%0A%0A%0Aa%3Ahover%20%7B%0A%09background%2Dcolor%3A%20LightGrey%3B%0A%7D%0A%0A%0Aimg%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20box%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dtop%3A%2010px%3B%0A%20%20%20%20margin%2Dbottom%3A%2010px%3B%0A%20%20%20%20%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%7D%0A%0A%0Ahr%20%7B%0A%20%20%20%20color%3A%20LightGrey%3B%0A%7D%0A%0Atable%2C%20th%2C%20td%20%20%7B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%20%20border%3A%20solid%201px%20black%3B%0A%7D%0A%0Ath%20%7B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0Atd%20%7B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20text%2Dalign%3A%20left%3B%20%20%20%20%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+
+<div class="section level1">
+<h1>迭代的认识</h1>
+<p><strong>声明：</strong> 所写为个人所读所想，限于知识层次，请批判阅读。</p>
+<hr />
+<div id="concept" class="section level2">
+<h2>Concept(概念)</h2>
+<p>迭代即谓“遍历”，它是对“集合”这一数学概念中的<strong>元素遍历动作</strong>的抽象指称。迭代器模式也是GOF23中模式中的一种。迭代器的<strong>全部意义在于通过迭代器将遍历行为从数据结构(对象)中抽象(离)出来。</strong>通常我们都习惯使用平台类库自带的集合类，这些集合类均自实现了迭代功能，通过特定的语法结构即可迭代集合对象，如Java中的<code>for(ItemType item : collections)</code>或C#中的<code>foreach(ItemType item in collections)</code>。直观上而言，集合迭代看起来非常“简洁”，但是，“简洁”不代表“简单”。如果自己尝试实现过迭代器，那么，你一定会有非常深刻的体会。在下文的叙述中，我会试着从Java或C#中的迭代器相关实现中，解析其原理和用途。</p>
+<!--more-->
+</div>
+<div id="iteration-iterator" class="section level2">
+<h2>Iteration &amp; Iterator</h2>
+<div id="why-need-two-similar-interface" class="section level4">
+<h4>Why Need Two Similar Interface(为什么需要两个相似的迭代接口)</h4>
+<p>在Java和C#中关于迭代的接口分别如下：</p>
+<ul>
+<li>Java: <code>Iterable</code> <code>Iterator</code></li>
+</ul>
+<pre><code>public interface Iterable&lt;T&gt; {
+
+    Iterator&lt;T&gt; iterator();
+}
+
+public interface Iterator&lt;E&gt; {
+
+    boolean hasNext();
+
+    E next();
+
+    void remove();
+}</code></pre>
+<ul>
+<li>C#: <code>IEnumerable</code> <code>IEnumerator</code></li>
+</ul>
+<pre><code>public interface IEnumerable&lt;T&gt; {
+
+    IEnumerator&lt;T&gt; GetEnumerator();
+}
+
+public interface IEnumerator&lt;E&gt; {
+
+    E Current { get; }
+
+    bool MoveNext();
+
+    void Reset();
+}</code></pre>
+<p>一个直观的疑问是“为什么不是一个接口而是两个”，下面以Java为例进行具体的分析：</p>
+<p>从类设计上看，如果一个对象需要<strong>被迭代</strong>，那么它的类需要<strong>实现Iterable</strong>；而该迭代对象内部的<strong>迭代器组件</strong>则需<strong>实现Iterator</strong>。也就是说Iterator接口是Iterable接口的“子元素”(从两个接口的方法中可以明显看出这点)，其功能接口在理论上也可以合并到Iterable接口中。按着这个思路，我们将两个接口合并之后形成新的迭代接口：</p>
+<pre><code>public interface NewIterable&lt;T&gt; {
+
+    NewIterable&lt;T&gt; iterator();
+
+    boolean hasNext();
+
+    T next();
+
+    void remove();
+}</code></pre>
+<p>实现该新接口等价于同时实现<code>Iterable</code>和<code>Iterator</code>两者。下面基于该新接口实现一个迭代类：</p>
+<pre><code>public final class Iteration implements NewIterable&lt;Object&gt; {
+
+    private String[] arrays = new String[20];
+
+    @Override
+    public NewIterable&lt;Object&gt; iterator() {
+        return this;
+    }
+
+    @Override
+    public boolean hasNext() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public Object next() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void remove() {
+        // TODO Auto-generated method stub
+        
+    }
+}</code></pre>
+<p>看上去这样合并两个接口也是可以的，但是，关键的问题在于实现者中的<code>Iterator&lt;T&gt; iterator()</code>方法只能返回<code>this</code>，而这会导致一些实现困难，比如如下的多层自循环结构：</p>
+<pre><code>Iteration iObject = new Iteration();
+
+for (object i : iObject) {
+    for (object i : iObject) {
+        ...
+    }
+}</code></pre>
+<p>上面的嵌套自循环中，内存和外层的迭代器均是被迭代对象本身，共享了对内部状态变量，因此，会不能产生预期的功能。导致问题的根本原因在于<strong>被迭代对象</strong>本身充当了<strong>自身的迭代器</strong>，因此，两个接口(<code>Iterable</code>、<code>Iterator</code>)的设计，就是为了对“被迭代对象”和“迭代器”两种对象职责的进行显示区分。</p>
+</div>
+<div id="why-need-yield-keyword-in-ccyield" class="section level4">
+<h4>Why Need Yield Keyword In C#(为什么C#中引入Yield关键字)</h4>
+<p>引入<code>Yield</code>关键字的唯一原因就是<strong>简化迭代器实现</strong>。下面以C#为例展示了使用yield和不适用yeild的迭代器的不同实现：</p>
+<ul>
+<li>不用yield</li>
+</ul>
+<pre><code>public class IterableObject : IEnumerable&lt;object&gt; {
+
+    private object element0;
+
+    private object element1;
+
+    private object element2;
+
+    public const int Len = 3;
+
+    public IterableObject(object e0, object e1, object e2) {
+        this.element0 = e0;
+        this.element1 = e1;
+        this.element2 = e2;
+    }
+
+    public object Element0 {
+        get { return element0; }
+    }
+
+    public object Element1 {
+        get { return element1; }
+    }
+
+    public object Element2 {
+        get { return element2; }
+    }
+
+    public IEnumerator&lt;object&gt; GetEnumerator() {
+        return new Iterator(this);
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() {
+        return new Iterator(this);
+    }
+
+}
+
+class Iterator : IEnumerator&lt;object&gt; {
+
+    private IterableObject actualObj;
+
+    private int currentIndex = -1;
+
+    public Iterator(IterableObject actualObj) {
+        this.actualObj = actualObj;
+    }
+
+    public object Current {
+        get {
+            switch (currentIndex) {
+                case 0:
+                    return actualObj.Element0;
+                case 1:
+                    return actualObj.Element1;
+                case 2:
+                    return actualObj.Element2;
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+    }
+
+    public bool MoveNext() {
+        if (currentIndex != IterableObject.Len) {
+            ++currentIndex;
+        }
+        return currentIndex &lt; IterableObject.Len;
+    }
+
+    public void Reset() {
+        currentIndex = -1;
+    }
+
+    public void Dispose() {
+        actualObj = null;
+    }
+}</code></pre>
+<p>上面的实现很简陋，为保持简单也并没有考虑线程安全性。</p>
+<p><strong>注：从OOP设计原则而言，更好的选择是将<code>Iterator</code>类作为<code>IterableObject</code>，这样做的直接优点是可以对外隐藏<code>IterableObject</code>内部的数据元素(<code>element0</code>、<code>element1</code>、 <code>element2</code>)。</strong></p>
+<ul>
+<li>使用yield</li>
+</ul>
+<pre><code>class IterableObjectWithYield : IEnumerable&lt;object&gt; {
+
+    private object element0;
+
+    private object element1;
+
+    private object element2;
+
+    public const int Len = 3;
+
+    public IterableObjectWithYield(object e0, object e1, object e2) {
+        this.element0 = e0;
+        this.element1 = e1;
+        this.element2 = e2;
+    }
+
+    public object Element0 {
+        get { return element0; }
+    }
+
+    public object Element1 {
+        get { return element1; }
+    }
+
+    public object Element2 {
+        get { return element2; }
+    }
+
+    public IEnumerator&lt;object&gt; GetEnumerator() {
+        return DoIteration();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() {
+        return DoIteration();
+    }
+
+    private IEnumerator&lt;object&gt; DoIteration() {
+        for (int i = 0; i &lt; Len; i++) {
+            switch (i) {
+                case 0:
+                    yield return element0;
+                    break;
+                case 1:
+                    yield return element1;
+                    break;
+                case 2:
+                    yield return element2;
+                    break;
+            }
+        }
+    }
+}</code></pre>
+<p>可以看出使用yield的版本明显简洁了很多。如果在迭代对象内部使用数组来存储element，则会更加简洁。</p>
+<pre><code>class IterableObjectWithYield : IEnumerable&lt;object&gt; {
+
+    private object[] elements = new object[3];
+
+    public const int Len = 3;
+
+    public IterableObjectWithYield(object e0, object e1, object e2) {
+        elements[0] = e0;
+        elements[1] = e1;
+        elements[2] = e2;
+    }
+
+    public object Element0 {
+        get { return elements[0]; }
+    }
+
+    public object Element1 {
+        get { return elements[1]; }
+    }
+
+    public object Element2 {
+        get { return elements[2]; }
+    }
+
+    public IEnumerator&lt;object&gt; GetEnumerator() {
+        return DoIteration();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() {
+        return DoIteration();
+    }
+
+    private IEnumerator&lt;object&gt; DoIteration() {
+        for (int i = 0; i &lt; Len; i++) {
+            yield return elements[i];
+        }
+    }
+}</code></pre>
+<p><strong>实现迭代器只用了两行代码！</strong>下面是简单的测试代码：</p>
+<pre><code>public class Client {
+
+    public static void Main(string[] args) {
+        Console.WriteLine(&quot;无yield&quot;);
+        IterableObject obj0 = new IterableObject(0, 1, 2);
+        foreach (object item in obj0) {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine(&quot;有yield&quot;);
+        IterableObjectWithYield obj1 = new IterableObjectWithYield(3, 4, 5);
+        foreach (object item in obj1) {
+            Console.WriteLine(item);
+        }
+        
+        Console.Read();
+    }
+}</code></pre>
+<p>C#中的yield大大降低了实现迭代器的代码成本，同时也使得实现协程更加方便，这在后文中会进一步叙述。</p>
+</div>
+</div>
+<div id="iterator-fsm" class="section level2">
+<h2>Iterator &amp; FSM(迭代器与有限状态机)</h2>
+<p>从上面的代码示例中，也可以清晰的看出，迭代器其实就是一个有限状态机，只不过其状态通常是迭代指针(<code>currentIndex</code>)的取值范围，而它的状态转换比较<strong>单调简单</strong>。所为单调是指其状态值之间的转换通常是线性单向的。</p>
+</div>
+<div id="iterator-continution" class="section level2">
+<h2>Iterator &amp; Continution(迭代器与协程)</h2>
+<p>协程是用户态的“线程”，其意义在于构建用户态的“轻量级线程”(相比OS内核线程和进程而言)，从而方便并发模式编程。</p>
+<blockquote>
+<p>简言之，协程的全部精神就在于控制流的<strong>主动</strong>让出和恢复(yield/resume)。我们熟悉的子过程调用可以看作在返回时让出控制流的一种特殊的协程，其内部状态在返回时被丢弃了，因此不存在“恢复”这个操作。</p>
+</blockquote>
+<p>协程的操作原语是<code>yield/resume</code>，此<code>yield</code>与迭代器的<code>yield</code>的操作语义实质上是相同的，均代表“出让控制权”。迭代器本身就是一种特殊的协程，其特殊之处在于它的状态恢复是“自动”的，并不需要<strong>显示resume</strong>。明白了两者的关系，对于Unity3D(C#)中的协程实现也就明了了。</p>
+<p>关于协程更深入的讨论可以参看<a href="http://blog.youxu.info/2014/12/04/coroutine/">这里</a></p>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

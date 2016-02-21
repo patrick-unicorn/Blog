@@ -1,0 +1,68 @@
+---
+author: "patrick.unicorn"
+output:
+  html_document:
+    css: css/main.css
+    highlight: null
+    theme: null
+---
+
+Patrick Unicorn的简历
+===
+
+**特别说明：** 本人对论文体有毫无掩饰的喜爱，因此，本简历也固执地采用论文体格式。
+
+## 我的自白
+
+### 关于人生
+
+### 关于创业
+
+### 关于工作
+
+### 关于薪资
+
+### 关于兴趣
+
+热爱竞技游戏，如英雄联盟、Dota、FIFA、实况足球。
+
+## 技能图谱
+
++ 对Java 
++
++
+
+### 语言
+|技能|程度|描述|
+|--|--|--|
+|Java| xxx| |
+|C#|xxx||
+|Javascript|||
+|Sql|||
+|Go|大沙发|的撒发顺丰|
+|Scheme|||
+|Html|||
+|CSS|||
+
+### 工具
+
+|技能|程度|描述|
+|--|--|--|
+|Maven| xxx| |
+|Git|||
+|Spring|||
+|Mybatis|||
+|Redis|||
+|Node|||
+|AngularJs|||
+|Bootstrap|||
+
+### 
+
+## 工作经历
+
+
+
+## 我的项目
+
+### 
