@@ -2,7 +2,7 @@
 author: "patrick.unicorn"
 output:
   html_document:
-    css: ../css/main.css
+    css: ../../css/main.css
     highlight: null
     theme: null
 ---
