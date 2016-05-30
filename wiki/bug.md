@@ -1,0 +1,1 @@
++ 使用stream进行collection进行转换时，没有将转换后的Item添加到新的NewItemCollection中。
