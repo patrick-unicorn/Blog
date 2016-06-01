@@ -73,7 +73,9 @@ def aRange = 1..<5 // 包含[1, 5)
 |Ivy|依赖管理|不是完整的构建工具|
 |Maven|约定优于配置、多模块项目、插件扩展|插件不易扩展、XML表达能力有限|
 |Gant|基于Ant提供DSL||
-|Gradle|博采众家之长、兼容Ant和Maven项目|深入使用需要学习Groovy、学习成本高|
+|Gradle|博采众家之长、兼容Ant和Maven项目|深入使用需要学习Groovy|
+
++ Gradle使用类脚本语言Groovy的基本立足点，就是编译脚本本身也应该是“编程源代码”的一部分。因此，对于程序员而言，使用Groovy作为DSL的Gradle，相对于使用XML作为DSL的Ant、Maven，更“亲和”，也更加“程序化”。
 
 + Gradle脚本中的每一个元素都有一个Java类一一映射。Gradle基本工作单元是Task，这与Grant类似。
 
