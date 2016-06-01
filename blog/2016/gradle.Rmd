@@ -12,10 +12,6 @@ Gradle
 
 * * *
 
-更多关于gradle的笔记内容，参看我的[Diigo][1]，需要翻墙:)。
-
-[1]: https://www.diigo.com/user/patrick-unicorn/gradle
-
 ## Groovy基础
 
 + 定义变量使用`def`，如`def myvar = 1`
@@ -139,4 +135,6 @@ task helloworld << {
 
 + `gradle wrapper`用于初始化一个gradle项目，会生成gradlw.jar、build.script等等。
 
-+ 
+关于gradle的更多阅读笔记内容，参看我的[Diigo][1]，需要翻墙，你懂得:)。
+
+[1]: https://www.diigo.com/user/patrick-unicorn/gradle
