@@ -7,7 +7,7 @@ output:
     theme: null
 ---
 
-Gradle
+Gradle学习
 ===
 
 * * *

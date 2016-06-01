@@ -27,7 +27,7 @@
 
 
 <div id="gradle" class="section level1">
-<h1>Gradle</h1>
+<h1>Gradle学习</h1>
 <hr />
 <div id="groovy" class="section level2">
 <h2>Groovy基础</h2>
@@ -111,6 +111,7 @@ def aRange = 1..&lt;5 // 包含[1, 5)</code></pre>
 </tbody>
 </table>
 <ul>
+<li><p>Gradle使用类脚本语言Groovy的基本立足点，就是编译脚本本身也应该是“编程源代码”的一部分。因此，对于程序员而言，使用Groovy作为DSL的Gradle，相对于使用XML作为DSL的Ant、Maven，更“亲和”，也更加“程序化”。</p></li>
 <li><p>Gradle脚本中的每一个元素都有一个Java类一一映射。Gradle基本工作单元是Task，这与Grant类似。</p></li>
 <li><p>Gradle的DSL是由Groovy实现的，所有的构建脚本本身就是Groovy编程语言，甚至可以使用Java去编写脚本，但相比Groovy，会很繁琐。</p></li>
 <li><p>Gradle采用了和Maven类似的指导思想：<strong>约定优于配置</strong>和<strong>规定构建生命周期</strong>。其默认项目结构与maven一致。</p></li>
