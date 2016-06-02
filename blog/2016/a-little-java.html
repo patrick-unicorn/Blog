@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="patrick.unicorn" />
+
+
+<title></title>
+
+
+
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Afont%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2018px%3B%0Amargin%3A%205%25%2020%25%205%25%2020%25%3B%0Apadding%3A%202%25%205%25%205%25%205%25%3B%0Awidth%3A%2050%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Aborder%3A%201px%20solid%20LightGrey%3B%0A%7D%0AH1%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0AH2%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0Amargin%2Dbottom%3A%2060px%3B%0Amargin%2Dbottom%3A%2040px%3B%0Apadding%3A%205px%3B%0Aborder%2Dbottom%3A%202px%20LightGrey%20solid%3B%0Awidth%3A%2098%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Acolor%3A%20%23666666%3B%0A%7D%0AH3%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0Amargin%2Dtop%3A%2040px%3B%0Amargin%2Dbottom%3A%2030px%3B%0Aborder%2Dbottom%3A%201px%20LightGrey%20solid%3B%0Awidth%3A%2098%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Acolor%3A%20%23666666%3B%0A%7D%0AH4%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0Amargin%2Dtop%3A%2040px%3B%0Amargin%2Dbottom%3A%2030px%3B%0Aborder%2Dbottom%3A%201px%20LightGrey%20solid%3B%0Awidth%3A%2098%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Acolor%3A%20%23666666%3B%0A%7D%0Aul%20%7B%0Apadding%2Dleft%3A%2010px%3B%0A%7D%0Ali%20%7B%0Amargin%2Dleft%3A%2010px%3B%0A%7D%0Aq%20%7B%0Aborder%2Dleft%3A%204px%20lightgrey%20solid%3B%0Apadding%2Dleft%3A%205px%3B%0Amargin%2Dleft%3A%2020px%3B%0A%7D%0Ablockquote%20%7B%0Afont%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0Afont%2Dsize%3A%2090%25%3B%0Aborder%3A%20dashed%201px%20lightgrey%3B%0Amargin%2Dleft%3A%2010px%3B%0Amargin%2Dright%3A%2010px%3B%0Apadding%3A%205px%3B%0A%7D%0A%2Eanswer%2Dblock%20%7B%0Aword%2Dbreak%3A%20normal%3B%0Adisplay%3A%20block%3B%0Apadding%3A%200px%3B%0Amargin%3A%200px%3B%0Amargin%2Dleft%3A%2020px%3B%0Afont%2Dsize%3A%2080%25%3B%0Aword%2Dwrap%3A%20break%2Dword%3B%0Acolor%3A%20%23333%3B%0Abackground%2Dcolor%3A%20%23f5f5f5%3B%0Aborder%3A%201px%20solid%20%23000%3B%0Aborder%2Dradius%3A%206px%3B%0Aoverflow%3A%20auto%3B%0A%7D%0Apre%20%7B%0Afont%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20font%2Dsize%3A%2075%25%3B%20border%3A%20solid%201px%20lightgrey%3B%20background%2Dcolor%3A%20Ivory%3B%20padding%3A%205px%3B%20line%2Dheight%3A%20130%25%3B%20margin%2Dleft%3A%2010px%3B%0Awidth%3A%2095%25%3B%0A%7D%0Apre%20code%20%7B%0Afont%2Dsize%3A%20100%25%20%21important%3B%20border%3A%20none%20%21important%3B%20background%2Dcolor%3A%20Ivory%20%21important%3B%20color%3A%20%23000%20%21important%3B%0Aborder%2Dradius%3A%200%20%21important%3B%0Apadding%3A%200%200%20%21important%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0Afont%2Dsize%3A%2090%25%3B%0Apadding%3A%202px%204px%3B%0Acolor%3A%20%23d14%3B%0Abackground%2Dcolor%3A%20%23f7f7f9%3B%0Aborder%3A%201px%20solid%20%23e1e1e8%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0Aa%20%7B%0Atext%2Ddecoration%3A%20none%3B%0Acursor%3A%20crosshair%3B%0Aborder%2Dbottom%3A%201px%20dashed%20Red%3B%0Apadding%3A%201px%3B%0Acolor%3A%20black%3B%0A%7D%0Aa%3Ahover%20%7B%0Abackground%2Dcolor%3A%20LightGrey%3B%0A%7D%0Aimg%20%7B%0Adisplay%3A%20block%3B%0Abox%2Dshadow%3A%200%200%2010px%20%23555%3B%0Aborder%2Dradius%3A%206px%3B%0Amargin%2Dleft%3A%20auto%3B%0Amargin%2Dright%3A%20auto%3B%0Amargin%2Dtop%3A%2010px%3B%0Amargin%2Dbottom%3A%2010px%3B%0A%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0Aheight%3A%20100%25%3B%0Awidth%3A%20100%25%3B%0A%7D%0Ahr%20%7B%0Acolor%3A%20LightGrey%3B%0A%7D%0Atable%2C%20th%2C%20td%20%7B%0Aborder%2Dcollapse%3A%20collapse%3B%0Aborder%3A%20solid%201px%20black%3B%0A%7D%0Ath%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Atd%20%7B%0Apadding%3A%205px%3B%0Atext%2Dalign%3A%20left%3B%20%7D%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+
+
+
+<div id="a-little-java-a-few-pattern" class="section level1">
+<h1>读《A Little Java A Few Pattern》</h1>
+<hr />
+<p>本文的目的不在于翻译《A Little Java A Few Pattern》，而在于对书中比较”怪异、晦涩”的代码片段进行解读。如果对本书感兴趣，可以移步<a href="http://a-little-java-a-few-patterns.readthedocs.io/zh_CN/latest/index.html">这里</a>。</p>
+<div id="numd" class="section level2">
+<h2>NumD</h2>
+<p>出自书中的第四章，如下：</p>
+<pre><code></code></pre>
+<p>需要将其与之前翻译的Lambda表达式联系，其表达自然数的方式与Lambda表达式如出一辙。</p>
+<p>补充。</p>
+</div>
+<div id="pizzad" class="section level2">
+<h2>PizzaD</h2>
+<p>出自书中的第六章，如下：</p>
+<pre><code>//比萨饼
+abstract class PizzaD { 
+
+    //去除比萨饼中的凤尾鱼顶料(因为太咸了)
+    abstract PizzaD remA(); 
+    
+    //在凤尾鱼顶料上加上奶酪顶料(这样会盖住凤尾鱼的咸味)
+    abstract PizzaD topAwC(); 
+    
+    //将所有的凤尾鱼顶料换成奶酪顶料
+    abstract PizzaD subAbC(); 
+}
+
+// 面包皮，注意与其他顶料在构造函数，以及实现上的区别
+class Crust extends PizzaD { 
+    PizzaD subAbC(){
+        return new Crust();
+    }
+    PizzaD topAwC(){
+        return new Crust();
+    }
+    PizzaD subAbC(){
+        return new Crust();
+    }
+}
+
+// 下面是各种顶料
+class Cheese extends PizzaD { //奶酪
+    PizzaD p;
+    Cheese (PizzaD _p) {
+        p = _p;
+    }
+    PizzaD remA(){
+        return new Cheese(p.remA());
+    }
+    PizzaD topAwC(){
+        return new Cheese(p.topAwC());
+    }
+    PizzaD subAbC(){
+        return new Cheese(p.subAbC());
+    }
+}
+
+// 橄榄
+class Olive extends PizzaD { 
+    PizzaD p;
+    Olive (PizzaD _p) {
+        p = _p;
+    }
+    PizzaD remA(){
+        return new Olive(p.remA());
+    }
+    PizzaD topAwC(){
+        return new Olive(p.topAwC());
+    }
+    PizzaD subAbC(){
+        return new Olive(p.subAbC());
+    }
+}
+
+// 凤尾鱼
+class Anchovy extends PizzaD { 
+    PizzaD p;
+    Anchovy (PizzaD _p) {
+        p = _p;
+    }
+    PizzaD remA(){
+        return p.remA();
+    }
+    PizzaD topAwC(){
+        return new Cheese(new Anchovy(p.topAwC()));
+    }
+    PizzaD subAbC(){
+        return new Cheese(p.subAbC());
+    }
+}
+
+// 香肠
+class Sausage extends PizzaD { 
+    PizzaD p;
+    Sausage (PizzaD _p) {
+        p = _p;
+    }
+    PizzaD remA(){
+        return new Sausage(p.remA());
+    }
+    PizzaD topAwC(){
+        return new Sausage(p.topAwC());
+    }
+    PizzaD subAbC(){
+        return new Sausage(p.subAbC());
+    }
+}</code></pre>
+<p>这个例子的编程方法，很违反通常的“OOP”编程模式，很不“自然”，不太容易理解“意图”， 通过下面的用例，可以更容易看出其设计思想：</p>
+<pre><code>public static void main(String[] args) {
+    // 创建奶酪pizza
+    PizzaD p0 = new Cheese(new Crust());
+
+    // 创建凤尾鱼-奶酪pizza
+    PizzaD p1 = new Anchovy(new Cheese(new Crust()));
+    // 等于new Cheese(new Crust())
+    p1.remA(); 
+
+    // 创建香肠-奶酪pizza
+    PizzaD p2 = new Sausage(new Cheese(new Crust()));
+    
+    // 等于new Sausage(new Cheese(new Crust()))
+    p2.remA(); 
+}</code></pre>
+<p>这种设计方法其实更函数式化编程，在三个方法的实现中，利用“构造函数”实现了“递归迭代”的思想。比如remA方法，调用它的时候会“向上遍历”所有的“pizzaD”类型实例，并调用其remA方法。</p>
+<blockquote>
+一个小技巧：平时看源码的时候，如果对某一段代码不甚理解，不妨“刻意地暂时忘记改源码的实现，完全按照自己的思路实现同样功能，只需要写出“大概伪码思路”即可，然后，两相对比，通常就比较明了作者的设计思路了。
+</blockquote>
+<p>同样的功能，通常的OOP实现方式如下：</p>
+<pre><code>class PizzaD { //比萨饼
+
+    private List&lt;PizzaMaterial&gt; materials = new ArrayList&lt;&gt;();
+
+    public PizzaD addMaterial() {
+
+    }
+    
+    // 去除比萨饼中的凤尾鱼顶料(因为太咸了)
+    public PizzaD remA(PizzaMaterial material) {
+        this.materials.add(material);
+    }
+
+     // 在凤尾鱼顶料上加上奶酪顶料(这样会盖住凤尾鱼的咸味)
+    public PizzaD topAwC() {
+
+    }
+
+    // 将所有的凤尾鱼顶料换成奶酪顶料
+    public PizzaD subAbC() {
+
+    }
+}
+
+abstract class PizzaMaterial {
+    // ...
+}
+
+class Crust extends PizzaMaterial { //面包皮
+    // ...
+}
+
+// 下面是各种顶料
+class Cheese { //奶酪
+    PizzaD p;
+    Cheese (PizzaD _p) {
+        p = _p;
+    }
+    
+}
+
+class Olive extends PizzaD { //橄榄
+    PizzaD p;
+    Olive (PizzaD _p) {
+        p = _p;
+    }
+    
+}
+
+class Anchovy extends PizzaD { //凤尾鱼
+    PizzaD p;
+    Anchovy (PizzaD _p) {
+        p = _p;
+    }
+    
+}
+
+class Sausage extends PizzaD { //香肠
+    PizzaD p;
+    Sausage (PizzaD _p) {
+        p = _p;
+    }
+    
+}</code></pre>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
