@@ -267,8 +267,8 @@ public static void main(String[] args) {
 
 ### 对比
 
-+ 方式一将**Pizza实体**、**面皮**、**顶料**均抽象为“PizzaD”；方式二中将**Pizza实体**抽象为“PizzaD”，而将面皮和顶料抽象为“PizzaMaterial”。
++ 方式一将**Pizza实体**、**面皮**、**顶料**均抽象为“PizzaD”类型；方式二中将**Pizza实体**抽象为“PizzaD”类型，而将面皮和顶料抽象为“PizzaMaterial”类型。
 
 + 方式一通过“串串”的形式组合`构造函数`，构造**Pizza实体*；方式二中通过**Pizza实体**中的`addMaterial()`方法，构造**Pizza实体**。
 
-+ 方式一更函数化，方式二更像通常的“面向对象”。
+
