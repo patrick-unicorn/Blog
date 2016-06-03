@@ -39,6 +39,23 @@
 </div>
 <div id="pizzad" class="section level2">
 <h2>PizzaD</h2>
+<div class="section level3">
+<h3>功能</h3>
+<p>一台生产Pizza的机器，生成pizza的过程是先编制好所有的面皮和料：</p>
+<ol style="list-style-type: decimal">
+<li>Pizza有两部分组成：一个面皮和多个顶料</li>
+<li>订料包括：奶酪、凤尾鱼、橄榄、香肠</li>
+<li>订料支持任意组合</li>
+</ol>
+<p>在实际生产前，可以增减顶料支持如下操作：</p>
+<ol style="list-style-type: decimal">
+<li>支持将已经放入的所有凤尾鱼顶料移除</li>
+<li>支持在已经放入的所有凤尾鱼顶料上加奶酪</li>
+<li>支持将已经放入的所有凤尾鱼顶料替换为奶酪</li>
+</ol>
+</div>
+<div class="section level3">
+<h3>实现方式一</h3>
 <p>出自书中的第六章，如下：</p>
 <pre><code>//比萨饼
 abstract class PizzaD { 
@@ -133,7 +150,7 @@ class Sausage extends PizzaD {
         return new Sausage(p.subAbC());
     }
 }</code></pre>
-<p>这个例子的编程方法，很违反通常的“OOP”编程模式，很不“自然”，不太容易理解“意图”， 通过下面的用例，可以更容易看出其设计思想：</p>
+<p>用例：</p>
 <pre><code>public static void main(String[] args) {
     // 创建奶酪pizza
     PizzaD p0 = new Cheese(new Crust());
@@ -151,34 +168,38 @@ class Sausage extends PizzaD {
 }</code></pre>
 <p>这种设计方法其实更函数式化编程，在三个方法的实现中，利用“构造函数”实现了“递归迭代”的思想。比如remA方法，调用它的时候会“向上遍历”所有的“pizzaD”类型实例，并调用其remA方法。</p>
 <blockquote>
-<p>一个小技巧：平时看源码的时候，如果对某一段代码不甚理解，可以采用如下两个方法辅助：</p>
+<p>小技巧：平时看源码的时候，如果对某一段代码不甚理解，可以采用如下两个方法辅助：</p>
 <ul>
 <li><p>想象一个应用场景，使用这组类（或函数）写些测试用例。</p></li>
 <li>不妨“刻意地暂时忘记改源码的实现，完全按照自己的思路实现同样功能，只需要写出“大概伪码思路”即可，然后，两相对比，通常就比较明了作者的设计思路了。</li>
 </ul>
 </blockquote>
-<p>同样的功能，通常的OOP实现方式如下：</p>
-<pre><code>class PizzaD { //比萨饼
+</div>
+<div class="section level3">
+<h3>实现方式二</h3>
+<pre><code>
+class PizzaD { 
 
-    private List&lt;PizzaMaterial&gt; materials = new ArrayList&lt;&gt;();
+    private List&lt;PizzaMaterial&gt; materials = new LinkedList&lt;&gt;();
+    
+    public PizzaD() {
+        materials.add(new Crust());
+    }
 
-    public PizzaD addMaterial() {
-
+    public PizzaD addMaterial(PizzaMaterial material) {
+        materials.add(material);
     }
     
-    // 去除比萨饼中的凤尾鱼顶料(因为太咸了)
     public PizzaD remA(PizzaMaterial material) {
-        this.materials.add(material);
+        // 操作链表
     }
 
-     // 在凤尾鱼顶料上加上奶酪顶料(这样会盖住凤尾鱼的咸味)
     public PizzaD topAwC() {
-
+       // 操作链表
     }
 
-    // 将所有的凤尾鱼顶料换成奶酪顶料
     public PizzaD subAbC() {
-
+       // 操作链表
     }
 }
 
@@ -186,12 +207,12 @@ abstract class PizzaMaterial {
     // ...
 }
 
-class Crust extends PizzaMaterial { //面包皮
+class Crust extends PizzaMaterial { 
     // ...
 }
 
 // 下面是各种顶料
-class Cheese { //奶酪
+class Cheese { 
     PizzaD p;
     Cheese (PizzaD _p) {
         p = _p;
@@ -199,7 +220,7 @@ class Cheese { //奶酪
     
 }
 
-class Olive extends PizzaD { //橄榄
+class Olive extends PizzaD { 
     PizzaD p;
     Olive (PizzaD _p) {
         p = _p;
@@ -207,7 +228,7 @@ class Olive extends PizzaD { //橄榄
     
 }
 
-class Anchovy extends PizzaD { //凤尾鱼
+class Anchovy extends PizzaD { 
     PizzaD p;
     Anchovy (PizzaD _p) {
         p = _p;
@@ -215,14 +236,35 @@ class Anchovy extends PizzaD { //凤尾鱼
     
 }
 
-class Sausage extends PizzaD { //香肠
+class Sausage extends PizzaD { 
     PizzaD p;
     Sausage (PizzaD _p) {
         p = _p;
     }
     
 }</code></pre>
-<p>应用：</p>
+<p>用例：</p>
+<pre><code>public static void main(String[] args) {
+    PizzaD p = new PizzaD();
+    
+    p.addMaterial(new Cheese());
+    p.addMaterial(new Anchovy());
+    p.addMaterial(new Olive());
+    p.addMaterial(new Sausage());
+    
+    p.remA();
+    p.topAwC();
+    p.subAbC();
+}</code></pre>
+</div>
+<div class="section level3">
+<h3>对比</h3>
+<ul>
+<li><p>方式一将<strong>Pizza实体</strong>、<strong>面皮</strong>、<strong>顶料</strong>均抽象为“PizzaD”；方式二中将<strong>Pizza实体</strong>抽象为“PizzaD”，而将面皮和顶料抽象为“PizzaMaterial”。</p></li>
+<li><p>方式一通过“串串”的形式组合<code>构造函数</code>，构造**Pizza实体*；方式二中通过<strong>Pizza实体</strong>中的<code>addMaterial()</code>方法，构造<strong>Pizza实体</strong>。</p></li>
+<li><p>方式一更函数化，方式二更像通常的“面向对象”。</p></li>
+</ul>
+</div>
 </div>
 </div>
 

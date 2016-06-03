@@ -32,6 +32,22 @@ output:
 
 ## PizzaD 
 
+### 功能
+
+一台生产Pizza的机器，生成pizza的过程是先编制好所有的面皮和料：
+
+1. Pizza有两部分组成：一个面皮和多个顶料
+2. 订料包括：奶酪、凤尾鱼、橄榄、香肠
+3. 订料支持任意组合
+
+在实际生产前，可以增减顶料支持如下操作：
+
+1. 支持将已经放入的所有凤尾鱼顶料移除
+2. 支持在已经放入的所有凤尾鱼顶料上加奶酪
+3. 支持将已经放入的所有凤尾鱼顶料替换为奶酪
+
+### 实现方式一
+
 出自书中的第六章，如下：
 
 
@@ -161,30 +177,32 @@ public static void main(String[] args) {
 + 不妨“刻意地暂时忘记改源码的实现，完全按照自己的思路实现同样功能，只需要写出“大概伪码思路”即可，然后，两相对比，通常就比较明了作者的设计思路了。
 </blockquote>
 
-同样的功能，通常的OOP实现方式如下：
+### 实现方式二
 
 ```
-class PizzaD { //比萨饼
 
-	private List<PizzaMaterial> materials = new ArrayList<>();
+class PizzaD { 
 
-	public PizzaD addMaterial() {
+	private List<PizzaMaterial> materials = new LinkedList<>();
+	
+	public PizzaD() {
+	    materials.add(new Crust());
+	}
 
+	public PizzaD addMaterial(PizzaMaterial material) {
+        materials.add(material);
 	}
 	
-	// 去除比萨饼中的凤尾鱼顶料(因为太咸了)
     public PizzaD remA(PizzaMaterial material) {
-    	this.materials.add(material);
+    	// 操作链表
     }
 
-     // 在凤尾鱼顶料上加上奶酪顶料(这样会盖住凤尾鱼的咸味)
     public PizzaD topAwC() {
-
+       // 操作链表
     }
 
-    // 将所有的凤尾鱼顶料换成奶酪顶料
     public PizzaD subAbC() {
-
+       // 操作链表
     }
 }
 
@@ -192,12 +210,12 @@ abstract class PizzaMaterial {
 	// ...
 }
 
-class Crust extends PizzaMaterial { //面包皮
+class Crust extends PizzaMaterial { 
     // ...
 }
 
 // 下面是各种顶料
-class Cheese { //奶酪
+class Cheese { 
     PizzaD p;
     Cheese (PizzaD _p) {
         p = _p;
@@ -205,7 +223,7 @@ class Cheese { //奶酪
     
 }
 
-class Olive extends PizzaD { //橄榄
+class Olive extends PizzaD { 
     PizzaD p;
     Olive (PizzaD _p) {
         p = _p;
@@ -213,7 +231,7 @@ class Olive extends PizzaD { //橄榄
     
 }
 
-class Anchovy extends PizzaD { //凤尾鱼
+class Anchovy extends PizzaD { 
     PizzaD p;
     Anchovy (PizzaD _p) {
         p = _p;
@@ -221,7 +239,7 @@ class Anchovy extends PizzaD { //凤尾鱼
     
 }
 
-class Sausage extends PizzaD { //香肠
+class Sausage extends PizzaD { 
     PizzaD p;
     Sausage (PizzaD _p) {
         p = _p;
@@ -232,4 +250,25 @@ class Sausage extends PizzaD { //香肠
 
 用例：
 
+```
+public static void main(String[] args) {
+    PizzaD p = new PizzaD();
+    
+    p.addMaterial(new Cheese());
+    p.addMaterial(new Anchovy());
+    p.addMaterial(new Olive());
+    p.addMaterial(new Sausage());
+    
+    p.remA();
+    p.topAwC();
+    p.subAbC();
+}
+```
 
+### 对比
+
++ 方式一将**Pizza实体**、**面皮**、**顶料**均抽象为“PizzaD”；方式二中将**Pizza实体**抽象为“PizzaD”，而将面皮和顶料抽象为“PizzaMaterial”。
+
++ 方式一通过“串串”的形式组合`构造函数`，构造**Pizza实体*；方式二中通过**Pizza实体**中的`addMaterial()`方法，构造**Pizza实体**。
+
++ 方式一更函数化，方式二更像通常的“面向对象”。
