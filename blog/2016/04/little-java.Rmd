@@ -1,0 +1,23 @@
+---
+author: "patrick.unicorn"
+output:
+  html_document:
+    css: ../../css/main.css
+    highlight: null
+    theme: null
+---
+
+《A Little Java》
+===
+
+* * *
+
+## 笔记
+
++ “数据类型”是一组值的命名名称。 
+
++ `abstract class`是“数据类型”；`class`是一个“变种”；`extends`将二者连接起来。
+
++ `abstract class`在定义上是不完整的，因此，无法直接使用`new`。
+
++ 
