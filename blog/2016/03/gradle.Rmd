@@ -137,7 +137,7 @@ task helloworld << {
 
 + `gradle wrapper`用于初始化一个gradle项目，会生成gradlw.jar、build.script等等。
 
-关于gradle的更多阅读笔记内容，参看我的[Diigo][1]，需要[翻墙][2]，你懂得:)。
+关于gradle的更多阅读笔记内容，参看我的[Diigo][1]，需要[翻墙][2]。
 
 [1]: https://www.diigo.com/user/patrick-unicorn/gradle
 
