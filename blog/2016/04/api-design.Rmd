@@ -1,15 +1,20 @@
 ---
-title: "API设计"
 author: "patrick.unicorn"
-date: "April 8, 2016"
-output: html_document
+date: "2014年05月03日"
+output: 
+  html_document:
+    theme: null
+    highlight: null
+    css: ../../css/main.css
 ---
 
 ## 为什么API设计越来越重要
 
-几乎没有独立的系统
-复杂度导致分布式（同构或异构）系统的流行
-开发平台越来越多
++ 分布式系统的越来越普遍
+
++ 软件服务越来越开放
+
++ 开发平台越来越多
 
 ## 优秀的API的特点
 
