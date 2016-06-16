@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="patrick.unicorn" />
+
+
+<title></title>
+
+
+
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Afont%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2018px%3B%0Amargin%3A%205%25%2020%25%205%25%2020%25%3B%0Apadding%3A%202%25%205%25%205%25%205%25%3B%0Awidth%3A%2050%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Aborder%3A%201px%20solid%20LightGrey%3B%0A%7D%0AH1%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0AH2%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0Amargin%2Dbottom%3A%2060px%3B%0Amargin%2Dbottom%3A%2040px%3B%0Apadding%3A%205px%3B%0Aborder%2Dbottom%3A%202px%20LightGrey%20solid%3B%0Awidth%3A%2098%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Acolor%3A%20%23666666%3B%0A%7D%0AH3%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0Amargin%2Dtop%3A%2040px%3B%0Amargin%2Dbottom%3A%2030px%3B%0Aborder%2Dbottom%3A%201px%20LightGrey%20solid%3B%0Awidth%3A%2098%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Acolor%3A%20%23666666%3B%0A%7D%0AH4%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0Amargin%2Dtop%3A%2040px%3B%0Amargin%2Dbottom%3A%2030px%3B%0Aborder%2Dbottom%3A%201px%20LightGrey%20solid%3B%0Awidth%3A%2098%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Acolor%3A%20%23666666%3B%0A%7D%0Aul%20%7B%0Apadding%2Dleft%3A%2010px%3B%0A%7D%0Ali%20%7B%0Amargin%2Dleft%3A%2010px%3B%0A%7D%0Aq%20%7B%0Aborder%2Dleft%3A%204px%20lightgrey%20solid%3B%0Apadding%2Dleft%3A%205px%3B%0Amargin%2Dleft%3A%2020px%3B%0A%7D%0Ablockquote%20%7B%0Afont%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0Afont%2Dsize%3A%2090%25%3B%0Aborder%3A%20dashed%201px%20lightgrey%3B%0Amargin%2Dleft%3A%2010px%3B%0Amargin%2Dright%3A%2010px%3B%0Apadding%3A%205px%3B%0A%7D%0A%2Eanswer%2Dblock%20%7B%0Aword%2Dbreak%3A%20normal%3B%0Adisplay%3A%20block%3B%0Apadding%3A%200px%3B%0Amargin%3A%200px%3B%0Amargin%2Dleft%3A%2020px%3B%0Afont%2Dsize%3A%2080%25%3B%0Aword%2Dwrap%3A%20break%2Dword%3B%0Acolor%3A%20%23333%3B%0Abackground%2Dcolor%3A%20%23f5f5f5%3B%0Aborder%3A%201px%20solid%20%23000%3B%0Aborder%2Dradius%3A%206px%3B%0Aoverflow%3A%20auto%3B%0A%7D%0Apre%20%7B%0Afont%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20font%2Dsize%3A%2075%25%3B%20border%3A%20solid%201px%20lightgrey%3B%20background%2Dcolor%3A%20Ivory%3B%20padding%3A%205px%3B%20line%2Dheight%3A%20130%25%3B%20margin%2Dleft%3A%2010px%3B%0Awidth%3A%2095%25%3B%0A%7D%0Apre%20code%20%7B%0Afont%2Dsize%3A%20100%25%20%21important%3B%20border%3A%20none%20%21important%3B%20background%2Dcolor%3A%20Ivory%20%21important%3B%20color%3A%20%23000%20%21important%3B%0Aborder%2Dradius%3A%200%20%21important%3B%0Apadding%3A%200%200%20%21important%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0Afont%2Dsize%3A%2090%25%3B%0Apadding%3A%202px%204px%3B%0Acolor%3A%20%23d14%3B%0Abackground%2Dcolor%3A%20%23f7f7f9%3B%0Aborder%3A%201px%20solid%20%23e1e1e8%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0Aa%20%7B%0Atext%2Ddecoration%3A%20none%3B%0Acursor%3A%20crosshair%3B%0Aborder%2Dbottom%3A%201px%20dashed%20Red%3B%0Apadding%3A%201px%3B%0Acolor%3A%20black%3B%0A%7D%0Aa%3Ahover%20%7B%0Abackground%2Dcolor%3A%20LightGrey%3B%0A%7D%0Aimg%20%7B%0Adisplay%3A%20block%3B%0Abox%2Dshadow%3A%200%200%2010px%20%23555%3B%0Aborder%2Dradius%3A%206px%3B%0Amargin%2Dleft%3A%20auto%3B%0Amargin%2Dright%3A%20auto%3B%0Amargin%2Dtop%3A%2010px%3B%0Amargin%2Dbottom%3A%2010px%3B%0A%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0Aheight%3A%20100%25%3B%0Awidth%3A%20100%25%3B%0A%7D%0Ahr%20%7B%0Acolor%3A%20LightGrey%3B%0A%7D%0Atable%2C%20th%2C%20td%20%7B%0Aborder%2Dcollapse%3A%20collapse%3B%0Aborder%3A%20solid%201px%20black%3B%0A%7D%0Ath%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Atd%20%7B%0Apadding%3A%205px%3B%0Atext%2Dalign%3A%20left%3B%20%7D%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+
+
+
+<div id="gradle" class="section level1">
+<h1>Gradle学习</h1>
+<hr />
+<div id="groovy" class="section level2">
+<h2>Groovy基础</h2>
+<ul>
+<li><p>定义变量使用<code>def</code>，如<code>def myvar = 1</code></p></li>
+<li><p><code>return</code>并不必须，分号也可以省略。一般建议return还是不要省略。</p></li>
+</ul>
+<pre><code>def myFunction() {
+    int i = 0
+    // 省略
+    return i
+}</code></pre>
+<ul>
+<li><p>单引号<code>''</code>，对应于Java中的String变量，不对<code>$</code>转义；<code>&quot;&quot;</code>，类似与模板语言中的模板字符串，会对<code>$</code>转义；三引号<code>'''..'''</code>，类似于C#中的<code>@&quot;&quot;</code>，支持自由换行。</p></li>
+<li><p>调用函数不必加括号</p></li>
+</ul>
+<pre><code>def myFunc() {
+
+}
+
+// 调用
+myFunc</code></pre>
+<ul>
+<li><p>java中的基本类型在Groovy中均有包装类型</p></li>
+<li><p>容器类型包含三种：</p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>List</li>
+</ol>
+<pre><code>// List 由[]定义，其元素可以是任何对象 
+def aList = [5,'string',true] </code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Map</li>
+</ol>
+<pre><code>def aMap = ['key1':'value1','key2':true] </code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Range</li>
+</ol>
+<pre><code>def aRange = 1..5  // 包含[1, 5]
+def aRange = 1..&lt;5 // 包含[1, 5)</code></pre>
+</div>
+<div id="gradle" class="section level2">
+<h2>Gradle使用</h2>
+<ul>
+<li>Java构建工具对比</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="left">工具</th>
+<th align="left">优点</th>
+<th align="left">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ant</td>
+<td align="left">灵活性、完全控制、目标链</td>
+<td align="left">繁琐、不易读、XML表达能力有限</td>
+</tr>
+<tr class="even">
+<td align="left">Ivy</td>
+<td align="left">依赖管理</td>
+<td align="left">不是完整的构建工具</td>
+</tr>
+<tr class="odd">
+<td align="left">Maven</td>
+<td align="left">约定优于配置、多模块项目、插件扩展</td>
+<td align="left">插件不易扩展、XML表达能力有限</td>
+</tr>
+<tr class="even">
+<td align="left">Gant</td>
+<td align="left">基于Ant提供DSL</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Gradle</td>
+<td align="left">博采众家之长、兼容Ant和Maven项目</td>
+<td align="left">深入使用需要学习Groovy</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Gradle使用类脚本语言Groovy的基本立足点，就是编译脚本本身也应该是“编程源代码”的一部分。因此，对于程序员而言，使用Groovy作为DSL的Gradle，相对于使用XML作为DSL的Ant、Maven，更“亲和”，也更加“程序化”。</p></li>
+<li><p>Gradle脚本中的每一个元素都有一个Java类一一映射。Gradle基本工作单元是Task，这与Grant类似。</p></li>
+<li><p>Gradle的DSL是由Groovy实现的，所有的构建脚本本身就是Groovy编程语言，甚至可以使用Java去编写脚本，但相比Groovy，会很繁琐。</p></li>
+<li><p>Gradle采用了和Maven类似的指导思想：<strong>约定优于配置</strong>和<strong>规定构建生命周期</strong>。其默认项目结构与maven一致。</p></li>
+</ul>
+<blockquote>
+[compile java]/[process resource] -&gt; classes -&gt; jar -&gt; assemble -&gt; build
+</blockquote>
+<ul>
+<li><p>Maven中一个项目必须只能设定一个源代码目录和生产一个Jar包。而在Gradle中，均可以有多个。Maven太<strong>武断</strong>，而Ant太灵活（没有任何约定默认值），Grandle则<strong>折中取之</strong>。</p></li>
+<li><p>Gradle支持<strong>部分构建</strong>，而不是改动一个<strong>小点</strong>，就需要全局Clean并重新构建。</p></li>
+<li><p>Gradle中定制构建逻辑有两种主要的方法：基于Task和基于插件。后者可以使用Gradle的所有API，并且可以被多个项目重用。</p></li>
+<li><p>Gradle完全兼容Ant、Maven。通过Gradle提供的转换器，可以将Maven构建逻辑转换为Gradle构建脚本。而对于Ant，其target直接映射为Gradle的task。Maven和Ivy的仓库是完全被Gradle支持的。</p></li>
+<li><p>Gradle包装器允许<strong>执行构建的机器</strong>从指定的仓库下载并安装一个Gradle运行时，这对于持续集成服务器或者分享构建非常有用。</p></li>
+<li><p>可以在<strong>GRADLE_HOME/bin</strong>下的Gradle启动脚本中设置一些启动参数，比如JVM的最大内存等等。</p></li>
+<li><p>Gradle默认的构件脚本文件名是<strong>build.gradle</strong>。</p></li>
+<li><p><code>gradle -q &lt;task name&gt;</code>执行某个task，<code>-q</code>表示<strong>quiet</strong>，只输出该task的信息。</p></li>
+<li><p>定义任务</p></li>
+</ul>
+<pre><code>task helloworld {
+    doLast {
+        println 'Hello World'
+    }
+}
+
+等价于
+
+task helloworld &lt;&lt; {
+    println 'Hello World'
+}</code></pre>
+<ul>
+<li><p><code>gradle -q tasks [--all]</code>查看当前定义的所有task信息</p></li>
+<li><p><code>gradle -D[参数名]=[参数值]</code>，与Maven一样，可以给Gradle运行时的JVM传入运行参数</p></li>
+<li><p><code>gradle -P[参数名]=[参数值]</code>，可以给脚本动态运行时传入参数，该参数可以被脚本所使用，典型应用如传入<strong>具体要编译的目标环境[测试、开发、产品]</strong>。</p></li>
+<li><p><code>gradle -b [构建脚本文件名]</code> 默认gradle的构建文件名是build.gradle，可以通过该选项制定其他名称的构件脚本文件。</p></li>
+<li><p><code>gradle -i</code> 将输出日志级别设置为INFO，这样可以看到更多详细的日志信息。</p></li>
+<li><p><code>gradle -s</code> 可以在出现错误时，打印出堆栈信息</p></li>
+<li><p><code>gradle properties</code> 显示出当前项目中所有可用的属性，包括<strong>脚本文件中定义的</strong>、<strong>通过命令行[-P]传入的</strong>、<strong>属性文件</strong>。</p></li>
+<li><p>Grade提供了守护进程，可以避免每次构建都重新加载JVM，这样可以极大的提高效率。 执行命令时，加入<code>-daemon</code>就可以。 该进程在3个小时空闲后，会自动关闭。 也可以使用<code>gradel --stop</code>主动关闭。 如果希望构件时不使用守护进程，可以加入<code>--no-daemon</code>。</p></li>
+<li><p><code>gradle wrapper</code>用于初始化一个gradle项目，会生成gradlw.jar、build.script等等。</p></li>
+</ul>
+<p>关于gradle的更多阅读笔记内容，参看我的<a href="https://www.diigo.com/user/patrick-unicorn/gradle">Diigo</a>，需要<a href="https://www.baidu.com/s?wd=%E7%BF%BB%E5%A2%99&amp;rsv_spt=1&amp;rsv_iqid=0xee48bb3b000f2ce0&amp;issp=1&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=2&amp;ie=utf-8&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;rsv_sug3=5&amp;rsv_sug1=2&amp;rsv_sug7=100">翻墙</a>。</p>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

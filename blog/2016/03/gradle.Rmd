@@ -7,10 +7,63 @@ output:
     theme: null
 ---
 
-Gradle
+Gradle学习
 ===
 
 * * *
+
+## Groovy基础
+
++ 定义变量使用`def`，如`def myvar = 1`
+
++ `return`并不必须，分号也可以省略。一般建议return还是不要省略。
+
+```
+def myFunction() {
+    int i = 0
+    // 省略
+    return i
+}
+```
+
++ 单引号`''`，对应于Java中的String变量，不对`$`转义；`""`，类似与模板语言中的模板字符串，会对`$`转义；三引号`'''..'''`，类似于C#中的`@""`，支持自由换行。
+
++ 调用函数不必加括号
+
+```
+def myFunc() {
+
+}
+
+// 调用
+myFunc
+```
+
++ java中的基本类型在Groovy中均有包装类型
+
++ 容器类型包含三种：
+
+1. List
+
+```
+// List 由[]定义，其元素可以是任何对象 
+def aList = [5,'string',true] 
+```
+
+2. Map
+
+```
+def aMap = ['key1':'value1','key2':true] 
+```
+
+3. Range
+
+```
+def aRange = 1..5  // 包含[1, 5]
+def aRange = 1..<5 // 包含[1, 5)
+```
+
+## Gradle使用
 
 + Java构建工具对比
 
@@ -20,7 +73,9 @@ Gradle
 |Ivy|依赖管理|不是完整的构建工具|
 |Maven|约定优于配置、多模块项目、插件扩展|插件不易扩展、XML表达能力有限|
 |Gant|基于Ant提供DSL||
-|Gradle|博采众家之长、兼容Ant和Maven项目|深入使用需要学习Groovy、学习成本高|
+|Gradle|博采众家之长、兼容Ant和Maven项目|深入使用需要学习Groovy|
+
++ Gradle使用类脚本语言Groovy的基本立足点，就是编译脚本本身也应该是“编程源代码”的一部分。因此，对于程序员而言，使用Groovy作为DSL的Gradle，相对于使用XML作为DSL的Ant、Maven，更“亲和”，也更加“程序化”。
 
 + Gradle脚本中的每一个元素都有一个Java类一一映射。Gradle基本工作单元是Task，这与Grant类似。
 
@@ -74,10 +129,16 @@ task helloworld << {
 
 + `gradle -i` 将输出日志级别设置为INFO，这样可以看到更多详细的日志信息。
 
-+ `gradle - s` 可以在出现错误时，打印出堆栈信息
++ `gradle -s` 可以在出现错误时，打印出堆栈信息
 
 + `gradle properties` 显示出当前项目中所有可用的属性，包括**脚本文件中定义的**、**通过命令行[-P]传入的**、**属性文件**。
 
 + Grade提供了守护进程，可以避免每次构建都重新加载JVM，这样可以极大的提高效率。 执行命令时，加入`-daemon`就可以。 该进程在3个小时空闲后，会自动关闭。 也可以使用`gradel --stop`主动关闭。 如果希望构件时不使用守护进程，可以加入`--no-daemon`。
 
-+ 
++ `gradle wrapper`用于初始化一个gradle项目，会生成gradlw.jar、build.script等等。
+
+关于gradle的更多阅读笔记内容，参看我的[Diigo][1]，需要[翻墙][2]。
+
+[1]: https://www.diigo.com/user/patrick-unicorn/gradle
+
+[2]: https://www.baidu.com/s?wd=%E7%BF%BB%E5%A2%99&rsv_spt=1&rsv_iqid=0xee48bb3b000f2ce0&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=5&rsv_sug1=2&rsv_sug7=100
