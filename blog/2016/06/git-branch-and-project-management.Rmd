@@ -1,0 +1,21 @@
+---
+title: "Git分支流程与项目管理解读"
+author: "patrick.unicorn"
+date: "June 12, 2016"
+output: html_document
+---
+
+## 两个分析角度
+
+1. 将图中的timeline分为两个stage： 从0到1；从1到N
+
+2. 把动态的项目管理过程结合：
+
+develop(develope branch) -> 发布到开发集成环境 测试
+
+
+staging(release branch) -> 测试差不多的可以发布的时，切该分支，并发布到stage环境进行继续测试，stage环境需要和product环境差异性更小  
+
+product(master branche) -> stage环境测试环境测试好之后， 给master打tag，并发布
+
+3. hotfix与feature-branch的“临时性”
