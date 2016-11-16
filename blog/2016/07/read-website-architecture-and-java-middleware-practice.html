@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>读《大型网站系统和Java中间件实践》</title>
+
+
+
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Afont%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2018px%3B%0Amargin%3A%205%25%2020%25%205%25%2020%25%3B%0Apadding%3A%202%25%205%25%205%25%205%25%3B%0Awidth%3A%2050%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Aborder%3A%201px%20solid%20LightGrey%3B%0A%7D%0AH1%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0AH2%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0Amargin%2Dbottom%3A%2060px%3B%0Amargin%2Dbottom%3A%2040px%3B%0Apadding%3A%205px%3B%0Aborder%2Dbottom%3A%202px%20LightGrey%20solid%3B%0Awidth%3A%2098%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Acolor%3A%20%23666666%3B%0A%7D%0AH3%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0Amargin%2Dtop%3A%2040px%3B%0Amargin%2Dbottom%3A%2030px%3B%0Aborder%2Dbottom%3A%201px%20LightGrey%20solid%3B%0Awidth%3A%2098%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Acolor%3A%20%23666666%3B%0A%7D%0AH4%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0Amargin%2Dtop%3A%2040px%3B%0Amargin%2Dbottom%3A%2030px%3B%0Aborder%2Dbottom%3A%201px%20LightGrey%20solid%3B%0Awidth%3A%2098%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Acolor%3A%20%23666666%3B%0A%7D%0Aul%20%7B%0Apadding%2Dleft%3A%2010px%3B%0A%7D%0Ali%20%7B%0Amargin%2Dleft%3A%2010px%3B%0A%7D%0Aq%20%7B%0Aborder%2Dleft%3A%204px%20lightgrey%20solid%3B%0Apadding%2Dleft%3A%205px%3B%0Amargin%2Dleft%3A%2020px%3B%0A%7D%0Ablockquote%20%7B%0Afont%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0Afont%2Dsize%3A%2090%25%3B%0Aborder%3A%20dashed%201px%20lightgrey%3B%0Amargin%2Dleft%3A%2010px%3B%0Amargin%2Dright%3A%2010px%3B%0Apadding%3A%205px%3B%0A%7D%0A%2Eanswer%2Dblock%20%7B%0Aword%2Dbreak%3A%20normal%3B%0Adisplay%3A%20block%3B%0Apadding%3A%200px%3B%0Amargin%3A%200px%3B%0Amargin%2Dleft%3A%2020px%3B%0Afont%2Dsize%3A%2080%25%3B%0Aword%2Dwrap%3A%20break%2Dword%3B%0Acolor%3A%20%23333%3B%0Abackground%2Dcolor%3A%20%23f5f5f5%3B%0Aborder%3A%201px%20solid%20%23000%3B%0Aborder%2Dradius%3A%206px%3B%0Aoverflow%3A%20auto%3B%0A%7D%0Apre%20%7B%0Afont%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20font%2Dsize%3A%2075%25%3B%20border%3A%20solid%201px%20lightgrey%3B%20background%2Dcolor%3A%20Ivory%3B%20padding%3A%205px%3B%20line%2Dheight%3A%20130%25%3B%20margin%2Dleft%3A%2010px%3B%0Awidth%3A%2095%25%3B%0A%7D%0Apre%20code%20%7B%0Afont%2Dsize%3A%20100%25%20%21important%3B%20border%3A%20none%20%21important%3B%20background%2Dcolor%3A%20Ivory%20%21important%3B%20color%3A%20%23000%20%21important%3B%0Aborder%2Dradius%3A%200%20%21important%3B%0Apadding%3A%200%200%20%21important%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0Afont%2Dsize%3A%2090%25%3B%0Apadding%3A%202px%204px%3B%0Acolor%3A%20%23d14%3B%0Abackground%2Dcolor%3A%20%23f7f7f9%3B%0Aborder%3A%201px%20solid%20%23e1e1e8%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0Aa%20%7B%0Atext%2Ddecoration%3A%20none%3B%0Acursor%3A%20crosshair%3B%0Aborder%2Dbottom%3A%201px%20dashed%20Red%3B%0Apadding%3A%201px%3B%0Acolor%3A%20black%3B%0A%7D%0Aa%3Ahover%20%7B%0Abackground%2Dcolor%3A%20LightGrey%3B%0A%7D%0Aimg%20%7B%0Adisplay%3A%20block%3B%0Abox%2Dshadow%3A%200%200%2010px%20%23555%3B%0Aborder%2Dradius%3A%206px%3B%0Amargin%2Dleft%3A%20auto%3B%0Amargin%2Dright%3A%20auto%3B%0Amargin%2Dtop%3A%2010px%3B%0Amargin%2Dbottom%3A%2010px%3B%0A%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0Aheight%3A%20100%25%3B%0Awidth%3A%20100%25%3B%0A%7D%0Ahr%20%7B%0Acolor%3A%20LightGrey%3B%0A%7D%0Atable%2C%20th%2C%20td%20%7B%0Aborder%2Dcollapse%3A%20collapse%3B%0Aborder%3A%20solid%201px%20black%3B%0A%7D%0Ath%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Atd%20%7B%0Apadding%3A%205px%3B%0Atext%2Dalign%3A%20left%3B%20%7D%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">读《大型网站系统和Java中间件实践》</h1>
+
+
+
+<div class="section level2">
+<h2>概论</h2>
+<ul>
+<li>阿姆达定律（Amdahl），用于评估程序在多核服务器上的处理速度提升比：S(N) = 1 / ((1-P) + P / N)，其中P指程序中<strong>可并行部分在单核上执行时间的占比</strong>，N表示处理器的个数（总核数）。S(N)表示程序在N个处理器上相对于单核中的速度提升比。</li>
+<li>对于数据容器，如果读写比例较高，可以采用读写锁加锁，相比简单的互斥锁可以提供更高的性能。</li>
+<li>线程模式：</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>互相没有通信的模式</li>
+<li>共享数据容器的模式，java.util.concurrent包中的并发容器类均可提供此类用途。</li>
+<li>使用事件协同的模式，java.util.concurrent包中的AbstractQueue、Lock等提供此类用途。</li>
+</ol>
+</blockquote>
+<ul>
+<li>典型多线程死锁场景及其解决方式：</li>
+</ul>
+<blockquote>
+<p>两个锁A和B，两个线程T1和T2，死锁场景：</p>
+<p>T1: A.lock(); B.lock();</p>
+<p>T2: B.lock(); A.lock();</p>
+<p>解决方式1:</p>
+<p>T1: A.lock(); B.lock();</p>
+<p>T2: A.lock(); B.lock();</p>
+<p>保持不同线程获取多个锁的顺序一致。</p>
+<p>解决方式2:</p>
+<p>T1: getLocks(A, B);</p>
+<p>T2: getLocks(A, B);</p>
+一次获取所需的所有锁对象，如Windows平台提供了WaitForMultipleObjects。或则也可以用另外一个锁C等价表示同时获得A和B。
+</blockquote>
+<ul>
+<li>多进程和多线程的两点主要区别：</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>多进程比多线程的资源控制相对简单，因为进程空间是独立的。</li>
+<li>多进程中的单进程失效，有可能不会导致整体不可用。</li>
+</ol>
+</blockquote>
+<ul>
+<li>网络IO三种实现方式：</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>BIO 一个socket一个线程处理</li>
+<li>NIO Reactor模式，采用select/poll机制，reactor线程处理并派发IO事件，业务线程（池）具体处理事件。</li>
+<li>AIO Proactor模式，调用read/write需要同时传入CompleteHandler。</li>
+</ol>
+</blockquote>
+<ul>
+<li><p>计算机由输入、输出、控制器、运算器、存储器5部分组成，分布式系统其实就相当于是一台<strong>超级计算机</strong>。</p></li>
+<li><p>分布式系统的控制器，主要用于协调不同节点间的动作和行为，如寻址等，主要有以下模式：</p></li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>透明代理，如LVS，Nginx。请求发起方和处理方的的通信经过代理服务器。</li>
+<li>名称服务，如Zookeeper、DNS。请求发起方和处理方直连，通过名字服务感知对方。</li>
+<li>规则服务，名称服务的升级。通常用在对状态有高要求的场景，比如dubbo-admin中保存了所有服务provider的状态。这是与名称服务的关键区别。</li>
+</ol>
+</blockquote>
+<ul>
+<li>LVS的DR或TUN模式，【请求处理机】返回的结果会直接到【客户机】，而不经过LVS代理服务器。</li>
+<li>如果使用代理服务器，必须考虑<strong>代理服务器的热备份</strong>。否则，系统不可用风险太高。</li>
+<li>分布式系统的计算器，主要用于业务处理，由多个物理节点组成，依靠控制器协调。</li>
+<li>分布式系统的存储器，主要用于数据存储，有多个物理节点组成，依靠控制器协调。</li>
+<li>分布式系统的难点</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>统一的时钟</li>
+<li>故障的独立性，即通常都是有些节点正确，有些节点错误。</li>
+<li>避免单点故障，一种思路是单点备份，如双机热备；一种思路是降低单点影响范围，如分库。</li>
+<li>事务的挑战</li>
+</ol>
+</blockquote>
+<ul>
+<li>应用服务器集群后的session问题及解决方案：</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>session sticky，通过将负载均衡器变为有状态节点，保证同一个session可以被指向到同一个应用服务器节点。缺点负载均衡器有了应用层的状态信息，容灾麻烦；单台应用服务器宕机会导致用户重新登录。</li>
+<li>session replication，多个应用服务器节点之间进行session数据同步，每台应用服务器都有一个全量session数据。缺点session数据的同步时延和网络开销；session数据的冗余存储消耗。</li>
+<li>session cluser，单独的session存储服务器，可以使用数据库或者其他分布式存储系统。缺点引入了读写session的网络开销。</li>
+<li>cookie based，将session信息保存在cookie中，缺点cookie的大小限制；安全性；性能和带宽。</li>
+</ol>
+</blockquote>
+<ul>
+<li>读写层优化方案</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>DB读写分离 1.1 数据复制延迟 1.2 应用程序对目标数据库的选择</li>
+<li>搜索引擎（可以看做另一种读库） 2.1 索引更新：定时、实时 2.2 索引更新：全量、增量</li>
+<li>缓存 3.1 缓存命中率是关键指标 3.2 缓存服务器扩容或缩容必须平滑，如一致性hash 3.3 缓存更新模式：Write Aside、Read Through、Write Through、Write Behind Caching</li>
+</ol>
+</blockquote>
+<ul>
+<li>分布式存储系统：</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>分布式文件，解决小文件和大文件的存储</li>
+<li>分布式k-v数据库，解决半结构化数据高性能查询</li>
+<li>分布式关系数据库，提供高并发、大数据数据库系统</li>
+</ol>
+</blockquote>
+<ul>
+<li>分库分表：</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>垂直拆分 1.1 事务：分布式事务、放弃强事务 1.2 慎用表连接查询 1.3 主键约束，不能简单实用单库机制，如自增字段等</li>
+<li>水平拆分 2.1 分片算法，字段选择、Hash算法 2.2 主键约束，不能简单实用单库机制，如自增字段等</li>
+</ol>
+</blockquote>
+<ul>
+<li>应用层拆分：</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>根据应用业务特性划分子系统</li>
+<li>（微）服务化</li>
+</ol>
+</blockquote>
+<ul>
+<li>Java中间件的基础知识：</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>JVM内存模型</li>
+<li>Java同步机制，Synchronized、Volatile、Lock、Object#wait/notify(All)、CountDownLatch、CyclicBarrier、Semaphore</li>
+<li>Java线程池</li>
+<li>Java并发集合</li>
+<li>Java动态代理，基于接口</li>
+<li>反射</li>
+<li>JavaIO，BIO、NIO、AIO</li>
+</ol>
+</blockquote>
+<ul>
+<li>网站架构演进视图：</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>应用拆分</li>
+<li>服务拆分</li>
+<li>数据拆分</li>
+<li>应用解耦</li>
+</ol>
+</blockquote>
+<ul>
+<li><p>消息中间件还有一个常用的用途：间接完成事务。</p></li>
+<li><p>分布式服务框架（如Dubbo、ZK）解决应用拆分和服务拆分；分布式数据层中间件（框架）（如Cobar、ShardingJDBC、MySql Proxy）解决数据拆分；分布式消息中间件（如Kafka、RocketMQ）解决应用解耦。</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2>服务框架</h2>
+<p><strong>基本讲述的就是Dubbo的设计细节</strong></p>
+<ul>
+<li>传统系统的架构：</li>
+</ul>
+<pre><code>应用A   应用B   应用C   应用D
+-----------------------------
+DB  缓存  分布式文件  搜索引擎</code></pre>
+<blockquote>
+<p>困境：</p>
+<ol style="list-style-type: decimal">
+<li>随着业务发展，每个应用逐渐变得复杂、臃肿、重复代码、冗余代码</li>
+<li>在原有的应用中增加新的功能，影响范围较大，影响研发效率和系统稳定性</li>
+</ol>
+<p>解决：</p>
+<ol style="list-style-type: decimal">
+<li>切分应用，提高应用粒度</li>
+<li>增加间接层，服务化</li>
+</ol>
+</blockquote>
+<ul>
+<li>服务化架构：</li>
+</ul>
+<pre><code>应用A   应用B   应用C   应用D
+-----------------------------
+服务1   服务2   服务3    服务4
+-----------------------------
+DB 缓存 分布式系统 搜索引擎</code></pre>
+<blockquote>
+<p>解决：</p>
+<ol style="list-style-type: decimal">
+<li>通过应用抽象共有服务，不断抽取各个应用的冗余功能，向下沉淀。</li>
+<li>应用层面向用户场景，服务层面向应用层；应用层面向业务功能，服务层面向业务数据。</li>
+<li>纵向分离关注点，不同的人或团队分别负责应用层和服务层。</li>
+<li>功能单一内聚的服务，可以组合被新应用使用，提高新应用研发效率。</li>
+</ol>
+</blockquote>
+<ul>
+<li><p>服务路由：基于接口、基于方法、基于参数、或者前三者的组合。</p></li>
+<li><p>服务调用流控：1. 0-1开关；2. 基于每秒请求数。</p></li>
+<li><p>服务调用流控维度：1. 基于调用的服务签名（接口、方法、参数）；2. 基于调用方（应用A、应用B）</p></li>
+<li><p>服务协议的两个部分：1. 通信协议，基于tcp、udp的自定义协议；2. 远程过程调用协议，如json、xml。协议应该具有版本号，以支持未来可能的扩展。</p></li>
+<li><p>异步调用方式：</p></li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>Callback 回调可能在IO线程，也可以在单端的回调线程执行。</li>
+<li>Future 在原调用线程中。</li>
+<li>可靠异步，保证异步消息一定在远程执行，一般通过消息中间件实现。</li>
+</ol>
+</blockquote>
+<ul>
+<li>服务升级：</li>
+</ul>
+<pre><code>1. 接口不变，只改内部实现。可以灰度发布。
+2. 修改原有接口
+    2.1 增加方法
+    2.2 修改方法签名，通过新增重载的新签名方法，通过版本号解决兼容。</code></pre>
+<ul>
+<li><p>采用合适的服务框架是系统向服务化演进的先决条件，如dubbo、spring boot或自建。</p></li>
+<li><p>服务化的权衡点：</p></li>
+</ul>
+<pre><code>1. 服务划分 
+    1.1 根据数据抽象服务
+    1.2 根据应用抽象服务
+    1.3 根据服务抽象服务
+2. 服务粒度
+3. 请求合并</code></pre>
+<ul>
+<li>服务治理是在采用服务框架后，为服务化保驾护航的功能集合：</li>
+</ul>
+<pre><code>1. 管理服务（写）
+    1.1 服务上下线
+    1.2 服务路由
+    1.3 服务限流降级
+    1.4 服务归组
+    1.5 服务线程池管理
+    1.6 机房规则
+    1.7 服务授权
+2. 查看服务（读）
+    2.1 服务信息
+        2.1.1 服务编码（数字化的唯一编码）
+        2.1.2 编码定位服务
+        2.1.3 编码注册
+        2.1.4 元信息（接口、方法、参数、负责人、团队、发布时间、版本、地址列表、容量、质量、依赖）
+    2.2 服务质量
+        2.2.1 服务排行（TPS、RTS、出错率等）
+        2.2.2 服务质量趋势
+        2.2.3 各类查询条件支持
+    2.3 服务容量
+        2.3.1 当前容量与总容量
+        2.3.2 历史趋势图
+        2.3.3 各类查询条件支持
+    2.4 服务依赖
+        2.4.1 依赖视图
+        2.4.2 被依赖视图
+        2.4.3 依赖变化
+    2.5 服务分布
+        2.5.1 不同机房分布
+        2.5.2 不同机柜分布
+        2.5.3 分布不均衡服务列表
+    2.6 服务统计
+       2.6.1 调用次数与排名
+       2.6.2 出错次数与排名
+       2.6.3 出错率与排名
+       2.6.4 响应时间与排名
+       2.6.5 响应时间趋势
+       2.6.6 出错率趋势
+    2.7 服务查询
+       2.7.1 各个维度服务的查询（负责人等等）
+    2.8 服务监控
+       2.8.1 关键数据采集、报警、
+    2.9 服务报表
+       2.9.1 各类定制报表及导出</code></pre>
+<ul>
+<li>服务框架与ESB的对比：</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>服务框架是点对点模型；ESB是总线模型</li>
+<li>服务框架不是中间件；ESB是单独的中间件</li>
+<li>服务框架面向同构系统；ESB面向异构系统</li>
+</ol>
+</blockquote>
+<ul>
+<li>数据层优化：</li>
+</ul>
+<pre><code>1. scale up 有上限，价格贵
+2. scale out 
+    2.1 应用优化
+    2.2 缓存、搜索引擎，本质是读写分离
+    2.3 分库分表，降低单库压力</code></pre>
+<ul>
+<li>垂直拆分的影响:</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>单机ACID事务破坏</li>
+<li>连接查询（join）破坏</li>
+<li>外键约束可能失败</li>
+<li>存储过程、触发器</li>
+</ol>
+</blockquote>
+<ul>
+<li>水平拆分的影响</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>单机ACID事务破坏</li>
+<li>连接查询（join）破坏</li>
+<li>外键约束可能失败</li>
+<li>依赖DB的唯一自增ID受影响</li>
+<li>逻辑单表查询可能跨库，导致查询复杂化</li>
+<li>存储过程、触发器</li>
+</ol>
+</blockquote>
+<ul>
+<li><p>分布式事务和2PC对于大多数应用场景来说，代价太大。</p></li>
+<li><p>CAP</p></li>
+</ul>
+<pre><code>Consistency  
+    强一致性，数据一旦写成功，所有节点会同时看到最新状态。
+Availability 
+    强可用性，无论成功或失败，每个请求都必须收到一个反馈。重点是系统一定要有响应。
+Partition tolerance 
+    系统的部分节点失效或者消息丢失，系统仍然可以继续运行不至于所有节点宕机。
+
+CA: 就是传统单机数据库的选择。
+CP: 可用性低。
+AP: 放弃强一致性，大多数分布式系统的选择。</code></pre>
+<ul>
+<li>分布式系统中，一般选择AP，对于C（一致性），采用BASE模型解决：</li>
+</ul>
+<pre><code>Basically Available 基本可用，允许分区失败。
+Soft State 软状态，接受一段时间的数据不同步。
+Eventually Consistent 最终一致性，保证（各个节点）最终数据的状态是一致的。</code></pre>
+<ul>
+<li>Paxos是比2PC更轻量级的保证分布式一致性的协议。其有一个基本前提是不存在拜占庭将军问题（就是网络不可信），即必须保证可信的通信环境（比如数据包不可篡改）。</li>
+</ul>
+<blockquote>
+</blockquote>
+<ul>
+<li></li>
+</ul>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
