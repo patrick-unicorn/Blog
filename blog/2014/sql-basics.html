@@ -8,6 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <meta name="author" content="patrick.unicorn" />
 
 
@@ -16,11 +18,15 @@
 
 
 
-<link href="data:text/css,body%20%7B%0A%20%20%20%20font%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0A%20%20%20%20font%2Dsize%3A%2018px%3B%0A%20%20%20%20margin%3A%205%25%2020%25%205%25%2020%25%3B%0A%20%20%20%20padding%3A%202%25%205%25%205%25%205%25%3B%0A%20%20%20%20width%3A%2050%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20border%3A%201px%20solid%20LightGrey%3B%0A%7D%0A%0AH1%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0A%0AH2%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dbottom%3A%2060px%3B%0A%20%20%20%20margin%2Dbottom%3A%2040px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border%2Dbottom%3A%202px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH3%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0A%0AH4%20%7B%0A%20%20%20%20font%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%20%20%20%20margin%2Dtop%3A%2040px%3B%0A%20%20%20%20margin%2Dbottom%3A%2030px%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20LightGrey%20solid%3B%0A%20%20%20%20width%3A%2098%25%3B%0A%20%20%20%20line%2Dheight%3A%20150%25%3B%0A%20%20%20%20color%3A%20%23666666%3B%0A%7D%0A%0Aul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2010px%3B%0A%7D%0A%0Ali%20%7B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%7D%0A%0Aq%20%7B%0A%20%20%20%20border%2Dleft%3A%204px%20lightgrey%20solid%3B%0A%20%20%20%20padding%2Dleft%3A%205px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20border%3A%20dashed%201px%20lightgrey%3B%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20margin%2Dright%3A%2010px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%7D%0A%0A%2Eanswer%2Dblock%20%7B%0A%20%20%20%20word%2Dbreak%3A%20normal%3B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20padding%3A%200px%3B%0A%20%20%20%20margin%3A%200px%3B%0A%20%20%20%20margin%2Dleft%3A%2020px%3B%0A%20%20%20%20font%2Dsize%3A%2080%25%3B%0A%20%20%20%20word%2Dwrap%3A%20break%2Dword%3B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f5f5f5%3B%0A%20%20%20%20border%3A%201px%20solid%20%23000%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20overflow%3A%20auto%3B%0A%7D%0A%0A%0Apre%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20%0A%20%20%20%20font%2Dsize%3A%2075%25%3B%20%0A%20%20%20%20border%3A%20solid%201px%20lightgrey%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%3B%20%0A%20%20%20%20padding%3A%205px%3B%20%0A%20%20%20%20line%2Dheight%3A%20130%25%3B%20%0A%20%20%20%20margin%2Dleft%3A%2010px%3B%0A%20%20%20%20width%3A%2095%25%3B%0A%7D%0A%0Apre%20code%20%7B%0A%20%20%20%20font%2Dsize%3A%20100%25%20%21important%3B%20%0A%20%20%20%20border%3A%20none%20%21important%3B%20%0A%20%20%20%20background%2Dcolor%3A%20Ivory%20%21important%3B%20%0A%20%20%20%20color%3A%20%23000%20%21important%3B%0A%20%20%20%20border%2Dradius%3A%200%20%21important%3B%0A%20%20%20%20padding%3A%200%200%20%21important%3B%0A%7D%0A%0A%0Acode%20%7B%0A%20%20%20%20font%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0A%20%20%20%20font%2Dsize%3A%2090%25%3B%0A%20%20%20%20padding%3A%202px%204px%3B%0A%20%20%20%20color%3A%20%23d14%3B%0A%20%20%20%20background%2Dcolor%3A%20%23f7f7f9%3B%0A%20%20%20%20border%3A%201px%20solid%20%23e1e1e8%3B%0A%20%20%20%20border%2Dradius%3A%203px%3B%0A%7D%0A%0A%0Aa%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20crosshair%3B%0A%20%20%20%20border%2Dbottom%3A%201px%20dashed%20Red%3B%0A%20%20%20%20padding%3A%201px%3B%0A%20%20%20%20color%3A%20black%3B%0A%7D%0A%0A%0Aa%3Ahover%20%7B%0A%09background%2Dcolor%3A%20LightGrey%3B%0A%7D%0A%0A%0Aimg%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20box%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20border%2Dradius%3A%206px%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dtop%3A%2010px%3B%0A%20%20%20%20margin%2Dbottom%3A%2010px%3B%0A%20%20%20%20%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%09width%3A%20100%25%3B%0A%7D%0A%0A%0Ahr%20%7B%0A%20%20%20%20color%3A%20LightGrey%3B%0A%7D%0A%0Atable%2C%20th%2C%20td%20%20%7B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%20%20border%3A%20solid%201px%20black%3B%0A%7D%0A%0Ath%20%7B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0Atd%20%7B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20text%2Dalign%3A%20left%3B%20%20%20%20%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Afont%2Dfamily%3A%20STFangSong%2C%20Helvetica%2C%20Arial%2C%20Vernada%2C%20Tahoma%2C%20STXihei%2C%20%22Microsoft%20YaHei%22%2C%20%22Songti%20SC%22%2C%20SimSun%2C%20Heiti%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2018px%3B%0Amargin%3A%205%25%2020%25%205%25%2020%25%3B%0Apadding%3A%202%25%205%25%205%25%205%25%3B%0Awidth%3A%2050%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Aborder%3A%201px%20solid%20LightGrey%3B%0A%7D%0AH1%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0A%7D%0AH2%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0Amargin%2Dbottom%3A%2060px%3B%0Amargin%2Dbottom%3A%2040px%3B%0Apadding%3A%205px%3B%0Aborder%2Dbottom%3A%202px%20LightGrey%20solid%3B%0Awidth%3A%2098%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Acolor%3A%20%23666666%3B%0A%7D%0AH3%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0Amargin%2Dtop%3A%2040px%3B%0Amargin%2Dbottom%3A%2030px%3B%0Aborder%2Dbottom%3A%201px%20LightGrey%20solid%3B%0Awidth%3A%2098%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Acolor%3A%20%23666666%3B%0A%7D%0AH4%20%7B%0Afont%2Dfamily%3A%20%22Palatino%20Linotype%22%2C%20%22Book%20Antiqua%22%2C%20Palatino%2C%20Helvetica%2C%20STKaiti%2C%20SimSun%2C%20serif%3B%0Amargin%2Dtop%3A%2040px%3B%0Amargin%2Dbottom%3A%2030px%3B%0Aborder%2Dbottom%3A%201px%20LightGrey%20solid%3B%0Awidth%3A%2098%25%3B%0Aline%2Dheight%3A%20150%25%3B%0Acolor%3A%20%23666666%3B%0A%7D%0Aul%20%7B%0Apadding%2Dleft%3A%2010px%3B%0A%7D%0Ali%20%7B%0Amargin%2Dleft%3A%2010px%3B%0A%7D%0Aq%20%7B%0Aborder%2Dleft%3A%204px%20lightgrey%20solid%3B%0Apadding%2Dleft%3A%205px%3B%0Amargin%2Dleft%3A%2020px%3B%0A%7D%0Ablockquote%20%7B%0Afont%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0Afont%2Dsize%3A%2090%25%3B%0Aborder%3A%20dashed%201px%20lightgrey%3B%0Amargin%2Dleft%3A%2010px%3B%0Amargin%2Dright%3A%2010px%3B%0Apadding%3A%205px%3B%0A%7D%0A%2Eanswer%2Dblock%20%7B%0Aword%2Dbreak%3A%20normal%3B%0Adisplay%3A%20block%3B%0Apadding%3A%200px%3B%0Amargin%3A%200px%3B%0Amargin%2Dleft%3A%2020px%3B%0Afont%2Dsize%3A%2080%25%3B%0Aword%2Dwrap%3A%20break%2Dword%3B%0Acolor%3A%20%23333%3B%0Abackground%2Dcolor%3A%20%23f5f5f5%3B%0Aborder%3A%201px%20solid%20%23000%3B%0Aborder%2Dradius%3A%206px%3B%0Aoverflow%3A%20auto%3B%0A%7D%0Apre%20%7B%0Afont%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%20font%2Dsize%3A%2075%25%3B%20border%3A%20solid%201px%20lightgrey%3B%20background%2Dcolor%3A%20Ivory%3B%20padding%3A%205px%3B%20line%2Dheight%3A%20130%25%3B%20margin%2Dleft%3A%2010px%3B%0Awidth%3A%2095%25%3B%0A%7D%0Apre%20code%20%7B%0Afont%2Dsize%3A%20100%25%20%21important%3B%20border%3A%20none%20%21important%3B%20background%2Dcolor%3A%20Ivory%20%21important%3B%20color%3A%20%23000%20%21important%3B%0Aborder%2Dradius%3A%200%20%21important%3B%0Apadding%3A%200%200%20%21important%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Inconsolata%2C%20Consolas%2C%20%22DEJA%20VU%20SANS%20MONO%22%2C%20%22DROID%20SANS%20MONO%22%2C%20Proggy%2C%20monospace%3B%0Afont%2Dsize%3A%2090%25%3B%0Apadding%3A%202px%204px%3B%0Acolor%3A%20%23d14%3B%0Abackground%2Dcolor%3A%20%23f7f7f9%3B%0Aborder%3A%201px%20solid%20%23e1e1e8%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0Aa%20%7B%0Atext%2Ddecoration%3A%20none%3B%0Acursor%3A%20crosshair%3B%0Aborder%2Dbottom%3A%201px%20dashed%20Red%3B%0Apadding%3A%201px%3B%0Acolor%3A%20black%3B%0A%7D%0Aa%3Ahover%20%7B%0Abackground%2Dcolor%3A%20LightGrey%3B%0A%7D%0Aimg%20%7B%0Adisplay%3A%20block%3B%0Abox%2Dshadow%3A%200%200%2010px%20%23555%3B%0Aborder%2Dradius%3A%206px%3B%0Amargin%2Dleft%3A%20auto%3B%0Amargin%2Dright%3A%20auto%3B%0Amargin%2Dtop%3A%2010px%3B%0Amargin%2Dbottom%3A%2010px%3B%0A%2Dwebkit%2Dbox%2Dshadow%3A%200%200%2010px%20%23555%3B%0Aheight%3A%20100%25%3B%0Awidth%3A%20100%25%3B%0A%7D%0Ahr%20%7B%0Acolor%3A%20LightGrey%3B%0A%7D%0Atable%2C%20th%2C%20td%20%7B%0Aborder%2Dcollapse%3A%20collapse%3B%0Aborder%3A%20solid%201px%20black%3B%0A%7D%0Ath%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Atd%20%7B%0Apadding%3A%205px%3B%0Atext%2Dalign%3A%20left%3B%20%7D%0A" rel="stylesheet" type="text/css" />
 
 </head>
 
 <body>
+
+
 
 
 
@@ -141,13 +147,62 @@ SELECT * FROM table LIMIT 0,5;</code></pre>
 <li><p>避免使用SELECT *</p></li>
 <li><p>避免数字和字符串之间的转换</p></li>
 <li><p>谨慎设置索引，避免直接在插入更新操作非常频繁的表上设置索引</p></li>
-<li><p>设置合理索引，避免全表查询</p></li>
+<li><p>设置合理索引，避免全表查询；建立的索引能覆盖80%主要的查询，不求全，解决问题的主要矛盾</p></li>
 <li><p>避免使用模糊匹配</p></li>
 <li><p>避免使用OR</p></li>
 <li><p>避免使用子查询，用连接查询替代</p></li>
 <li><p>合理使用存储过程</p></li>
 <li><p>使用UNION ALL，而非UNION</p></li>
+<li><p>能够快速缩小结果集的 WHERE 条件写在前面，如果有恒量条件，也尽量放在前面</p></li>
+<li><p>能够使用索引的字段尽量进行有效的合理排列，如果使用了联合索引，请注意提取字段的前后顺序</p></li>
+<li><p>针对索引字段使用 &gt;, &gt;=, =, &lt;, &lt;=, IF NULL和BETWEEN 将会使用索引， 如果对某个索引字段进行 LIKE 查询，使用 LIKE ‘%abc%’不能使用索引，使用 LIKE ‘abc%’ 将能够使用索引</p></li>
+<li><p>尽量使用exists代替select count(1)来判断是否存在记录，count函数</p></li>
+<li><p>只有在统计表中所有行数时使用，而且count(1)比count(*)更有效率</p></li>
+<li><p>如果在SQL里使用了MySQL部分自带函数，索引将失效，同时将无法使用 MySQL 的 Query Cache，比如DATE_FORMAT(), 等，如果使用了 OR 或 IN，索引也将失效</p></li>
+<li><p>不要过度索引，单表建立的索引不要超过5个，否则更新索引将很耗时</p></li>
+<li><p>在使用索引字段作为条件时，如果该索引是联合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用</p></li>
+<li><p>要注意索引的维护，周期性重建索引</p></li>
+<li><p>使用 Explain/ DESC 来分析SQL的执行情况</p></li>
 </ul>
+<pre><code>Type:类型，是否使用了索引还是全表扫描, const,eg_reg,ref,range,index,ALL 
+Key:实际使用上的索引是哪个字段 Ken_len: 真正使用了哪些索引，不为 NULL 的就是真实使用的索引
+Ref:显示了哪些字段或者常量被用来和 key 合从表中查询记录出来 
+Rows:显示了MySQL认为在查询中应该检索的记录数 
+Extra:显示了查询中MySQL的附加信息，关心Using filesort 和 Using temporary，性能杀手</code></pre>
+<ul>
+<li><p>使用 SHOW PROCESSLIST 来查看当前MySQL服务器线程执行情况，是否锁表，查看相应的SQL语句</p></li>
+<li><p>通过开启慢查询，可以定位慢SQL</p></li>
+<li><p>表字符集选择UTF8 ，如果需要存储emoj表情，需要使用UTF8mb4(MySQL 5.5.3以后支持)</p></li>
+<li><p>变长字符串尽量使用varchar varbinary</p></li>
+<li><p>不在数据库中存储图片、文件等</p></li>
+<li><p>库名、表名、字段名不使用保留字；库名、表名、字段名、索引名使用小写字母，以下划线分割 ，需要见名知意；库表名不要设计过长，尽可能用最少的字符表达出表的用途</p></li>
+<li><p>使用varchar存储变长字符串 ，当然要注意varchar(M)里的M指的是字符数不是字节数；使用UNSIGNED INT存储IPv4 地址而不是CHAR(15) ，这种方式只能存储IPv4，存储不了IPv6</p></li>
+<li><p>索引这个东西是一把双刃剑，在加速读的同时也引入了很多额外的写入和锁，降低写入能力，这也是为什么要控制索引数原因。</p></li>
+<li><p>避免使用大表的JOIN</p></li>
+<li><p>UPDATE、DELETE语句不使用LIMIT ，容易造成主从不一致</p></li>
+<li><p>主从时延问题：</p></li>
+</ul>
+<pre><code>原因：
+
+一般都会做读写分离，其实从库压力反而比主库大／从库读写压力大非常容易导致延时。
+
+解决方案：
+
+1. 首先定位延时瓶颈
+2. 如果是IO压力，可以通过升级硬件解决，比如替换SSD等
+3. 如果IO和CPU都不是瓶颈，非常有可能是SQL单线程问题，解决方案可以考虑刚才提到的并行复制方案
+4. 如果还有问题，可以考虑sharding拆分方案</code></pre>
+<ul>
+<li><ul>
+<li>单表数据量控制在【1亿以下，4GB以下】，查询数据表的大小：</li>
+</ul></li>
+</ul>
+<pre><code>SELECT 
+    table_name AS `Table`, 
+    round(((data_length + index_length) / 1024 / 1024), 2) `Size in MB` 
+FROM information_schema.TABLES 
+WHERE table_schema = &quot;$DB_NAME&quot;
+    AND table_name = &quot;$TABLE_NAME&quot;;</code></pre>
 </div>
 </div>
 
